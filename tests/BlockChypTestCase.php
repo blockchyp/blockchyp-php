@@ -1,0 +1,52 @@
+<?php
+
+namespace BlockChyp;
+
+use PHPUnit\Framework\TestCase;
+
+require_once(__DIR__ . '/TestConfiguration.php');
+
+class BlockChypTestCase extends TestCase
+{
+
+  protected $lastTransactionId;
+
+  protected $lastTransactionRef;
+
+  /**
+   * Loads blockchyp test configuration from standard location.
+   */
+  protected function loadTestConfiguration()
+  {
+
+    $configHome = "";
+
+    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+        $configHome = getenv("userprofile");
+    } else {
+        $configHome = getenv("XDG_CONFIG_HOME");
+        if (!$configHome) {
+          $user = posix_getpwuid(posix_getuid());
+          $configHome = $user["dir"] . "/.config";
+        }
+    }
+
+    $configHome = CacheUtils::joinPaths($configHome, "blockchyp", "sdk-itest-config.json");
+
+    return json_decode(file_get_contents("/" . $configHome));
+
+  }
+
+  protected function logRequest($request) {
+
+    echo "Request: " . json_encode($request) . PHP_EOL;
+
+  }
+
+  protected function logResponse($response) {
+
+    echo "Response: " . json_encode($response) . PHP_EOL;
+
+  }
+
+}
