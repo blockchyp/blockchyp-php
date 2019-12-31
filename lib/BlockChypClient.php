@@ -11,6 +11,22 @@ require_once(__DIR__ . '/CryptoUtils.php');
  */
 class BlockChypClient {
 
+  const CARD_TYPE_CREDIT = 0;
+  const CARD_TYPE_DEBIT = 1;
+  const CARD_TYPE_EBT = 2;
+  const CARD_TYPE_BLOCKCHAIN_GIFT = 3;
+
+  const SIGNATURE_FORMAT_NONE = "";
+  const SIGNATURE_FORMAT_PNG = "png";
+  const SIGNATURE_FORMAT_JPG = "jpg";
+  const SIGNATURE_FORMAT_GIF = "gif";
+
+  const PROMPT_TYPE_AMOUNT = "amount";
+  const PROMPT_TYPE_EMAIL = "email";
+  const PROMPT_TYPE_PHONE_NUMBER = "phone";
+  const PROMPT_TYPE_CUSTOMER_NUMBER = "customer-number";
+  const PROMPT_TYPE_REWARDS_NUMBER = "rewards-number";
+
   protected static $apiKey;
 
   protected static $bearerToken;
