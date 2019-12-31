@@ -18,6 +18,8 @@ class TextPromptTest extends BlockChypTestCase
     BlockChyp::setGatewayHost($config->gatewayHost);
     BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
+    $this->processTestDelay("TextPromptTest");
+
 
 
   // setup request object
@@ -31,8 +33,8 @@ class TextPromptTest extends BlockChypTestCase
 
 
     // response assertions
-    $this->assertTrue($response->success);
-    $this->assertNotEmpty($response->response);
+    $this->assertTrue($response["success"]);
+    $this->assertNotEmpty($response["response"]);
 
   }
 

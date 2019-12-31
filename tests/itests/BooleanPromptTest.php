@@ -18,6 +18,8 @@ class BooleanPromptTest extends BlockChypTestCase
     BlockChyp::setGatewayHost($config->gatewayHost);
     BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
+    $this->processTestDelay("BooleanPromptTest");
+
 
 
   // setup request object
@@ -33,8 +35,8 @@ class BooleanPromptTest extends BlockChypTestCase
 
 
     // response assertions
-    $this->assertTrue($response->success);
-    $this->assertTrue($response->response);
+    $this->assertTrue($response["success"]);
+    $this->assertTrue($response["response"]);
 
   }
 

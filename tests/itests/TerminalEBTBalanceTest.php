@@ -18,6 +18,8 @@ class TerminalEBTBalanceTest extends BlockChypTestCase
     BlockChyp::setGatewayHost($config->gatewayHost);
     BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
+    $this->processTestDelay("TerminalEBTBalanceTest");
+
 
 
   // setup request object
@@ -31,8 +33,8 @@ class TerminalEBTBalanceTest extends BlockChypTestCase
 
 
     // response assertions
-    $this->assertTrue($response->success);
-    $this->assertNotEmpty($response->remainingBalance);
+    $this->assertTrue($response["success"]);
+    $this->assertNotEmpty($response["remainingBalance"]);
 
   }
 

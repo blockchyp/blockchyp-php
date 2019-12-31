@@ -18,6 +18,8 @@ class SimpleCaptureTest extends BlockChypTestCase
     BlockChyp::setGatewayHost($config->gatewayHost);
     BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
+    $this->processTestDelay("SimpleCaptureTest");
+
 
     // setup request object
     $request = [];
@@ -46,7 +48,7 @@ class SimpleCaptureTest extends BlockChypTestCase
 
 
     // response assertions
-    $this->assertTrue($response->approved);
+    $this->assertTrue($response["approved"]);
 
   }
 

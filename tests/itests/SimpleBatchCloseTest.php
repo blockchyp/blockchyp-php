@@ -18,12 +18,15 @@ class SimpleBatchCloseTest extends BlockChypTestCase
     BlockChyp::setGatewayHost($config->gatewayHost);
     BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
+    $this->processTestDelay("SimpleBatchCloseTest");
+
 
     // setup request object
     $request = [];
   $request["pan"] = "4111111111111111";
   $request["amount"] = "25.55";
   $request["test"] = true;
+  $request["transactionRef"] = $this->getUUID();
     self::logRequest($request);
     $response = BlockChyp::charge($request);
     self::logResponse($response);
@@ -45,9 +48,9 @@ class SimpleBatchCloseTest extends BlockChypTestCase
 
 
     // response assertions
-    $this->assertTrue($response->success);
-    $this->assertNotEmpty($response->capturedTotal);
-    $this->assertNotEmpty($response->openPreauths);
+    $this->assertTrue($response["success"]);
+    $this->assertNotEmpty($response["capturedTotal"]);
+    $this->assertNotEmpty($response["openPreauths"]);
 
   }
 

@@ -18,6 +18,8 @@ class SimpleGiftActivateTest extends BlockChypTestCase
     BlockChyp::setGatewayHost($config->gatewayHost);
     BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
+    $this->processTestDelay("SimpleGiftActivateTest");
+
 
 
   // setup request object
@@ -31,8 +33,8 @@ class SimpleGiftActivateTest extends BlockChypTestCase
 
 
     // response assertions
-    $this->assertTrue($response->approved);
-    $this->assertNotEmpty($response->publicKey);
+    $this->assertTrue($response["approved"]);
+    $this->assertNotEmpty($response["publicKey"]);
 
   }
 

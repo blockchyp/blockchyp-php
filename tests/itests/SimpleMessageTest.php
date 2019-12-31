@@ -18,6 +18,8 @@ class SimpleMessageTest extends BlockChypTestCase
     BlockChyp::setGatewayHost($config->gatewayHost);
     BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
+    $this->processTestDelay("SimpleMessageTest");
+
 
 
   // setup request object
@@ -31,7 +33,7 @@ class SimpleMessageTest extends BlockChypTestCase
 
 
     // response assertions
-    $this->assertTrue($response->success);
+    $this->assertTrue($response["success"]);
 
   }
 

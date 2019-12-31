@@ -18,6 +18,8 @@ class SimplePingTest extends BlockChypTestCase
     BlockChyp::setGatewayHost($config->gatewayHost);
     BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
+    $this->processTestDelay("SimplePingTest");
+
 
 
   // setup request object
@@ -30,7 +32,7 @@ class SimplePingTest extends BlockChypTestCase
 
 
     // response assertions
-    $this->assertTrue($response->success);
+    $this->assertTrue($response["success"]);
 
   }
 

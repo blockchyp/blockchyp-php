@@ -18,6 +18,8 @@ class TerminalClearTest extends BlockChypTestCase
     BlockChyp::setGatewayHost($config->gatewayHost);
     BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
+    $this->processTestDelay("TerminalClearTest");
+
 
 
   // setup request object
@@ -30,7 +32,7 @@ class TerminalClearTest extends BlockChypTestCase
 
 
     // response assertions
-    $this->assertTrue($response->success);
+    $this->assertTrue($response["success"]);
 
   }
 

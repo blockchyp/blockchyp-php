@@ -37,6 +37,35 @@ class BlockChypTestCase extends TestCase
 
   }
 
+  protected function getUUID() {
+    return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+        mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
+        mt_rand( 0, 0xffff ),
+        mt_rand( 0, 0x0fff ) | 0x4000,
+        mt_rand( 0, 0x3fff ) | 0x8000,
+        mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+    );
+
+  }
+
+  protected function processTestDelay($testName) {
+
+    $testDelay = getenv("BC_TEST_DELAY");
+
+    if ($testDelay) {
+      $testDelayInt = intval($testDelay);
+      if ($testDelayInt > 0) {
+        $request = [];
+        $request["test"] = TRUE;
+        $request["terminalName"] = "Test Terminal";
+        $request["message"] = "Running " . $testName . " in " . $testDelay . " seconds...";
+        BlockChyp::message($request);
+        sleep($testDelayInt);
+      }
+    }
+
+  }
+
   protected function logRequest($request) {
 
     echo "Request: " . json_encode($request) . PHP_EOL;

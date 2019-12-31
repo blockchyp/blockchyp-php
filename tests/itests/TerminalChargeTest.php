@@ -18,6 +18,8 @@ class TerminalChargeTest extends BlockChypTestCase
     BlockChyp::setGatewayHost($config->gatewayHost);
     BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
+    $this->processTestDelay("TerminalChargeTest");
+
 
 
   // setup request object
@@ -31,17 +33,17 @@ class TerminalChargeTest extends BlockChypTestCase
 
 
     // response assertions
-    $this->assertTrue($response->approved);
-    $this->assertTrue($response->test);
-    $this->assertEquals(6, strlen($response->authCode));
-    $this->assertNotEmpty($response->transactionId);
-    $this->assertNotEmpty($response->timestamp);
-    $this->assertNotEmpty($response->tickBlock);
-    $this->assertEquals("Approved", $response->responseDescription);
-    $this->assertNotEmpty($response->paymentType);
-    $this->assertNotEmpty($response->maskedPan);
-    $this->assertNotEmpty($response->entryMethod);
-    $this->assertEquals("25.15", $response->authorizedAmount);
+    $this->assertTrue($response["approved"]);
+    $this->assertTrue($response["test"]);
+    $this->assertEquals(6, strlen($response["authCode"]));
+    $this->assertNotEmpty($response["transactionId"]);
+    $this->assertNotEmpty($response["timestamp"]);
+    $this->assertNotEmpty($response["tickBlock"]);
+    $this->assertEquals("Approved", $response["responseDescription"]);
+    $this->assertNotEmpty($response["paymentType"]);
+    $this->assertNotEmpty($response["maskedPan"]);
+    $this->assertNotEmpty($response["entryMethod"]);
+    $this->assertEquals("25.15", $response["authorizedAmount"]);
 
   }
 

@@ -18,6 +18,8 @@ class TerminalGiftCardBalanceTest extends BlockChypTestCase
     BlockChyp::setGatewayHost($config->gatewayHost);
     BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
+    $this->processTestDelay("TerminalGiftCardBalanceTest");
+
 
 
   // setup request object
@@ -30,8 +32,8 @@ class TerminalGiftCardBalanceTest extends BlockChypTestCase
 
 
     // response assertions
-    $this->assertTrue($response->success);
-    $this->assertNotEmpty($response->remainingBalance);
+    $this->assertTrue($response["success"]);
+    $this->assertNotEmpty($response["remainingBalance"]);
 
   }
 

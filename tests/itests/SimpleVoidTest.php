@@ -18,12 +18,15 @@ class SimpleVoidTest extends BlockChypTestCase
     BlockChyp::setGatewayHost($config->gatewayHost);
     BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
+    $this->processTestDelay("SimpleVoidTest");
+
 
     // setup request object
     $request = [];
   $request["pan"] = "4111111111111111";
   $request["amount"] = "25.55";
   $request["test"] = true;
+  $request["transactionRef"] = $this->getUUID();
     self::logRequest($request);
     $response = BlockChyp::charge($request);
     self::logResponse($response);
@@ -46,7 +49,7 @@ class SimpleVoidTest extends BlockChypTestCase
 
 
     // response assertions
-    $this->assertTrue($response->approved);
+    $this->assertTrue($response["approved"]);
 
   }
 

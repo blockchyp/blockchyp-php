@@ -18,6 +18,8 @@ class TermsAndConditionsTest extends BlockChypTestCase
     BlockChyp::setGatewayHost($config->gatewayHost);
     BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
+    $this->processTestDelay("TermsAndConditionsTest");
+
 
 
   // setup request object
@@ -35,7 +37,7 @@ class TermsAndConditionsTest extends BlockChypTestCase
 
 
     // response assertions
-    $this->assertTrue($response->success);
+    $this->assertTrue($response["success"]);
 
   }
 
