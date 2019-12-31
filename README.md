@@ -1,5 +1,68 @@
 # BlockChyp PHP SDK
 
+This is the SDK for PHP.  Like all BlockChyp SDK's, it provides a full
+client for the BlockChyp gateway and BlockChyp payment terminals.
+
+## Installation
+
+The preferred method of installing BlockChyp is via composer.  Type the following
+command from your project's root directory to add BlockChyp to your composer.json file.
+
+```
+composer require blockchyp/blockchyp-php
+```
+
+## Public Facing Web Pages
+
+If you're using PHP, there's a good chance your front end is a web page.  This SDK
+is great for communicating with terminals and the BlockChyp gateway, but is not
+sufficient on its own for dealing with e-commerce scenarios.
+
+For e-commerce, consider supplementing the SDK with our
+[Web Tokenizer](https://github.com/blockchyp/blockchyp-tokenizer).  It's
+a pure JavaScript library that allows you to tokenize e-commerce payments via a
+cross-origin iframe.  This keeps you out of PCI scope.  Check it out on
+[GitHub](https://github.com/blockchyp/blockchyp-tokenizer).
+
+## A Simple Example
+
+Running your first transaction is easy. Make sure you have a BlockChyp terminal,
+activate it, and generate a set of API keys.  The sample code below show how
+to run a basic terminal transaction.
+
+```
+<?php
+  // for composer based systems
+  require_once('vendor/autoload.php');
+
+  // for manual installation
+  #require_once('/path/to/blockchyp/init.php');
+
+  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
+  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
+  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+
+  // setup request object
+  $request = [];
+  $request["test"] = true;
+  $request["terminalName"] = "Test Terminal";
+  $request["amount"] = "55.00";
+
+  $response = \BlockChyp\BlockChyp::charge($request);
+
+  //process the result
+  if ($response["approved"]) {
+    echo "Approved" . PHP_EOL;
+  }
+
+  echo $response["authCode"] . PHP_EOL;
+  echo $response["authorizedAmount"] . PHP_EOL;
+  echo $response["receiptSuggestions"] . PHP_EOL;
+?>
+```
+
+
+
 
 ## Getting a Developer Kit
 
@@ -710,15 +773,43 @@ Discards a previous preauth transaction.
 
 
 ```
-
 ## Running Integration Tests
 
-We recommend using composer to run integration tests.  Ensure all dependencies
-have been downloaded into the vendor diretory by running `composer install`.
+If you'd like to run the integration tests, create a new file on your system
+called `sdk-itest-config.json` with the API credentials you'll be using as
+shown in the example below.
 
-You can then use the following command to run an integration test:
+```
+{
+ "gatewayHost": "https://api.blockchyp.com",
+ "testGatewayHost": "https://test.blockchyp.com",
+ "apiKey": "PZZNEFK7HFULCB3HTLA7HRQDJU",
+ "bearerToken": "QUJCHIKNXOMSPGQ4QLT2UJX5DI",
+ "signingKey": "f88a72d8bc0965f193abc7006bbffa240663c10e4d1dc3ba2f81e0ca10d359f5"
+}
+```
+
+This file can be located in a few different places, but is usually located
+at `<USER_HOME>/.config/blockchyp/sdk-itest-config.json`.  All BlockChyp SDK's
+use the same configuration file.
+
+To run the integration test suite via `make`, type the following command:
+
+`make integration`
+
+
+## Running Integration Tests Via Composer
+
+If you'd like to bypass make and run the integration test suite directly,
+use the following command:
+
+`BC_TEST_DELAY=5 ./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/itests`
+
+You can run individual tests by adding the test name to the previous command. The
+following example runs the TerminalChargeTest:
 
 `./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/itests/TerminalChargeTest`
+
 
 
 ## Contributions
