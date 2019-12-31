@@ -7,6 +7,9 @@ require_once(__DIR__ . '/../BlockChypTestCase.php');
 class TerminalEBTChargeTest extends BlockChypTestCase
 {
 
+  /**
+   * @group itest
+   */
   public function testTerminalEBTCharge()
   {
 

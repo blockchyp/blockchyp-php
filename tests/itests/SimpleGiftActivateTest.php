@@ -7,6 +7,9 @@ require_once(__DIR__ . '/../BlockChypTestCase.php');
 class SimpleGiftActivateTest extends BlockChypTestCase
 {
 
+  /**
+   * @group itest
+   */
   public function testSimpleGiftActivate()
   {
 
