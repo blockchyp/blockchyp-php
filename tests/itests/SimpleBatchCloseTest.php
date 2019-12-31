@@ -19,6 +19,22 @@ class SimpleBatchCloseTest extends BlockChypTestCase
     BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
 
+    // setup request object
+    $request = [];
+  $request["pan"] = "4111111111111111";
+  $request["amount"] = "25.55";
+  $request["test"] = true;
+    self::logRequest($request);
+    $response = BlockChyp::charge($request);
+    self::logResponse($response);
+    if ($response["transactionId"]) {
+      $lastTransactionId = $response["transactionId"];
+    }
+    if ($response["transactionRef"]) {
+      $lastTransactionRef = $response["transactionRef"];
+    }
+
+
 
   // setup request object
   $request = [];

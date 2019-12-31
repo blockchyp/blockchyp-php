@@ -25,7 +25,7 @@ class TerminalEBTChargeTest extends BlockChypTestCase
   $request["terminalName"] = "Test Terminal";
   $request["amount"] = "25.00";
   $request["test"] = true;
-  $request["cardType"] = 2;
+  $request["cardType"] = BlockChyp::CARD_TYPE_EBT;
   self::logRequest($request);
   $response = BlockChyp::charge($request);
   self::logResponse($response);
