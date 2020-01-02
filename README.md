@@ -811,8 +811,6 @@ following example runs the TerminalChargeTest:
 
 `./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/itests/TerminalChargeTest`
 
-
-
 ## Contributions
 
 BlockChyp welcomes contributions from the open source community, but bear in mind
