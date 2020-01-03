@@ -26,8 +26,7 @@ class BlockChypTestCase extends TestCase
     } else {
         $configHome = getenv("XDG_CONFIG_HOME");
         if (!$configHome) {
-          $user = posix_getpwuid(posix_getuid());
-          $configHome = $user["dir"] . "/.config";
+          $configHome = getenv("HOME") . "/.config";
         }
     }
 

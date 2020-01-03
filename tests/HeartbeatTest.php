@@ -20,11 +20,11 @@ class HeartbeatTest extends BlockChypTestCase
 
     $response = BlockChyp::heartbeat(true);
 
-    $this->assertTrue($response->success);
-    $this->assertNotEmpty($response->timestamp);
-    $this->assertNotEmpty($response->clockchain);
-    $this->assertNotEmpty($response->latestTick);
-    $this->assertNotEmpty($response->merchantPk);
+    $this->assertTrue($response["success"]);
+    $this->assertNotEmpty($response["timestamp"]);
+    $this->assertNotEmpty($response["clockchain"]);
+    $this->assertNotEmpty($response["latestTick"]);
+    $this->assertNotEmpty($response["merchantPk"]);
 
   }
 
