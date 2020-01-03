@@ -82,6 +82,7 @@ You can also view a number of long form demos and learn more about us on our [Yo
 
 You don't want to read words. You want examples. Here's a quick rundown of the
 stuff you can do with the BlockChyp PHP SDK and a few basic examples.
+
 #### Charge
 
 Executes a standard direct preauth and capture.
@@ -117,6 +118,7 @@ Executes a standard direct preauth and capture.
 
 
 ```
+
 #### Preauthorization
 
 Executes a preauthorization intended to be captured later.
@@ -152,6 +154,7 @@ Executes a preauthorization intended to be captured later.
 
 
 ```
+
 #### Terminal Ping
 
 Tests connectivity with a payment terminal.
@@ -183,6 +186,7 @@ Tests connectivity with a payment terminal.
 
 
 ```
+
 #### Balance
 
 Checks the remaining balance on a payment method.
@@ -216,6 +220,7 @@ Checks the remaining balance on a payment method.
 
 
 ```
+
 #### Terminal Clear
 
 Clears the line item display and any in progress transaction.
@@ -248,6 +253,7 @@ Clears the line item display and any in progress transaction.
 
 
 ```
+
 #### Terms & Conditions Capture
 
 Prompts the user to accept terms and conditions.
@@ -295,6 +301,7 @@ Prompts the user to accept terms and conditions.
 
 
 ```
+
 #### Update Transaction Display
 
 Appends items to an existing transaction display Subtotal, Tax, and Total are
@@ -363,6 +370,7 @@ groups.
 
 
 ```
+
 #### New Transaction Display
 
 Displays a new transaction on the terminal.
@@ -429,6 +437,7 @@ Displays a new transaction on the terminal.
 
 
 ```
+
 #### Text Prompt
 
 Asks the consumer text based question.
@@ -465,6 +474,7 @@ Asks the consumer text based question.
 
 
 ```
+
 #### Boolean Prompt
 
 Asks the consumer a yes/no question.
@@ -501,6 +511,7 @@ Asks the consumer a yes/no question.
 
 
 ```
+
 #### Display Message
 
 Displays a short message on the terminal.
@@ -534,6 +545,7 @@ Displays a short message on the terminal.
 
 
 ```
+
 #### Refund
 
 Executes a refund.
@@ -568,6 +580,7 @@ Executes a refund.
 
 
 ```
+
 #### Enroll
 
 Adds a new payment method to the token vault.
@@ -601,6 +614,7 @@ Adds a new payment method to the token vault.
 
 
 ```
+
 #### Gift Card Activation
 
 Activates or recharges a gift card.
@@ -637,6 +651,7 @@ Activates or recharges a gift card.
 
 
 ```
+
 #### Time Out Reversal
 
 Executes a manual time out reversal.
@@ -677,6 +692,7 @@ request to the terminal timed out before you got a response.
 
 
 ```
+
 #### Capture Preauthorization
 
 Captures a preauthorization.
@@ -709,6 +725,7 @@ Captures a preauthorization.
 
 
 ```
+
 #### Close Batch
 
 Closes the current credit card batch.
@@ -742,6 +759,7 @@ Closes the current credit card batch.
 
 
 ```
+
 #### Void Transaction
 
 Discards a previous preauth transaction.
@@ -774,6 +792,7 @@ Discards a previous preauth transaction.
 
 
 ```
+
 ## Running Integration Tests
 
 If you'd like to run the integration tests, create a new file on your system
