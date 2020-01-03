@@ -11,7 +11,7 @@ PHPUNIT = ./vendor/bin/phpunit
 
 # Default target
 .PHONY: all
-all: clean build test
+all: clean build
 
 # Cleans build artifacts
 .PHONY: clean
