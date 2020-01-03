@@ -24,10 +24,6 @@ jobs:
           name: Build
           command: make build
 
-      - run:
-          name: Test
-          command: make test
-
 workflows:
   version: 2
   main:
