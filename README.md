@@ -2,7 +2,7 @@
 
 [![Build Status](https://circleci.com/gh/blockchyp/blockchyp-php/tree/master.svg?style=shield)](https://circleci.com/gh/blockchyp/blockchyp-php/tree/master)
 [![Packagist](https://img.shields.io/packagist/v/blockchyp/blockchyp-php)](https://packagist.org/packages/blockchyp/blockchyp-php)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/blockchyp/blockchyp-php/blob/master/LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/blockchyp/blockchyp-php/blob/master/LICENSE)
 
 This is the SDK for PHP.  Like all BlockChyp SDK's, it provides a full
 client for the BlockChyp gateway and BlockChyp payment terminals.
