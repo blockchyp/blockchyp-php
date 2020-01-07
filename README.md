@@ -48,7 +48,7 @@ to run a basic terminal transaction.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
+  $request["test"] = true;  //set to false for production merchant accounts
   $request["terminalName"] = "Test Terminal";
   $request["amount"] = "55.00";
 
