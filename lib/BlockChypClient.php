@@ -27,6 +27,8 @@ class BlockChypClient {
   const PROMPT_TYPE_CUSTOMER_NUMBER = "customer-number";
   const PROMPT_TYPE_REWARDS_NUMBER = "rewards-number";
 
+  const VERSION = '2.0.0-alpha7';
+
   protected static $apiKey;
 
   protected static $bearerToken;
@@ -191,6 +193,7 @@ class BlockChypClient {
     array_push($headers, 'Content-Length: ' . strlen($content));
 
     $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_USERAGENT, self::getUserAgent());
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -348,6 +351,7 @@ class BlockChypClient {
     $url = self::resolveGatewayURL($path, $test);
 
     $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_USERAGENT, self::getUserAgent());
     curl_setopt($ch, CURLOPT_HTTPHEADER, self::generateGatewayHeaders());
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_TIMEOUT, $gatewayTimeout * 60);
@@ -375,6 +379,7 @@ class BlockChypClient {
     array_push($headers, 'Content-Length: ' . strlen($content));
 
     $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_USERAGENT, self::getUserAgent());
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -395,6 +400,7 @@ class BlockChypClient {
     $url = self::resolveGatewayURL($path, $test);
 
     $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_USERAGENT, self::getUserAgent());
     curl_setopt($ch, CURLOPT_HTTPHEADER, self::generateGatewayHeaders());
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_TIMEOUT, $gatewayTimeout * 60);
@@ -428,7 +434,7 @@ class BlockChypClient {
 
     $nonce = generateNonce();
     $timestamp = timestamp();
-    $sig = self::compute_hmac($timestamp, $nonce);
+    $sig = self::computeHmac($timestamp, $nonce);
 
     $headers = [
       "Nonce: " . $nonce,
@@ -440,7 +446,7 @@ class BlockChypClient {
 
   }
 
-  private static function compute_hmac($ts, $nonce) {
+  private static function computeHmac($ts, $nonce) {
 
     $c = self::$apiKey . self::$bearerToken . $ts . $nonce;
     $sig = hash_hmac('sha256', $c, hex2bin(self::$signingKey));
@@ -448,5 +454,10 @@ class BlockChypClient {
 
   }
 
+  private static function getUserAgent() {
+
+    return 'BlockChyp-PHP/' . BlockChyp::VERSION;
+
+  }
 
 }

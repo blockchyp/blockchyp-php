@@ -9,6 +9,7 @@ VERSION := $(or $(TAG:v%=%),$(LASTTAG:v%=%))-$(or $(BUILD_NUMBER), 1)$(if $(TAG)
 DOCKER = docker
 PHP = php
 PHPUNIT = ./vendor/bin/phpunit
+SED = sed
 
 # Integration test config
 export BC_TEST_DELAY := 5
@@ -64,6 +65,7 @@ integration:
 # Performs any tasks necessary before a release build
 .PHONY: stage
 stage:
+	$(SED) -i "s/VERSION = '.*'/VERSION = '$(VERSION)'/" lib/BlockChypClient.php
 
 # Publish packages
 .PHONY: publish
