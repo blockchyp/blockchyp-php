@@ -365,7 +365,7 @@ groups.
 
   //process the result
   if ($response["success"]) {
-    echo "Succeded" . PHP_EOL;
+    echo "Success" . PHP_EOL;
   }
 
   function newTransactionDisplayTransaction() {
@@ -432,7 +432,7 @@ Displays a new transaction on the terminal.
 
   //process the result
   if ($response["success"]) {
-    echo "Succeded" . PHP_EOL;
+    echo "Success" . PHP_EOL;
   }
 
   function newTransactionDisplayTransaction() {

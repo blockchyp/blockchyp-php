@@ -19,7 +19,7 @@
 
   //process the result
   if ($response["success"]) {
-    echo "Succeded" . PHP_EOL;
+    echo "Success" . PHP_EOL;
   }
 
   function newTransactionDisplayTransaction() {
