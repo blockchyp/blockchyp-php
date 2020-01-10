@@ -23,22 +23,21 @@ class TerminalEBTBalanceTest extends BlockChypTestCase
 
     $this->processTestDelay("TerminalEBTBalanceTest");
 
+    // setup request object
+    $request = [];
+    $request["test"] = true;
+    $request["terminalName"] = "Test Terminal";
+    $request["cardType"] = BlockChyp::CARD_TYPE_EBT;
 
+    self::logRequest($request);
 
-  // setup request object
-  $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["cardType"] = BlockChyp::CARD_TYPE_EBT;
-  self::logRequest($request);
-  $response = BlockChyp::balance($request);
-  self::logResponse($response);
+    $response = BlockChyp::balance($request);
 
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["success"]);
     $this->assertNotEmpty($response["remainingBalance"]);
-
   }
 
 

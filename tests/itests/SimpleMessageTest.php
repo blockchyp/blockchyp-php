@@ -23,21 +23,20 @@ class SimpleMessageTest extends BlockChypTestCase
 
     $this->processTestDelay("SimpleMessageTest");
 
+    // setup request object
+    $request = [];
+    $request["test"] = true;
+    $request["terminalName"] = "Test Terminal";
+    $request["message"] = "Thank You For Your Business";
 
+    self::logRequest($request);
 
-  // setup request object
-  $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["message"] = "Thank You For Your Business";
-  self::logRequest($request);
-  $response = BlockChyp::message($request);
-  self::logResponse($response);
+    $response = BlockChyp::message($request);
 
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["success"]);
-
   }
 
 

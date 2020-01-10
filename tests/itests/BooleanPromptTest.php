@@ -23,24 +23,23 @@ class BooleanPromptTest extends BlockChypTestCase
 
     $this->processTestDelay("BooleanPromptTest");
 
+    // setup request object
+    $request = [];
+    $request["test"] = true;
+    $request["terminalName"] = "Test Terminal";
+    $request["prompt"] = "Would you like to become a member?";
+    $request["yesCaption"] = "Yes";
+    $request["noCaption"] = "No";
 
+    self::logRequest($request);
 
-  // setup request object
-  $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["prompt"] = "Would you like to become a member?";
-  $request["yesCaption"] = "Yes";
-  $request["noCaption"] = "No";
-  self::logRequest($request);
-  $response = BlockChyp::booleanPrompt($request);
-  self::logResponse($response);
+    $response = BlockChyp::booleanPrompt($request);
 
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["success"]);
     $this->assertTrue($response["response"]);
-
   }
 
 

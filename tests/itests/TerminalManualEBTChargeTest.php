@@ -23,19 +23,19 @@ class TerminalManualEBTChargeTest extends BlockChypTestCase
 
     $this->processTestDelay("TerminalManualEBTChargeTest");
 
+    // setup request object
+    $request = [];
+    $request["terminalName"] = "Test Terminal";
+    $request["amount"] = "27.00";
+    $request["test"] = true;
+    $request["cardType"] = BlockChyp::CARD_TYPE_EBT;
+    $request["manualEntry"] = true;
 
+    self::logRequest($request);
 
-  // setup request object
-  $request = [];
-  $request["terminalName"] = "Test Terminal";
-  $request["amount"] = "27.00";
-  $request["test"] = true;
-  $request["cardType"] = BlockChyp::CARD_TYPE_EBT;
-  $request["manualEntry"] = true;
-  self::logRequest($request);
-  $response = BlockChyp::charge($request);
-  self::logResponse($response);
+    $response = BlockChyp::charge($request);
 
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["approved"]);
@@ -50,7 +50,6 @@ class TerminalManualEBTChargeTest extends BlockChypTestCase
     $this->assertNotEmpty($response["entryMethod"]);
     $this->assertEquals("27.00", $response["authorizedAmount"]);
     $this->assertEquals("73.00", $response["remainingBalance"]);
-
   }
 
 

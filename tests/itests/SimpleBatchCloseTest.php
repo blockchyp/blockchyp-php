@@ -23,13 +23,12 @@ class SimpleBatchCloseTest extends BlockChypTestCase
 
     $this->processTestDelay("SimpleBatchCloseTest");
 
-
     // setup request object
     $request = [];
-  $request["pan"] = "4111111111111111";
-  $request["amount"] = "25.55";
-  $request["test"] = true;
-  $request["transactionRef"] = $this->getUUID();
+    $request["pan"] = "4111111111111111";
+    $request["amount"] = "25.55";
+    $request["test"] = true;
+    $request["transactionRef"] = $this->getUUID();
     self::logRequest($request);
     $response = BlockChyp::charge($request);
     self::logResponse($response);
@@ -41,20 +40,20 @@ class SimpleBatchCloseTest extends BlockChypTestCase
     }
 
 
+    // setup request object
+    $request = [];
+    $request["test"] = true;
 
-  // setup request object
-  $request = [];
-  $request["test"] = true;
-  self::logRequest($request);
-  $response = BlockChyp::closeBatch($request);
-  self::logResponse($response);
+    self::logRequest($request);
 
+    $response = BlockChyp::closeBatch($request);
+
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["success"]);
     $this->assertNotEmpty($response["capturedTotal"]);
     $this->assertNotEmpty($response["openPreauths"]);
-
   }
 
 

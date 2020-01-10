@@ -23,16 +23,16 @@ class PANEnrollTest extends BlockChypTestCase
 
     $this->processTestDelay("PANEnrollTest");
 
+    // setup request object
+    $request = [];
+    $request["pan"] = "4111111111111111";
+    $request["test"] = true;
 
+    self::logRequest($request);
 
-  // setup request object
-  $request = [];
-  $request["pan"] = "4111111111111111";
-  $request["test"] = true;
-  self::logRequest($request);
-  $response = BlockChyp::enroll($request);
-  self::logResponse($response);
+    $response = BlockChyp::enroll($request);
 
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["approved"]);
@@ -47,7 +47,6 @@ class PANEnrollTest extends BlockChypTestCase
     $this->assertNotEmpty($response["entryMethod"]);
     $this->assertEquals("KEYED", $response["entryMethod"]);
     $this->assertNotEmpty($response["token"]);
-
   }
 
 

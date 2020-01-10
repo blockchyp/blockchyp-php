@@ -23,22 +23,21 @@ class TextPromptTest extends BlockChypTestCase
 
     $this->processTestDelay("TextPromptTest");
 
+    // setup request object
+    $request = [];
+    $request["test"] = true;
+    $request["terminalName"] = "Test Terminal";
+    $request["promptType"] = BlockChyp::PROMPT_TYPE_EMAIL;
 
+    self::logRequest($request);
 
-  // setup request object
-  $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["promptType"] = BlockChyp::PROMPT_TYPE_EMAIL;
-  self::logRequest($request);
-  $response = BlockChyp::textPrompt($request);
-  self::logResponse($response);
+    $response = BlockChyp::textPrompt($request);
 
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["success"]);
     $this->assertNotEmpty($response["response"]);
-
   }
 
 

@@ -23,21 +23,20 @@ class NewTransactionDisplayTest extends BlockChypTestCase
 
     $this->processTestDelay("NewTransactionDisplayTest");
 
+    // setup request object
+    $request = [];
+    $request["test"] = true;
+    $request["terminalName"] = "Test Terminal";
+    $request["transaction"] = $this->newTransactionDisplayTransaction();
 
+    self::logRequest($request);
 
-  // setup request object
-  $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["transaction"] = $this->newTransactionDisplayTransaction();
-  self::logRequest($request);
-  $response = BlockChyp::newTransactionDisplay($request);
-  self::logResponse($response);
+    $response = BlockChyp::newTransactionDisplay($request);
 
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["success"]);
-
   }
 
   private function newTransactionDisplayTransaction() {

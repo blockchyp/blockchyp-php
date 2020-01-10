@@ -23,16 +23,16 @@ class TerminalEnrollTest extends BlockChypTestCase
 
     $this->processTestDelay("TerminalEnrollTest");
 
+    // setup request object
+    $request = [];
+    $request["terminalName"] = "Test Terminal";
+    $request["test"] = true;
 
+    self::logRequest($request);
 
-  // setup request object
-  $request = [];
-  $request["terminalName"] = "Test Terminal";
-  $request["test"] = true;
-  self::logRequest($request);
-  $response = BlockChyp::enroll($request);
-  self::logResponse($response);
+    $response = BlockChyp::enroll($request);
 
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["approved"]);
@@ -46,7 +46,6 @@ class TerminalEnrollTest extends BlockChypTestCase
     $this->assertNotEmpty($response["maskedPan"]);
     $this->assertNotEmpty($response["entryMethod"]);
     $this->assertNotEmpty($response["token"]);
-
   }
 
 

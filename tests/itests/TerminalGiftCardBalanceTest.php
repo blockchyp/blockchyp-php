@@ -23,21 +23,20 @@ class TerminalGiftCardBalanceTest extends BlockChypTestCase
 
     $this->processTestDelay("TerminalGiftCardBalanceTest");
 
+    // setup request object
+    $request = [];
+    $request["test"] = true;
+    $request["terminalName"] = "Test Terminal";
 
+    self::logRequest($request);
 
-  // setup request object
-  $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  self::logRequest($request);
-  $response = BlockChyp::balance($request);
-  self::logResponse($response);
+    $response = BlockChyp::balance($request);
 
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["success"]);
     $this->assertNotEmpty($response["remainingBalance"]);
-
   }
 
 

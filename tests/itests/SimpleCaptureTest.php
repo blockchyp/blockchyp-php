@@ -23,12 +23,11 @@ class SimpleCaptureTest extends BlockChypTestCase
 
     $this->processTestDelay("SimpleCaptureTest");
 
-
     // setup request object
     $request = [];
-  $request["pan"] = "4111111111111111";
-  $request["amount"] = "25.55";
-  $request["test"] = true;
+    $request["pan"] = "4111111111111111";
+    $request["amount"] = "25.55";
+    $request["test"] = true;
     self::logRequest($request);
     $response = BlockChyp::preauth($request);
     self::logResponse($response);
@@ -40,19 +39,19 @@ class SimpleCaptureTest extends BlockChypTestCase
     }
 
 
+    // setup request object
+    $request = [];
+    $request["transactionId"] = $lastTransactionId;
+    $request["test"] = true;
 
-  // setup request object
-  $request = [];
-  $request["transactionId"] = $lastTransactionId;
-  $request["test"] = true;
-  self::logRequest($request);
-  $response = BlockChyp::capture($request);
-  self::logResponse($response);
+    self::logRequest($request);
 
+    $response = BlockChyp::capture($request);
+
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["approved"]);
-
   }
 
 

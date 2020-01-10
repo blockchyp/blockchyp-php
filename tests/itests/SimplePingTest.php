@@ -23,20 +23,19 @@ class SimplePingTest extends BlockChypTestCase
 
     $this->processTestDelay("SimplePingTest");
 
+    // setup request object
+    $request = [];
+    $request["test"] = true;
+    $request["terminalName"] = "Test Terminal";
 
+    self::logRequest($request);
 
-  // setup request object
-  $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  self::logRequest($request);
-  $response = BlockChyp::ping($request);
-  self::logResponse($response);
+    $response = BlockChyp::ping($request);
 
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["success"]);
-
   }
 
 

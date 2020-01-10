@@ -23,17 +23,17 @@ class TerminalChargeTest extends BlockChypTestCase
 
     $this->processTestDelay("TerminalChargeTest");
 
+    // setup request object
+    $request = [];
+    $request["terminalName"] = "Test Terminal";
+    $request["amount"] = "25.15";
+    $request["test"] = true;
 
+    self::logRequest($request);
 
-  // setup request object
-  $request = [];
-  $request["terminalName"] = "Test Terminal";
-  $request["amount"] = "25.15";
-  $request["test"] = true;
-  self::logRequest($request);
-  $response = BlockChyp::charge($request);
-  self::logResponse($response);
+    $response = BlockChyp::charge($request);
 
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["approved"]);
@@ -47,7 +47,6 @@ class TerminalChargeTest extends BlockChypTestCase
     $this->assertNotEmpty($response["maskedPan"]);
     $this->assertNotEmpty($response["entryMethod"]);
     $this->assertEquals("25.15", $response["authorizedAmount"]);
-
   }
 
 

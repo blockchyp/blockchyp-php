@@ -23,18 +23,18 @@ class PANChargeTest extends BlockChypTestCase
 
     $this->processTestDelay("PANChargeTest");
 
+    // setup request object
+    $request = [];
+    $request["pan"] = "4111111111111111";
+    $request["amount"] = "25.55";
+    $request["test"] = true;
+    $request["transactionRef"] = $this->getUUID();
 
+    self::logRequest($request);
 
-  // setup request object
-  $request = [];
-  $request["pan"] = "4111111111111111";
-  $request["amount"] = "25.55";
-  $request["test"] = true;
-  $request["transactionRef"] = $this->getUUID();
-  self::logRequest($request);
-  $response = BlockChyp::charge($request);
-  self::logResponse($response);
+    $response = BlockChyp::charge($request);
 
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["approved"]);
@@ -49,7 +49,6 @@ class PANChargeTest extends BlockChypTestCase
     $this->assertNotEmpty($response["entryMethod"]);
     $this->assertEquals("25.55", $response["authorizedAmount"]);
     $this->assertEquals("KEYED", $response["entryMethod"]);
-
   }
 
 

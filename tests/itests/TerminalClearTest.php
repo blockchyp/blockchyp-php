@@ -23,20 +23,19 @@ class TerminalClearTest extends BlockChypTestCase
 
     $this->processTestDelay("TerminalClearTest");
 
+    // setup request object
+    $request = [];
+    $request["test"] = true;
+    $request["terminalName"] = "Test Terminal";
 
+    self::logRequest($request);
 
-  // setup request object
-  $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  self::logRequest($request);
-  $response = BlockChyp::clear($request);
-  self::logResponse($response);
+    $response = BlockChyp::clear($request);
 
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["success"]);
-
   }
 
 

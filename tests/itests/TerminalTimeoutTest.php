@@ -4,13 +4,13 @@ namespace BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
-class SimpleGiftActivateTest extends BlockChypTestCase
+class TerminalTimeoutTest extends BlockChypTestCase
 {
 
   /**
    * @group itest
    */
-  public function testSimpleGiftActivate()
+  public function testTerminalTimeout()
   {
 
     $config = $this->loadTestConfiguration();
@@ -21,23 +21,21 @@ class SimpleGiftActivateTest extends BlockChypTestCase
     BlockChyp::setGatewayHost($config->gatewayHost);
     BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-    $this->processTestDelay("SimpleGiftActivateTest");
+    $this->processTestDelay("TerminalTimeoutTest");
 
     // setup request object
     $request = [];
-    $request["test"] = true;
+    $request["timeout"] = 1;
     $request["terminalName"] = "Test Terminal";
-    $request["amount"] = "50.00";
+    $request["amount"] = "25.15";
+    $request["test"] = true;
 
     self::logRequest($request);
 
-    $response = BlockChyp::giftActivate($request);
+    $this->expectException(\BlockChyp\Exception\ConnectionException::class);
+    $response = BlockChyp::charge($request);
 
     self::logResponse($response);
-
-    // response assertions
-    $this->assertTrue($response["approved"]);
-    $this->assertNotEmpty($response["publicKey"]);
   }
 
 

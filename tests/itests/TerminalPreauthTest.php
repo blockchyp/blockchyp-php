@@ -23,17 +23,17 @@ class TerminalPreauthTest extends BlockChypTestCase
 
     $this->processTestDelay("TerminalPreauthTest");
 
+    // setup request object
+    $request = [];
+    $request["terminalName"] = "Test Terminal";
+    $request["amount"] = "15.15";
+    $request["test"] = true;
 
+    self::logRequest($request);
 
-  // setup request object
-  $request = [];
-  $request["terminalName"] = "Test Terminal";
-  $request["amount"] = "15.15";
-  $request["test"] = true;
-  self::logRequest($request);
-  $response = BlockChyp::preauth($request);
-  self::logResponse($response);
+    $response = BlockChyp::preauth($request);
 
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["approved"]);
@@ -47,7 +47,6 @@ class TerminalPreauthTest extends BlockChypTestCase
     $this->assertNotEmpty($response["maskedPan"]);
     $this->assertNotEmpty($response["entryMethod"]);
     $this->assertEquals("15.15", $response["authorizedAmount"]);
-
   }
 
 

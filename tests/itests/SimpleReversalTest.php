@@ -23,13 +23,12 @@ class SimpleReversalTest extends BlockChypTestCase
 
     $this->processTestDelay("SimpleReversalTest");
 
-
     // setup request object
     $request = [];
-  $request["pan"] = "4111111111111111";
-  $request["amount"] = "25.55";
-  $request["test"] = true;
-  $request["transactionRef"] = $this->getUUID();
+    $request["pan"] = "4111111111111111";
+    $request["amount"] = "25.55";
+    $request["test"] = true;
+    $request["transactionRef"] = $this->getUUID();
     self::logRequest($request);
     $response = BlockChyp::charge($request);
     self::logResponse($response);
@@ -41,19 +40,19 @@ class SimpleReversalTest extends BlockChypTestCase
     }
 
 
+    // setup request object
+    $request = [];
+    $request["transactionRef"] = $lastTransactionRef;
+    $request["test"] = true;
 
-  // setup request object
-  $request = [];
-  $request["transactionRef"] = $lastTransactionRef;
-  $request["test"] = true;
-  self::logRequest($request);
-  $response = BlockChyp::reverse($request);
-  self::logResponse($response);
+    self::logRequest($request);
 
+    $response = BlockChyp::reverse($request);
+
+    self::logResponse($response);
 
     // response assertions
     $this->assertTrue($response["approved"]);
-
   }
 
 
