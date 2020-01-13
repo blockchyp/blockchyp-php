@@ -11,17 +11,17 @@
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["amount"] = "27.00";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
+  $request['amount'] = '27.00';
 
   $response = \BlockChyp\BlockChyp::preauth($request);
 
   //process the result
-  if ($response["approved"]) {
-    echo "Approved" . PHP_EOL;
+  if ($response['approved']) {
+    echo 'Approved' . PHP_EOL;
   }
 
-  echo $response["authCode"] . PHP_EOL;
-  echo $response["authorizedAmount"] . PHP_EOL;
+  echo $response['authCode'] . PHP_EOL;
+  echo $response['authorizedAmount'] . PHP_EOL;
 ?>

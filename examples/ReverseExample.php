@@ -11,14 +11,14 @@
 
   // setup request object
   $request = [];
-  $request["terminalName"] = "Test Terminal";
-  $request["transactionRef"] = "<LAST TRANSACTION REF>";
+  $request['terminalName'] = 'Test Terminal';
+  $request['transactionRef'] = '<LAST TRANSACTION REF>';
 
   $response = \BlockChyp\BlockChyp::reverse($request);
 
   //process the result
-  if ($response["approved"]) {
-    echo "Approved" . PHP_EOL;
+  if ($response['approved']) {
+    echo 'Approved' . PHP_EOL;
   }
 
 ?>

@@ -11,15 +11,15 @@
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["message"] = "Thank you for your business.";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
+  $request['message'] = 'Thank you for your business.';
 
   $response = \BlockChyp\BlockChyp::message($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
 ?>

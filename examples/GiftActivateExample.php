@@ -11,18 +11,18 @@
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["amount"] = "50.00";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
+  $request['amount'] = '50.00';
 
   $response = \BlockChyp\BlockChyp::giftActivate($request);
 
   //process the result
-  if ($response["approved"]) {
-    echo "Approved" . PHP_EOL;
+  if ($response['approved']) {
+    echo 'Approved' . PHP_EOL;
   }
 
-  echo $response["amount"] . PHP_EOL;
-  echo $response["currentBalance"] . PHP_EOL;
-  echo $response["publicKey"] . PHP_EOL;
+  echo $response['amount'] . PHP_EOL;
+  echo $response['currentBalance'] . PHP_EOL;
+  echo $response['publicKey'] . PHP_EOL;
 ?>

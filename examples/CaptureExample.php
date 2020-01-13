@@ -11,14 +11,14 @@
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["transactionId"] = "<PREAUTH TRANSACTION ID>";
+  $request['test'] = true;
+  $request['transactionId'] = '<PREAUTH TRANSACTION ID>';
 
   $response = \BlockChyp\BlockChyp::capture($request);
 
   //process the result
-  if ($response["approved"]) {
-    echo "Approved" . PHP_EOL;
+  if ($response['approved']) {
+    echo 'Approved' . PHP_EOL;
   }
 
 ?>

@@ -11,13 +11,13 @@
 
   // setup request object
   $request = [];
-  $request["terminalName"] = "Test Terminal";
+  $request['terminalName'] = 'Test Terminal';
 
   $response = \BlockChyp\BlockChyp::ping($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
 ?>

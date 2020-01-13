@@ -11,15 +11,15 @@
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
 
   $response = \BlockChyp\BlockChyp::enroll($request);
 
   //process the result
-  if ($response["approved"]) {
-    echo "Approved" . PHP_EOL;
+  if ($response['approved']) {
+    echo 'Approved' . PHP_EOL;
   }
 
-  echo $response["token"] . PHP_EOL;
+  echo $response['token'] . PHP_EOL;
 ?>

@@ -11,15 +11,15 @@
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["cardType"] = BlockChyp::CARD_TYPE_EBT;
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
+  $request['cardType'] = BlockChyp::CARD_TYPE_EBT;
 
   $response = \BlockChyp\BlockChyp::balance($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
 ?>

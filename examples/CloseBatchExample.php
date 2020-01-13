@@ -11,15 +11,15 @@
 
   // setup request object
   $request = [];
-  $request["test"] = true;
+  $request['test'] = true;
 
   $response = \BlockChyp\BlockChyp::closeBatch($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
-  echo $response["capturedTotal"] . PHP_EOL;
-  echo $response["openPreauths"] . PHP_EOL;
+  echo $response['capturedTotal'] . PHP_EOL;
+  echo $response['openPreauths'] . PHP_EOL;
 ?>

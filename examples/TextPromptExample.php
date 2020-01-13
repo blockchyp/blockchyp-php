@@ -11,18 +11,18 @@
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
   // Type of prompt. Can be 'email', 'phone', 'customer-number', or
   // 'rewards-number'.
-  $request["promptType"] = BlockChyp::PROMPT_TYPE_EMAIL;
+  $request['promptType'] = BlockChyp::PROMPT_TYPE_EMAIL;
 
   $response = \BlockChyp\BlockChyp::textPrompt($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
-  echo $response["response"] . PHP_EOL;
+  echo $response['response'] . PHP_EOL;
 ?>

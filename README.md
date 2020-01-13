@@ -136,19 +136,19 @@ Executes a standard direct preauth and capture.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["amount"] = "55.00";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
+  $request['amount'] = '55.00';
 
   $response = \BlockChyp\BlockChyp::charge($request);
 
   //process the result
-  if ($response["approved"]) {
-    echo "Approved" . PHP_EOL;
+  if ($response['approved']) {
+    echo 'Approved' . PHP_EOL;
   }
 
-  echo $response["authCode"] . PHP_EOL;
-  echo $response["authorizedAmount"] . PHP_EOL;
+  echo $response['authCode'] . PHP_EOL;
+  echo $response['authorizedAmount'] . PHP_EOL;
 ?>
 
 
@@ -172,19 +172,19 @@ Executes a preauthorization intended to be captured later.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["amount"] = "27.00";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
+  $request['amount'] = '27.00';
 
   $response = \BlockChyp\BlockChyp::preauth($request);
 
   //process the result
-  if ($response["approved"]) {
-    echo "Approved" . PHP_EOL;
+  if ($response['approved']) {
+    echo 'Approved' . PHP_EOL;
   }
 
-  echo $response["authCode"] . PHP_EOL;
-  echo $response["authorizedAmount"] . PHP_EOL;
+  echo $response['authCode'] . PHP_EOL;
+  echo $response['authorizedAmount'] . PHP_EOL;
 ?>
 
 
@@ -208,13 +208,13 @@ Tests connectivity with a payment terminal.
 
   // setup request object
   $request = [];
-  $request["terminalName"] = "Test Terminal";
+  $request['terminalName'] = 'Test Terminal';
 
   $response = \BlockChyp\BlockChyp::ping($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
 ?>
@@ -240,15 +240,15 @@ Checks the remaining balance on a payment method.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["cardType"] = BlockChyp::CARD_TYPE_EBT;
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
+  $request['cardType'] = BlockChyp::CARD_TYPE_EBT;
 
   $response = \BlockChyp\BlockChyp::balance($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
 ?>
@@ -274,14 +274,14 @@ Clears the line item display and any in progress transaction.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
 
   $response = \BlockChyp\BlockChyp::clear($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
 ?>
@@ -307,31 +307,31 @@ Prompts the user to accept terms and conditions.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
   // Alias for a Terms and Conditions template configured in the BlockChyp
   // dashboard.
-  $request["tcAlias"] = "hippa";
+  $request['tcAlias'] = 'hippa';
   // Name of the contract or document if not using an alias.
-  $request["tcName"] = "HIPPA Disclosure";
+  $request['tcName'] = 'HIPPA Disclosure';
   // Full text of the contract or disclosure if not using an alias.
-  $request["tcContent"] = "Full contract text";
+  $request['tcContent'] = 'Full contract text';
   // File format for the signature image.
-  $request["sigFormat"] = BlockChyp::SIGNATURE_FORMAT_PNG;
+  $request['sigFormat'] = BlockChyp::SIGNATURE_FORMAT_PNG;
   // Width of the signature image in pixels.
-  $request["sigWidth"] = 200;
+  $request['sigWidth'] = 200;
   // Whether or not a signature is required. Defaults to true.
-  $request["sigRequired"] = true;
+  $request['sigRequired'] = true;
 
   $response = \BlockChyp\BlockChyp::termsAndConditions($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
-  echo $response["sig"] . PHP_EOL;
-  echo $response["sigFile"] . PHP_EOL;
+  echo $response['sig'] . PHP_EOL;
+  echo $response['sigFile'] . PHP_EOL;
 ?>
 
 
@@ -357,23 +357,23 @@ groups.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["transaction"] = newTransactionDisplayTransaction();
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
+  $request['transaction'] = newTransactionDisplayTransaction();
 
   $response = \BlockChyp\BlockChyp::updateTransactionDisplay($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
   function newTransactionDisplayTransaction() {
     $val = [];
-    $val["subtotal"] = "60.00";
-    $val["tax"] = "5.00";
-    $val["total"] = "65.00";
-    $val["items"] = newTransactionDisplayItems();
+    $val['subtotal'] = '60.00';
+    $val['tax'] = '5.00';
+    $val['total'] = '65.00';
+    $val['items'] = newTransactionDisplayItems();
     return $val;
   }
   function newTransactionDisplayItems() {
@@ -383,11 +383,11 @@ groups.
   }
   function newTransactionDisplayItem2() {
     $val = [];
-    $val["description"] = "Leki Trekking Poles";
-    $val["price"] = "35.00";
-    $val["quantity"] = 2;
-    $val["extended"] = "70.00";
-    $val["discounts"] = newTransactionDisplayDiscounts();
+    $val['description'] = 'Leki Trekking Poles';
+    $val['price'] = '35.00';
+    $val['quantity'] = 2;
+    $val['extended'] = '70.00';
+    $val['discounts'] = newTransactionDisplayDiscounts();
     return $val;
   }
   function newTransactionDisplayDiscounts() {
@@ -397,8 +397,8 @@ groups.
   }
   function newTransactionDisplayDiscount2() {
     $val = [];
-    $val["description"] = "memberDiscount";
-    $val["amount"] = "10.00";
+    $val['description'] = 'memberDiscount';
+    $val['amount'] = '10.00';
     return $val;
   }
 ?>
@@ -424,23 +424,23 @@ Displays a new transaction on the terminal.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["transaction"] = newTransactionDisplayTransaction();
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
+  $request['transaction'] = newTransactionDisplayTransaction();
 
   $response = \BlockChyp\BlockChyp::newTransactionDisplay($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
   function newTransactionDisplayTransaction() {
     $val = [];
-    $val["subtotal"] = "60.00";
-    $val["tax"] = "5.00";
-    $val["total"] = "65.00";
-    $val["items"] = newTransactionDisplayItems();
+    $val['subtotal'] = '60.00';
+    $val['tax'] = '5.00';
+    $val['total'] = '65.00';
+    $val['items'] = newTransactionDisplayItems();
     return $val;
   }
   function newTransactionDisplayItems() {
@@ -450,11 +450,11 @@ Displays a new transaction on the terminal.
   }
   function newTransactionDisplayItem2() {
     $val = [];
-    $val["description"] = "Leki Trekking Poles";
-    $val["price"] = "35.00";
-    $val["quantity"] = 2;
-    $val["extended"] = "70.00";
-    $val["discounts"] = newTransactionDisplayDiscounts();
+    $val['description'] = 'Leki Trekking Poles';
+    $val['price'] = '35.00';
+    $val['quantity'] = 2;
+    $val['extended'] = '70.00';
+    $val['discounts'] = newTransactionDisplayDiscounts();
     return $val;
   }
   function newTransactionDisplayDiscounts() {
@@ -464,8 +464,8 @@ Displays a new transaction on the terminal.
   }
   function newTransactionDisplayDiscount2() {
     $val = [];
-    $val["description"] = "memberDiscount";
-    $val["amount"] = "10.00";
+    $val['description'] = 'memberDiscount';
+    $val['amount'] = '10.00';
     return $val;
   }
 ?>
@@ -491,20 +491,20 @@ Asks the consumer text based question.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
   // Type of prompt. Can be 'email', 'phone', 'customer-number', or
   // 'rewards-number'.
-  $request["promptType"] = BlockChyp::PROMPT_TYPE_EMAIL;
+  $request['promptType'] = BlockChyp::PROMPT_TYPE_EMAIL;
 
   $response = \BlockChyp\BlockChyp::textPrompt($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
-  echo $response["response"] . PHP_EOL;
+  echo $response['response'] . PHP_EOL;
 ?>
 
 
@@ -528,20 +528,20 @@ Asks the consumer a yes/no question.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["prompt"] = "Would you like to become a member?";
-  $request["yesCaption"] = "Yes";
-  $request["noCaption"] = "No";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
+  $request['prompt'] = 'Would you like to become a member?';
+  $request['yesCaption'] = 'Yes';
+  $request['noCaption'] = 'No';
 
   $response = \BlockChyp\BlockChyp::booleanPrompt($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
-  echo $response["response"] . PHP_EOL;
+  echo $response['response'] . PHP_EOL;
 ?>
 
 
@@ -565,15 +565,15 @@ Displays a short message on the terminal.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["message"] = "Thank you for your business.";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
+  $request['message'] = 'Thank you for your business.';
 
   $response = \BlockChyp\BlockChyp::message($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
 ?>
@@ -599,16 +599,16 @@ Executes a refund.
 
   // setup request object
   $request = [];
-  $request["terminalName"] = "Test Terminal";
-  $request["transactionId"] = "<PREVIOUS TRANSACTION ID>";
+  $request['terminalName'] = 'Test Terminal';
+  $request['transactionId'] = '<PREVIOUS TRANSACTION ID>';
   // Optional amount for partial refunds.
-  $request["amount"] = "5.00";
+  $request['amount'] = '5.00';
 
   $response = \BlockChyp\BlockChyp::refund($request);
 
   //process the result
-  if ($response["approved"]) {
-    echo "Approved" . PHP_EOL;
+  if ($response['approved']) {
+    echo 'Approved' . PHP_EOL;
   }
 
 ?>
@@ -634,17 +634,17 @@ Adds a new payment method to the token vault.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
 
   $response = \BlockChyp\BlockChyp::enroll($request);
 
   //process the result
-  if ($response["approved"]) {
-    echo "Approved" . PHP_EOL;
+  if ($response['approved']) {
+    echo 'Approved' . PHP_EOL;
   }
 
-  echo $response["token"] . PHP_EOL;
+  echo $response['token'] . PHP_EOL;
 ?>
 
 
@@ -668,20 +668,20 @@ Activates or recharges a gift card.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["amount"] = "50.00";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
+  $request['amount'] = '50.00';
 
   $response = \BlockChyp\BlockChyp::giftActivate($request);
 
   //process the result
-  if ($response["approved"]) {
-    echo "Approved" . PHP_EOL;
+  if ($response['approved']) {
+    echo 'Approved' . PHP_EOL;
   }
 
-  echo $response["amount"] . PHP_EOL;
-  echo $response["currentBalance"] . PHP_EOL;
-  echo $response["publicKey"] . PHP_EOL;
+  echo $response['amount'] . PHP_EOL;
+  echo $response['currentBalance'] . PHP_EOL;
+  echo $response['publicKey'] . PHP_EOL;
 ?>
 
 
@@ -713,14 +713,14 @@ request to the terminal timed out before you got a response.
 
   // setup request object
   $request = [];
-  $request["terminalName"] = "Test Terminal";
-  $request["transactionRef"] = "<LAST TRANSACTION REF>";
+  $request['terminalName'] = 'Test Terminal';
+  $request['transactionRef'] = '<LAST TRANSACTION REF>';
 
   $response = \BlockChyp\BlockChyp::reverse($request);
 
   //process the result
-  if ($response["approved"]) {
-    echo "Approved" . PHP_EOL;
+  if ($response['approved']) {
+    echo 'Approved' . PHP_EOL;
   }
 
 ?>
@@ -746,14 +746,14 @@ Captures a preauthorization.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["transactionId"] = "<PREAUTH TRANSACTION ID>";
+  $request['test'] = true;
+  $request['transactionId'] = '<PREAUTH TRANSACTION ID>';
 
   $response = \BlockChyp\BlockChyp::capture($request);
 
   //process the result
-  if ($response["approved"]) {
-    echo "Approved" . PHP_EOL;
+  if ($response['approved']) {
+    echo 'Approved' . PHP_EOL;
   }
 
 ?>
@@ -779,17 +779,17 @@ Closes the current credit card batch.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
+  $request['test'] = true;
 
   $response = \BlockChyp\BlockChyp::closeBatch($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
-  echo $response["capturedTotal"] . PHP_EOL;
-  echo $response["openPreauths"] . PHP_EOL;
+  echo $response['capturedTotal'] . PHP_EOL;
+  echo $response['openPreauths'] . PHP_EOL;
 ?>
 
 
@@ -813,14 +813,14 @@ Discards a previous preauth transaction.
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["transactionId"] = "<PREVIOUS TRANSACTION ID>";
+  $request['test'] = true;
+  $request['transactionId'] = '<PREVIOUS TRANSACTION ID>';
 
   $response = \BlockChyp\BlockChyp::void($request);
 
   //process the result
-  if ($response["approved"]) {
-    echo "Approved" . PHP_EOL;
+  if ($response['approved']) {
+    echo 'Approved' . PHP_EOL;
   }
 
 ?>

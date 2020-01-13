@@ -25,11 +25,11 @@ class GatewayTimeoutTest extends BlockChypTestCase
 
     // setup request object
     $request = [];
-    $request["timeout"] = 1;
-    $request["pan"] = "5555555555554444";
-    $request["amount"] = "25.55";
-    $request["test"] = true;
-    $request["transactionRef"] = $this->getUUID();
+    $request['timeout'] = 1;
+    $request['pan'] = '5555555555554444';
+    $request['amount'] = '25.55';
+    $request['test'] = true;
+    $request['transactionRef'] = $this->getUUID();
 
     self::logRequest($request);
 

@@ -11,18 +11,18 @@
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
-  $request["prompt"] = "Would you like to become a member?";
-  $request["yesCaption"] = "Yes";
-  $request["noCaption"] = "No";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
+  $request['prompt'] = 'Would you like to become a member?';
+  $request['yesCaption'] = 'Yes';
+  $request['noCaption'] = 'No';
 
   $response = \BlockChyp\BlockChyp::booleanPrompt($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
-  echo $response["response"] . PHP_EOL;
+  echo $response['response'] . PHP_EOL;
 ?>

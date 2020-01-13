@@ -25,8 +25,8 @@ class TerminalEnrollTest extends BlockChypTestCase
 
     // setup request object
     $request = [];
-    $request["terminalName"] = "Test Terminal";
-    $request["test"] = true;
+    $request['terminalName'] = 'Test Terminal';
+    $request['test'] = true;
 
     self::logRequest($request);
 
@@ -35,17 +35,17 @@ class TerminalEnrollTest extends BlockChypTestCase
     self::logResponse($response);
 
     // response assertions
-    $this->assertTrue($response["approved"]);
-    $this->assertTrue($response["test"]);
-    $this->assertEquals(6, strlen($response["authCode"]));
-    $this->assertNotEmpty($response["transactionId"]);
-    $this->assertNotEmpty($response["timestamp"]);
-    $this->assertNotEmpty($response["tickBlock"]);
-    $this->assertEquals("Approved", $response["responseDescription"]);
-    $this->assertNotEmpty($response["paymentType"]);
-    $this->assertNotEmpty($response["maskedPan"]);
-    $this->assertNotEmpty($response["entryMethod"]);
-    $this->assertNotEmpty($response["token"]);
+    $this->assertTrue($response['approved']);
+    $this->assertTrue($response['test']);
+    $this->assertEquals(6, strlen($response['authCode']));
+    $this->assertNotEmpty($response['transactionId']);
+    $this->assertNotEmpty($response['timestamp']);
+    $this->assertNotEmpty($response['tickBlock']);
+    $this->assertEquals('Approved', $response['responseDescription']);
+    $this->assertNotEmpty($response['paymentType']);
+    $this->assertNotEmpty($response['maskedPan']);
+    $this->assertNotEmpty($response['entryMethod']);
+    $this->assertNotEmpty($response['token']);
   }
 
 

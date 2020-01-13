@@ -25,9 +25,9 @@ class TextPromptTest extends BlockChypTestCase
 
     // setup request object
     $request = [];
-    $request["test"] = true;
-    $request["terminalName"] = "Test Terminal";
-    $request["promptType"] = BlockChyp::PROMPT_TYPE_EMAIL;
+    $request['test'] = true;
+    $request['terminalName'] = 'Test Terminal';
+    $request['promptType'] = BlockChyp::PROMPT_TYPE_EMAIL;
 
     self::logRequest($request);
 
@@ -36,8 +36,8 @@ class TextPromptTest extends BlockChypTestCase
     self::logResponse($response);
 
     // response assertions
-    $this->assertTrue($response["success"]);
-    $this->assertNotEmpty($response["response"]);
+    $this->assertTrue($response['success']);
+    $this->assertNotEmpty($response['response']);
   }
 
 

@@ -25,9 +25,9 @@ class SimpleMessageTest extends BlockChypTestCase
 
     // setup request object
     $request = [];
-    $request["test"] = true;
-    $request["terminalName"] = "Test Terminal";
-    $request["message"] = "Thank You For Your Business";
+    $request['test'] = true;
+    $request['terminalName'] = 'Test Terminal';
+    $request['message'] = 'Thank You For Your Business';
 
     self::logRequest($request);
 
@@ -36,7 +36,7 @@ class SimpleMessageTest extends BlockChypTestCase
     self::logResponse($response);
 
     // response assertions
-    $this->assertTrue($response["success"]);
+    $this->assertTrue($response['success']);
   }
 
 

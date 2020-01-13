@@ -11,16 +11,16 @@
 
   // setup request object
   $request = [];
-  $request["terminalName"] = "Test Terminal";
-  $request["transactionId"] = "<PREVIOUS TRANSACTION ID>";
+  $request['terminalName'] = 'Test Terminal';
+  $request['transactionId'] = '<PREVIOUS TRANSACTION ID>';
   // Optional amount for partial refunds.
-  $request["amount"] = "5.00";
+  $request['amount'] = '5.00';
 
   $response = \BlockChyp\BlockChyp::refund($request);
 
   //process the result
-  if ($response["approved"]) {
-    echo "Approved" . PHP_EOL;
+  if ($response['approved']) {
+    echo 'Approved' . PHP_EOL;
   }
 
 ?>

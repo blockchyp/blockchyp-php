@@ -25,8 +25,8 @@ class TerminalClearTest extends BlockChypTestCase
 
     // setup request object
     $request = [];
-    $request["test"] = true;
-    $request["terminalName"] = "Test Terminal";
+    $request['test'] = true;
+    $request['terminalName'] = 'Test Terminal';
 
     self::logRequest($request);
 
@@ -35,7 +35,7 @@ class TerminalClearTest extends BlockChypTestCase
     self::logResponse($response);
 
     // response assertions
-    $this->assertTrue($response["success"]);
+    $this->assertTrue($response['success']);
   }
 
 

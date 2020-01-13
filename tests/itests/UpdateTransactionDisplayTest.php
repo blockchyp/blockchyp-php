@@ -25,9 +25,9 @@ class UpdateTransactionDisplayTest extends BlockChypTestCase
 
     // setup request object
     $request = [];
-    $request["test"] = true;
-    $request["terminalName"] = "Test Terminal";
-    $request["transaction"] = $this->newTransactionDisplayTransaction();
+    $request['test'] = true;
+    $request['terminalName'] = 'Test Terminal';
+    $request['transaction'] = $this->newTransactionDisplayTransaction();
 
     self::logRequest($request);
 
@@ -36,15 +36,15 @@ class UpdateTransactionDisplayTest extends BlockChypTestCase
     self::logResponse($response);
 
     // response assertions
-    $this->assertTrue($response["success"]);
+    $this->assertTrue($response['success']);
   }
 
   private function newTransactionDisplayTransaction() {
     $val = [];
-    $val["subtotal"] = "35.00";
-    $val["tax"] = "5.00";
-    $val["total"] = "70.00";
-    $val["items"] = $this->newTransactionDisplayItems();
+    $val['subtotal'] = '35.00';
+    $val['tax'] = '5.00';
+    $val['total'] = '70.00';
+    $val['items'] = $this->newTransactionDisplayItems();
     return $val;
   }
   private function newTransactionDisplayItems() {
@@ -54,11 +54,11 @@ class UpdateTransactionDisplayTest extends BlockChypTestCase
   }
   private function newTransactionDisplayItem2() {
     $val = [];
-    $val["description"] = "Leki Trekking Poles";
-    $val["price"] = "35.00";
-    $val["quantity"] = 2;
-    $val["extended"] = "70.00";
-    $val["discounts"] = $this->newTransactionDisplayDiscounts();
+    $val['description'] = 'Leki Trekking Poles';
+    $val['price'] = '35.00';
+    $val['quantity'] = 2;
+    $val['extended'] = '70.00';
+    $val['discounts'] = $this->newTransactionDisplayDiscounts();
     return $val;
   }
   private function newTransactionDisplayDiscounts() {
@@ -68,8 +68,8 @@ class UpdateTransactionDisplayTest extends BlockChypTestCase
   }
   private function newTransactionDisplayDiscount2() {
     $val = [];
-    $val["description"] = "memberDiscount";
-    $val["amount"] = "10.00";
+    $val['description'] = 'memberDiscount';
+    $val['amount'] = '10.00';
     return $val;
   }
 

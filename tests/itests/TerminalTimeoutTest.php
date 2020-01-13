@@ -25,10 +25,10 @@ class TerminalTimeoutTest extends BlockChypTestCase
 
     // setup request object
     $request = [];
-    $request["timeout"] = 1;
-    $request["terminalName"] = "Test Terminal";
-    $request["amount"] = "25.15";
-    $request["test"] = true;
+    $request['timeout'] = 1;
+    $request['terminalName'] = 'Test Terminal';
+    $request['amount'] = '25.15';
+    $request['test'] = true;
 
     self::logRequest($request);
 

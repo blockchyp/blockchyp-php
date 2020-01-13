@@ -11,29 +11,29 @@
 
   // setup request object
   $request = [];
-  $request["test"] = true;
-  $request["terminalName"] = "Test Terminal";
+  $request['test'] = true;
+  $request['terminalName'] = 'Test Terminal';
   // Alias for a Terms and Conditions template configured in the BlockChyp
   // dashboard.
-  $request["tcAlias"] = "hippa";
+  $request['tcAlias'] = 'hippa';
   // Name of the contract or document if not using an alias.
-  $request["tcName"] = "HIPPA Disclosure";
+  $request['tcName'] = 'HIPPA Disclosure';
   // Full text of the contract or disclosure if not using an alias.
-  $request["tcContent"] = "Full contract text";
+  $request['tcContent'] = 'Full contract text';
   // File format for the signature image.
-  $request["sigFormat"] = BlockChyp::SIGNATURE_FORMAT_PNG;
+  $request['sigFormat'] = BlockChyp::SIGNATURE_FORMAT_PNG;
   // Width of the signature image in pixels.
-  $request["sigWidth"] = 200;
+  $request['sigWidth'] = 200;
   // Whether or not a signature is required. Defaults to true.
-  $request["sigRequired"] = true;
+  $request['sigRequired'] = true;
 
   $response = \BlockChyp\BlockChyp::termsAndConditions($request);
 
   //process the result
-  if ($response["success"]) {
-    echo "Success" . PHP_EOL;
+  if ($response['success']) {
+    echo 'Success' . PHP_EOL;
   }
 
-  echo $response["sig"] . PHP_EOL;
-  echo $response["sigFile"] . PHP_EOL;
+  echo $response['sig'] . PHP_EOL;
+  echo $response['sigFile'] . PHP_EOL;
 ?>
