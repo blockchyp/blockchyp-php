@@ -141,17 +141,26 @@ class BlockChypClient {
 
   protected static function routeTerminalRequest($method, $terminalPath, $cloudPath, $request) {
 
+    $sigFormat = self::getSignatureOptions($request);
+    if (!is_null($sigFormat)) {
+      $request['sigFormat'] = $sigFormat;
+    }
+
     if (!empty($request['terminalName'])) {
       $route = self::resolveTerminalRoute($request['terminalName']);
       if (!$route) {
         return self::generateErrorResponse('Unknown Terminal');
       } else if ($route['cloudRelayEnabled']) {
-        return self::gatewayRequest($method, $cloudPath, $request, TRUE);
+        $response = self::gatewayRequest($method, $cloudPath, $request, TRUE);
       }
-      return self::terminalRequest($method, $route, $terminalPath, $request);
+      $response = self::terminalRequest($method, $route, $terminalPath, $request);
     } else {
-      return self::gatewayRequest($method, $cloudPath, $request);
+      $response = self::gatewayRequest($method, $cloudPath, $request);
     }
+
+    self::handleSignature($request, $response);
+
+    return $response;
 
   }
 
@@ -215,7 +224,7 @@ class BlockChypClient {
           // Infinite recursion is prevented by checking that the route actually changed.
           return self::terminalRequest($method, $route, $path, $request, FALSE);
         } else {
-          throw new Exception\ConnectionException(curl_error($ch));
+          throw Exception\ConnectionException::factory(curl_error($ch));
         }
       }
     } finally {
@@ -373,7 +382,7 @@ class BlockChypClient {
     curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
     try {
       if (!$result = curl_exec($ch)) {
-        throw new Exception\ConnectionException(curl_error($ch));
+        throw Exception\ConnectionException::factory(curl_error($ch));
       }
     } finally {
       curl_close($ch);
@@ -432,5 +441,68 @@ class BlockChypClient {
     return isset($request['timeout']) ? $request['timeout'] : $default;
 
   }
+
+  private static function getSignatureOptions($request) {
+
+    if (is_null($request) || empty($request['sigFile'])) {
+      return null;
+    }
+
+    $pathinfo = pathinfo($request['sigFile']);
+
+    if (!is_writable($pathinfo['dirname'])) {
+      throw Exception\RequestException::factory(
+        'File not writeable: ' . $request['sigFile'],
+        null,
+        null,
+        'sigFile'
+      );
+    }
+
+    if (!empty($request['sigFormat'])) {
+      return null;
+    }
+
+    $ext = $pathinfo['extension'];
+
+    switch ($ext) {
+    case static::SIGNATURE_FORMAT_PNG:
+    case static::SIGNATURE_FORMAT_JPG:
+    case static::SIGNATURE_FORMAT_GIF:
+      return $ext;
+      break;
+    default:
+      throw Exception\RequestException::factory(
+        'Invalid format: ' . $ext,
+        null,
+        null,
+        'sigFormat'
+      );
+    }
+
+  }
+
+  private static function handleSignature($request, $response) {
+
+    if (is_null($request)
+        || is_null($response)
+        || empty($request['sigFile'])
+        || empty($response['sigFile'])
+    ) {
+      return;
+    }
+
+    $raw = hex2bin($response['sigFile']);
+
+    try {
+      $file = fopen($request['sigFile'], 'w');
+
+      fwrite($file, $raw);
+    } finally {
+      fclose($file);
+    }
+
+  }
+
 
 }
