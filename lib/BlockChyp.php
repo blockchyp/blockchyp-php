@@ -218,6 +218,20 @@ class BlockChyp extends BlockChypClient {
   }
 
   /**
+   * Returns the current status of a terminal.
+   *
+   * @param array $request The request body.
+   *
+   * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+   *
+   * @return array The API response.
+   */
+  public static function terminalStatus($request)
+  {
+    return self::routeTerminalRequest('POST', '/api/terminal-status', '/api/terminal-status', $request);
+  }
+
+  /**
    * Executes a manual time out reversal.
    *
    * We love time out reversals. Don't be afraid to use them whenever a request to a

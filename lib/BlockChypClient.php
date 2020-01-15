@@ -362,7 +362,7 @@ class BlockChypClient {
 
   protected static function gatewayRequest($method, $path, $request=NULL, $relay=FALSE) {
 
-    $url = self::resolveGatewayURL($path, $request['test']);
+    $url = self::resolveGatewayURL($path, !empty($request['test']));
 
     $content = json_encode($request);
 
