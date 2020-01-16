@@ -130,9 +130,9 @@ Executes a standard direct preauth and capture.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -142,13 +142,9 @@ Executes a standard direct preauth and capture.
 
   $response = \BlockChyp\BlockChyp::charge($request);
 
-  //process the result
-  if ($response['approved']) {
-    echo 'Approved' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
-  echo $response['authCode'] . PHP_EOL;
-  echo $response['authorizedAmount'] . PHP_EOL;
 ?>
 
 
@@ -166,9 +162,9 @@ Executes a preauthorization intended to be captured later.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -178,13 +174,9 @@ Executes a preauthorization intended to be captured later.
 
   $response = \BlockChyp\BlockChyp::preauth($request);
 
-  //process the result
-  if ($response['approved']) {
-    echo 'Approved' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
-  echo $response['authCode'] . PHP_EOL;
-  echo $response['authorizedAmount'] . PHP_EOL;
 ?>
 
 
@@ -202,9 +194,9 @@ Tests connectivity with a payment terminal.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -212,10 +204,8 @@ Tests connectivity with a payment terminal.
 
   $response = \BlockChyp\BlockChyp::ping($request);
 
-  //process the result
-  if ($response['success']) {
-    echo 'Success' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
 ?>
 
@@ -234,9 +224,9 @@ Checks the remaining balance on a payment method.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -246,10 +236,8 @@ Checks the remaining balance on a payment method.
 
   $response = \BlockChyp\BlockChyp::balance($request);
 
-  //process the result
-  if ($response['success']) {
-    echo 'Success' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
 ?>
 
@@ -268,9 +256,9 @@ Clears the line item display and any in progress transaction.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -279,10 +267,8 @@ Clears the line item display and any in progress transaction.
 
   $response = \BlockChyp\BlockChyp::clear($request);
 
-  //process the result
-  if ($response['success']) {
-    echo 'Success' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
 ?>
 
@@ -301,9 +287,9 @@ Prompts the user to accept terms and conditions.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -325,13 +311,9 @@ Prompts the user to accept terms and conditions.
 
   $response = \BlockChyp\BlockChyp::termsAndConditions($request);
 
-  //process the result
-  if ($response['success']) {
-    echo 'Success' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
-  echo $response['sig'] . PHP_EOL;
-  echo $response['sigFile'] . PHP_EOL;
 ?>
 
 
@@ -351,9 +333,9 @@ groups.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -363,10 +345,8 @@ groups.
 
   $response = \BlockChyp\BlockChyp::updateTransactionDisplay($request);
 
-  //process the result
-  if ($response['success']) {
-    echo 'Success' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
   function newTransactionDisplayTransaction() {
     $val = [];
@@ -418,9 +398,9 @@ Displays a new transaction on the terminal.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -430,10 +410,8 @@ Displays a new transaction on the terminal.
 
   $response = \BlockChyp\BlockChyp::newTransactionDisplay($request);
 
-  //process the result
-  if ($response['success']) {
-    echo 'Success' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
   function newTransactionDisplayTransaction() {
     $val = [];
@@ -485,9 +463,9 @@ Asks the consumer text based question.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -499,12 +477,9 @@ Asks the consumer text based question.
 
   $response = \BlockChyp\BlockChyp::textPrompt($request);
 
-  //process the result
-  if ($response['success']) {
-    echo 'Success' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
-  echo $response['response'] . PHP_EOL;
 ?>
 
 
@@ -522,9 +497,9 @@ Asks the consumer a yes/no question.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -536,12 +511,9 @@ Asks the consumer a yes/no question.
 
   $response = \BlockChyp\BlockChyp::booleanPrompt($request);
 
-  //process the result
-  if ($response['success']) {
-    echo 'Success' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
-  echo $response['response'] . PHP_EOL;
 ?>
 
 
@@ -559,9 +531,9 @@ Displays a short message on the terminal.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -571,10 +543,8 @@ Displays a short message on the terminal.
 
   $response = \BlockChyp\BlockChyp::message($request);
 
-  //process the result
-  if ($response['success']) {
-    echo 'Success' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
 ?>
 
@@ -593,9 +563,9 @@ Executes a refund.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -606,10 +576,8 @@ Executes a refund.
 
   $response = \BlockChyp\BlockChyp::refund($request);
 
-  //process the result
-  if ($response['approved']) {
-    echo 'Approved' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
 ?>
 
@@ -628,9 +596,9 @@ Adds a new payment method to the token vault.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -639,12 +607,9 @@ Adds a new payment method to the token vault.
 
   $response = \BlockChyp\BlockChyp::enroll($request);
 
-  //process the result
-  if ($response['approved']) {
-    echo 'Approved' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
-  echo $response['token'] . PHP_EOL;
 ?>
 
 
@@ -662,9 +627,9 @@ Activates or recharges a gift card.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -674,14 +639,9 @@ Activates or recharges a gift card.
 
   $response = \BlockChyp\BlockChyp::giftActivate($request);
 
-  //process the result
-  if ($response['approved']) {
-    echo 'Approved' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
-  echo $response['amount'] . PHP_EOL;
-  echo $response['currentBalance'] . PHP_EOL;
-  echo $response['publicKey'] . PHP_EOL;
 ?>
 
 
@@ -707,9 +667,9 @@ request to the terminal timed out before you got a response.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -718,10 +678,8 @@ request to the terminal timed out before you got a response.
 
   $response = \BlockChyp\BlockChyp::reverse($request);
 
-  //process the result
-  if ($response['approved']) {
-    echo 'Approved' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
 ?>
 
@@ -740,9 +698,9 @@ Captures a preauthorization.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -751,10 +709,8 @@ Captures a preauthorization.
 
   $response = \BlockChyp\BlockChyp::capture($request);
 
-  //process the result
-  if ($response['approved']) {
-    echo 'Approved' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
 ?>
 
@@ -773,9 +729,9 @@ Closes the current credit card batch.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -783,13 +739,9 @@ Closes the current credit card batch.
 
   $response = \BlockChyp\BlockChyp::closeBatch($request);
 
-  //process the result
-  if ($response['success']) {
-    echo 'Success' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
-  echo $response['capturedTotal'] . PHP_EOL;
-  echo $response['openPreauths'] . PHP_EOL;
 ?>
 
 
@@ -807,9 +759,9 @@ Discards a previous preauth transaction.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -818,10 +770,8 @@ Discards a previous preauth transaction.
 
   $response = \BlockChyp\BlockChyp::void($request);
 
-  //process the result
-  if ($response['approved']) {
-    echo 'Approved' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
 ?>
 
@@ -840,9 +790,9 @@ Returns the current status of a terminal.
   // for manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
   // setup request object
   $request = [];
@@ -850,13 +800,9 @@ Returns the current status of a terminal.
 
   $response = \BlockChyp\BlockChyp::terminalStatus($request);
 
-  //process the result
-  if ($response['success']) {
-    echo 'Success' . PHP_EOL;
-  }
+  // view the result
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 
-  echo $response['idle'] . PHP_EOL;
-  echo $response['status'] . PHP_EOL;
 ?>
 
 
