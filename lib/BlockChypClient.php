@@ -150,10 +150,11 @@ class BlockChypClient {
       $route = self::resolveTerminalRoute($request['terminalName']);
       if (!$route) {
         return self::generateErrorResponse('Unknown Terminal');
-      } else if ($route['cloudRelayEnabled']) {
+      } else if (!empty($route['cloudRelayEnabled'])) {
         $response = self::gatewayRequest($method, $cloudPath, $request, TRUE);
+      } else {
+        $response = self::terminalRequest($method, $route, $terminalPath, $request);
       }
-      $response = self::terminalRequest($method, $route, $terminalPath, $request);
     } else {
       $response = self::gatewayRequest($method, $cloudPath, $request);
     }
