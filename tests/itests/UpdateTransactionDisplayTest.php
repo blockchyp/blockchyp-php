@@ -23,11 +23,30 @@ class UpdateTransactionDisplayTest extends BlockChypTestCase
 
     $this->processTestDelay("UpdateTransactionDisplayTest");
 
-    // setup request object
-    $request = [];
-    $request['test'] = true;
-    $request['terminalName'] = 'Test Terminal';
-    $request['transaction'] = $this->newTransactionDisplayTransaction();
+    // Set request values
+    $request = [
+      'test' => TRUE,
+      'terminalName' => 'Test Terminal',
+      'transaction' => [
+        'subtotal' => '35.00',
+        'tax' => '5.00',
+        'total' => '70.00',
+        'items' => [
+          [
+            'description' => 'Leki Trekking Poles',
+            'price' => '35.00',
+            'quantity' => 2,
+            'extended' => '70.00',
+            'discounts' => [
+              [
+                'description' => 'memberDiscount',
+                'amount' => '10.00',
+              ],
+            ],
+          ],
+        ],
+      ],
+    ];
 
     self::logRequest($request);
 
@@ -35,42 +54,8 @@ class UpdateTransactionDisplayTest extends BlockChypTestCase
 
     self::logResponse($response);
 
-    // response assertions
+    // Response assertions
     $this->assertTrue($response['success']);
-  }
-
-  private function newTransactionDisplayTransaction() {
-    $val = [];
-    $val['subtotal'] = '35.00';
-    $val['tax'] = '5.00';
-    $val['total'] = '70.00';
-    $val['items'] = $this->newTransactionDisplayItems();
-    return $val;
-  }
-  private function newTransactionDisplayItems() {
-    $val = [];
-    array_push($val, $this->newTransactionDisplayItem2());
-    return $val;
-  }
-  private function newTransactionDisplayItem2() {
-    $val = [];
-    $val['description'] = 'Leki Trekking Poles';
-    $val['price'] = '35.00';
-    $val['quantity'] = 2;
-    $val['extended'] = '70.00';
-    $val['discounts'] = $this->newTransactionDisplayDiscounts();
-    return $val;
-  }
-  private function newTransactionDisplayDiscounts() {
-    $val = [];
-    array_push($val, $this->newTransactionDisplayDiscount2());
-    return $val;
-  }
-  private function newTransactionDisplayDiscount2() {
-    $val = [];
-    $val['description'] = 'memberDiscount';
-    $val['amount'] = '10.00';
-    return $val;
   }
 
 }

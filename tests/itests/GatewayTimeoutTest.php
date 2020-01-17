@@ -23,13 +23,14 @@ class GatewayTimeoutTest extends BlockChypTestCase
 
     $this->processTestDelay("GatewayTimeoutTest");
 
-    // setup request object
-    $request = [];
-    $request['timeout'] = 1;
-    $request['pan'] = '5555555555554444';
-    $request['amount'] = '25.55';
-    $request['test'] = true;
-    $request['transactionRef'] = $this->getUUID();
+    // Set request values
+    $request = [
+      'timeout' => 1,
+      'pan' => '5555555555554444',
+      'amount' => '25.55',
+      'test' => TRUE,
+      'transactionRef' => $this->getUUID(),
+    ];
 
     self::logRequest($request);
 
@@ -38,6 +39,5 @@ class GatewayTimeoutTest extends BlockChypTestCase
 
     self::logResponse($response);
   }
-
 
 }

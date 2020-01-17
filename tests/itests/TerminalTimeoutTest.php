@@ -23,12 +23,13 @@ class TerminalTimeoutTest extends BlockChypTestCase
 
     $this->processTestDelay("TerminalTimeoutTest");
 
-    // setup request object
-    $request = [];
-    $request['timeout'] = 1;
-    $request['terminalName'] = 'Test Terminal';
-    $request['amount'] = '25.15';
-    $request['test'] = true;
+    // Set request values
+    $request = [
+      'timeout' => 1,
+      'terminalName' => 'Test Terminal',
+      'amount' => '25.15',
+      'test' => TRUE,
+    ];
 
     self::logRequest($request);
 
@@ -37,6 +38,5 @@ class TerminalTimeoutTest extends BlockChypTestCase
 
     self::logResponse($response);
   }
-
 
 }

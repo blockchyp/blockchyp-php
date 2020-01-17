@@ -1,24 +1,26 @@
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['terminalName'] = 'Test Terminal';
-  $request['transactionId'] = '<PREVIOUS TRANSACTION ID>';
-  // Optional amount for partial refunds.
-  $request['amount'] = '5.00';
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::refund($request);
+  // Populate request values
+  $request = [
+    'terminalName' => 'Test Terminal',
+    'transactionId' => '<PREVIOUS TRANSACTION ID>',
 
-  // view the result
+    // Optional amount for partial refunds.
+    'amount' => '5.00',
+  ];
+
+  $response = BlockChyp::refund($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>

@@ -1,25 +1,27 @@
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['terminalName'] = 'Test Terminal';
-  // Type of prompt. Can be 'email', 'phone', 'customer-number', or
-  // 'rewards-number'.
-  $request['promptType'] = BlockChyp::PROMPT_TYPE_EMAIL;
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::textPrompt($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'terminalName' => 'Test Terminal',
 
-  // view the result
+    // Type of prompt. Can be 'email', 'phone', 'customer-number', or
+    // 'rewards-number'.
+    'promptType' => BlockChyp::PROMPT_TYPE_EMAIL,
+  ];
+
+  $response = BlockChyp::textPrompt($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>

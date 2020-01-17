@@ -1,25 +1,26 @@
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['terminalName'] = 'Test Terminal';
-  $request['prompt'] = 'Would you like to become a member?';
-  $request['yesCaption'] = 'Yes';
-  $request['noCaption'] = 'No';
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::booleanPrompt($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'terminalName' => 'Test Terminal',
+    'prompt' => 'Would you like to become a member?',
+    'yesCaption' => 'Yes',
+    'noCaption' => 'No',
+  ];
 
-  // view the result
+  $response = BlockChyp::booleanPrompt($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>

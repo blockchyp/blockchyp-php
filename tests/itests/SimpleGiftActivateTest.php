@@ -23,11 +23,12 @@ class SimpleGiftActivateTest extends BlockChypTestCase
 
     $this->processTestDelay("SimpleGiftActivateTest");
 
-    // setup request object
-    $request = [];
-    $request['test'] = true;
-    $request['terminalName'] = 'Test Terminal';
-    $request['amount'] = '50.00';
+    // Set request values
+    $request = [
+      'test' => TRUE,
+      'terminalName' => 'Test Terminal',
+      'amount' => '50.00',
+    ];
 
     self::logRequest($request);
 
@@ -35,10 +36,9 @@ class SimpleGiftActivateTest extends BlockChypTestCase
 
     self::logResponse($response);
 
-    // response assertions
+    // Response assertions
     $this->assertTrue($response['approved']);
     $this->assertNotEmpty($response['publicKey']);
   }
-
 
 }

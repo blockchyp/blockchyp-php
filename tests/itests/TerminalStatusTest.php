@@ -23,9 +23,10 @@ class TerminalStatusTest extends BlockChypTestCase
 
     $this->processTestDelay("TerminalStatusTest");
 
-    // setup request object
-    $request = [];
-    $request['terminalName'] = 'Test Terminal';
+    // Set request values
+    $request = [
+      'terminalName' => 'Test Terminal',
+    ];
 
     self::logRequest($request);
 
@@ -33,10 +34,9 @@ class TerminalStatusTest extends BlockChypTestCase
 
     self::logResponse($response);
 
-    // response assertions
+    // Response assertions
     $this->assertTrue($response['success']);
     $this->assertTrue($response['idle']);
   }
-
 
 }

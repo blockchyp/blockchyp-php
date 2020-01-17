@@ -23,27 +23,13 @@ class SimpleReversalTest extends BlockChypTestCase
 
     $this->processTestDelay("SimpleReversalTest");
 
-    // setup request object
-    $request = [];
-    $request['pan'] = '4111111111111111';
-    $request['amount'] = '25.55';
-    $request['test'] = true;
-    $request['transactionRef'] = $this->getUUID();
-    self::logRequest($request);
-    $response = BlockChyp::charge($request);
-    self::logResponse($response);
-    if ($response['transactionId']) {
-      $lastTransactionId = $response['transactionId'];
-    }
-    if ($response['transactionRef']) {
-      $lastTransactionRef = $response['transactionRef'];
-    }
-
-
-    // setup request object
-    $request = [];
-    $request['transactionRef'] = $lastTransactionRef;
-    $request['test'] = true;
+    // Set request values
+    $request = [
+      'pan' => '4111111111111111',
+      'amount' => '25.55',
+      'test' => TRUE,
+      'transactionRef' => $this->getUUID(),
+    ];
 
     self::logRequest($request);
 
@@ -51,9 +37,27 @@ class SimpleReversalTest extends BlockChypTestCase
 
     self::logResponse($response);
 
-    // response assertions
+    if (!empty($response['transactionId'])) {
+      $lastTransactionId = $response['transactionId'];
+    }
+    if (!empty($response['transactionRef'])) {
+      $lastTransactionRef = $response['transactionRef'];
+    }
+
+    // Set request values
+    $request = [
+      'transactionRef' => $lastTransactionRef,
+      'test' => TRUE,
+    ];
+
+    self::logRequest($request);
+
+    $response = BlockChyp::reverse($request);
+
+    self::logResponse($response);
+
+    // Response assertions
     $this->assertTrue($response['approved']);
   }
-
 
 }

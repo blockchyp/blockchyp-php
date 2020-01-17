@@ -23,26 +23,12 @@ class SimpleCaptureTest extends BlockChypTestCase
 
     $this->processTestDelay("SimpleCaptureTest");
 
-    // setup request object
-    $request = [];
-    $request['pan'] = '4111111111111111';
-    $request['amount'] = '25.55';
-    $request['test'] = true;
-    self::logRequest($request);
-    $response = BlockChyp::preauth($request);
-    self::logResponse($response);
-    if ($response['transactionId']) {
-      $lastTransactionId = $response['transactionId'];
-    }
-    if ($response['transactionRef']) {
-      $lastTransactionRef = $response['transactionRef'];
-    }
-
-
-    // setup request object
-    $request = [];
-    $request['transactionId'] = $lastTransactionId;
-    $request['test'] = true;
+    // Set request values
+    $request = [
+      'pan' => '4111111111111111',
+      'amount' => '25.55',
+      'test' => TRUE,
+    ];
 
     self::logRequest($request);
 
@@ -50,9 +36,27 @@ class SimpleCaptureTest extends BlockChypTestCase
 
     self::logResponse($response);
 
-    // response assertions
+    if (!empty($response['transactionId'])) {
+      $lastTransactionId = $response['transactionId'];
+    }
+    if (!empty($response['transactionRef'])) {
+      $lastTransactionRef = $response['transactionRef'];
+    }
+
+    // Set request values
+    $request = [
+      'transactionId' => $lastTransactionId,
+      'test' => TRUE,
+    ];
+
+    self::logRequest($request);
+
+    $response = BlockChyp::capture($request);
+
+    self::logResponse($response);
+
+    // Response assertions
     $this->assertTrue($response['approved']);
   }
-
 
 }

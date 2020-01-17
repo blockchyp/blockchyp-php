@@ -23,10 +23,11 @@ class TerminalGiftCardBalanceTest extends BlockChypTestCase
 
     $this->processTestDelay("TerminalGiftCardBalanceTest");
 
-    // setup request object
-    $request = [];
-    $request['test'] = true;
-    $request['terminalName'] = 'Test Terminal';
+    // Set request values
+    $request = [
+      'test' => TRUE,
+      'terminalName' => 'Test Terminal',
+    ];
 
     self::logRequest($request);
 
@@ -34,10 +35,9 @@ class TerminalGiftCardBalanceTest extends BlockChypTestCase
 
     self::logResponse($response);
 
-    // response assertions
+    // Response assertions
     $this->assertTrue($response['success']);
     $this->assertNotEmpty($response['remainingBalance']);
   }
-
 
 }

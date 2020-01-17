@@ -23,27 +23,13 @@ class SimpleVoidTest extends BlockChypTestCase
 
     $this->processTestDelay("SimpleVoidTest");
 
-    // setup request object
-    $request = [];
-    $request['pan'] = '4111111111111111';
-    $request['amount'] = '25.55';
-    $request['test'] = true;
-    $request['transactionRef'] = $this->getUUID();
-    self::logRequest($request);
-    $response = BlockChyp::charge($request);
-    self::logResponse($response);
-    if ($response['transactionId']) {
-      $lastTransactionId = $response['transactionId'];
-    }
-    if ($response['transactionRef']) {
-      $lastTransactionRef = $response['transactionRef'];
-    }
-
-
-    // setup request object
-    $request = [];
-    $request['transactionId'] = $lastTransactionId;
-    $request['test'] = true;
+    // Set request values
+    $request = [
+      'pan' => '4111111111111111',
+      'amount' => '25.55',
+      'test' => TRUE,
+      'transactionRef' => $this->getUUID(),
+    ];
 
     self::logRequest($request);
 
@@ -51,9 +37,27 @@ class SimpleVoidTest extends BlockChypTestCase
 
     self::logResponse($response);
 
-    // response assertions
+    if (!empty($response['transactionId'])) {
+      $lastTransactionId = $response['transactionId'];
+    }
+    if (!empty($response['transactionRef'])) {
+      $lastTransactionRef = $response['transactionRef'];
+    }
+
+    // Set request values
+    $request = [
+      'transactionId' => $lastTransactionId,
+      'test' => TRUE,
+    ];
+
+    self::logRequest($request);
+
+    $response = BlockChyp::void($request);
+
+    self::logResponse($response);
+
+    // Response assertions
     $this->assertTrue($response['approved']);
   }
-
 
 }

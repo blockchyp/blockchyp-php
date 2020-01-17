@@ -36,37 +36,24 @@ to run a basic terminal transaction.
 
 ```
 <?php
-  // for composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
-  #require_once('/path/to/blockchyp/init.php');
+  use \BlockChyp\BlockChyp;
 
-  \BlockChyp\BlockChyp::setApiKey("SPBXTSDAQVFFX5MGQMUMIRINVI");
-  \BlockChyp\BlockChyp::setBearerToken("7BXBTBUPSL3BP7I6Z2CFU6H3WQ");
-  \BlockChyp\BlockChyp::setSigningKey("bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e");
+  BlockChyp::setApiKey('SPBXTSDAQVFFX5MGQMUMIRINVI');
+  BlockChyp::setBearerToken('7BXBTBUPSL3BP7I6Z2CFU6H3WQ');
+  BlockChyp::setSigningKey('bcae3708938cb8004ab1278e6c0fcd68f9d815e1c3c86228d028242b147af58e');
 
-  // setup request object
-  $request = [];
-  $request["test"] = true;  //set to false for production merchant accounts
-  $request["terminalName"] = "Test Terminal";
-  $request["amount"] = "55.00";
+  $request = [
+    'test' => TRUE,
+    'terminalName' => 'Test Terminal',
+    'amount' => '55.00',
+  ];
 
-  $response = \BlockChyp\BlockChyp::charge($request);
+  $response = BlockChyp::charge($request);
 
-  //process the result
-  if ($response["approved"]) {
-    echo "Approved" . PHP_EOL;
-  }
-
-  echo $response["authCode"] . PHP_EOL;
-  echo $response["authorizedAmount"] . PHP_EOL;
-  echo $response["receiptSuggestions"] . PHP_EOL;
-?>
+  echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
 ```
-
-
-
 
 
 ## The Rest APIs
@@ -124,29 +111,29 @@ Executes a standard direct preauth and capture.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['terminalName'] = 'Test Terminal';
-  $request['amount'] = '55.00';
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::charge($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'terminalName' => 'Test Terminal',
+    'amount' => '55.00',
+  ];
 
-  // view the result
+  $response = BlockChyp::charge($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -156,29 +143,29 @@ Executes a preauthorization intended to be captured later.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['terminalName'] = 'Test Terminal';
-  $request['amount'] = '27.00';
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::preauth($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'terminalName' => 'Test Terminal',
+    'amount' => '27.00',
+  ];
 
-  // view the result
+  $response = BlockChyp::preauth($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -188,27 +175,27 @@ Tests connectivity with a payment terminal.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['terminalName'] = 'Test Terminal';
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::ping($request);
+  // Populate request values
+  $request = [
+    'terminalName' => 'Test Terminal',
+  ];
 
-  // view the result
+  $response = BlockChyp::ping($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -218,29 +205,29 @@ Checks the remaining balance on a payment method.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['terminalName'] = 'Test Terminal';
-  $request['cardType'] = BlockChyp::CARD_TYPE_EBT;
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::balance($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'terminalName' => 'Test Terminal',
+    'cardType' => BlockChyp::CARD_TYPE_EBT,
+  ];
 
-  // view the result
+  $response = BlockChyp::balance($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -250,28 +237,28 @@ Clears the line item display and any in progress transaction.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['terminalName'] = 'Test Terminal';
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::clear($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'terminalName' => 'Test Terminal',
+  ];
 
-  // view the result
+  $response = BlockChyp::clear($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -281,41 +268,47 @@ Prompts the user to accept terms and conditions.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['terminalName'] = 'Test Terminal';
-  // Alias for a Terms and Conditions template configured in the BlockChyp
-  // dashboard.
-  $request['tcAlias'] = 'hippa';
-  // Name of the contract or document if not using an alias.
-  $request['tcName'] = 'HIPPA Disclosure';
-  // Full text of the contract or disclosure if not using an alias.
-  $request['tcContent'] = 'Full contract text';
-  // File format for the signature image.
-  $request['sigFormat'] = BlockChyp::SIGNATURE_FORMAT_PNG;
-  // Width of the signature image in pixels.
-  $request['sigWidth'] = 200;
-  // Whether or not a signature is required. Defaults to true.
-  $request['sigRequired'] = true;
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::termsAndConditions($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'terminalName' => 'Test Terminal',
 
-  // view the result
+    // Alias for a Terms and Conditions template configured in the BlockChyp
+    // dashboard.
+    'tcAlias' => 'hippa',
+
+    // Name of the contract or document if not using an alias.
+    'tcName' => 'HIPPA Disclosure',
+
+    // Full text of the contract or disclosure if not using an alias.
+    'tcContent' => 'Full contract text',
+
+    // File format for the signature image.
+    'sigFormat' => BlockChyp::SIGNATURE_FORMAT_PNG,
+
+    // Width of the signature image in pixels.
+    'sigWidth' => 200,
+
+    // Whether or not a signature is required. Defaults to true.
+    'sigRequired' => TRUE,
+  ];
+
+  $response = BlockChyp::termsAndConditions($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -327,62 +320,47 @@ groups.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['terminalName'] = 'Test Terminal';
-  $request['transaction'] = newTransactionDisplayTransaction();
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::updateTransactionDisplay($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'terminalName' => 'Test Terminal',
+    'transaction' => [
+      'subtotal' => '60.00',
+      'tax' => '5.00',
+      'total' => '65.00',
+      'items' => [
+        [
+          'description' => 'Leki Trekking Poles',
+          'price' => '35.00',
+          'quantity' => 2,
+          'extended' => '70.00',
+          'discounts' => [
+            [
+              'description' => 'memberDiscount',
+              'amount' => '10.00',
+            ],
+          ],
+        ],
+      ],
+    ],
+  ];
 
-  // view the result
+  $response = BlockChyp::updateTransactionDisplay($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-  function newTransactionDisplayTransaction() {
-    $val = [];
-    $val['subtotal'] = '60.00';
-    $val['tax'] = '5.00';
-    $val['total'] = '65.00';
-    $val['items'] = newTransactionDisplayItems();
-    return $val;
-  }
-  function newTransactionDisplayItems() {
-    $val = [];
-    array_push($val, newTransactionDisplayItem2());
-    return $val;
-  }
-  function newTransactionDisplayItem2() {
-    $val = [];
-    $val['description'] = 'Leki Trekking Poles';
-    $val['price'] = '35.00';
-    $val['quantity'] = 2;
-    $val['extended'] = '70.00';
-    $val['discounts'] = newTransactionDisplayDiscounts();
-    return $val;
-  }
-  function newTransactionDisplayDiscounts() {
-    $val = [];
-    array_push($val, newTransactionDisplayDiscount2());
-    return $val;
-  }
-  function newTransactionDisplayDiscount2() {
-    $val = [];
-    $val['description'] = 'memberDiscount';
-    $val['amount'] = '10.00';
-    return $val;
-  }
-?>
-
 
 ```
 
@@ -392,62 +370,47 @@ Displays a new transaction on the terminal.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['terminalName'] = 'Test Terminal';
-  $request['transaction'] = newTransactionDisplayTransaction();
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::newTransactionDisplay($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'terminalName' => 'Test Terminal',
+    'transaction' => [
+      'subtotal' => '60.00',
+      'tax' => '5.00',
+      'total' => '65.00',
+      'items' => [
+        [
+          'description' => 'Leki Trekking Poles',
+          'price' => '35.00',
+          'quantity' => 2,
+          'extended' => '70.00',
+          'discounts' => [
+            [
+              'description' => 'memberDiscount',
+              'amount' => '10.00',
+            ],
+          ],
+        ],
+      ],
+    ],
+  ];
 
-  // view the result
+  $response = BlockChyp::newTransactionDisplay($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-  function newTransactionDisplayTransaction() {
-    $val = [];
-    $val['subtotal'] = '60.00';
-    $val['tax'] = '5.00';
-    $val['total'] = '65.00';
-    $val['items'] = newTransactionDisplayItems();
-    return $val;
-  }
-  function newTransactionDisplayItems() {
-    $val = [];
-    array_push($val, newTransactionDisplayItem2());
-    return $val;
-  }
-  function newTransactionDisplayItem2() {
-    $val = [];
-    $val['description'] = 'Leki Trekking Poles';
-    $val['price'] = '35.00';
-    $val['quantity'] = 2;
-    $val['extended'] = '70.00';
-    $val['discounts'] = newTransactionDisplayDiscounts();
-    return $val;
-  }
-  function newTransactionDisplayDiscounts() {
-    $val = [];
-    array_push($val, newTransactionDisplayDiscount2());
-    return $val;
-  }
-  function newTransactionDisplayDiscount2() {
-    $val = [];
-    $val['description'] = 'memberDiscount';
-    $val['amount'] = '10.00';
-    return $val;
-  }
-?>
-
 
 ```
 
@@ -457,31 +420,32 @@ Asks the consumer text based question.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['terminalName'] = 'Test Terminal';
-  // Type of prompt. Can be 'email', 'phone', 'customer-number', or
-  // 'rewards-number'.
-  $request['promptType'] = BlockChyp::PROMPT_TYPE_EMAIL;
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::textPrompt($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'terminalName' => 'Test Terminal',
 
-  // view the result
+    // Type of prompt. Can be 'email', 'phone', 'customer-number', or
+    // 'rewards-number'.
+    'promptType' => BlockChyp::PROMPT_TYPE_EMAIL,
+  ];
+
+  $response = BlockChyp::textPrompt($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -491,31 +455,31 @@ Asks the consumer a yes/no question.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['terminalName'] = 'Test Terminal';
-  $request['prompt'] = 'Would you like to become a member?';
-  $request['yesCaption'] = 'Yes';
-  $request['noCaption'] = 'No';
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::booleanPrompt($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'terminalName' => 'Test Terminal',
+    'prompt' => 'Would you like to become a member?',
+    'yesCaption' => 'Yes',
+    'noCaption' => 'No',
+  ];
 
-  // view the result
+  $response = BlockChyp::booleanPrompt($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -525,29 +489,29 @@ Displays a short message on the terminal.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['terminalName'] = 'Test Terminal';
-  $request['message'] = 'Thank you for your business.';
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::message($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'terminalName' => 'Test Terminal',
+    'message' => 'Thank you for your business.',
+  ];
 
-  // view the result
+  $response = BlockChyp::message($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -557,30 +521,31 @@ Executes a refund.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['terminalName'] = 'Test Terminal';
-  $request['transactionId'] = '<PREVIOUS TRANSACTION ID>';
-  // Optional amount for partial refunds.
-  $request['amount'] = '5.00';
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::refund($request);
+  // Populate request values
+  $request = [
+    'terminalName' => 'Test Terminal',
+    'transactionId' => '<PREVIOUS TRANSACTION ID>',
 
-  // view the result
+    // Optional amount for partial refunds.
+    'amount' => '5.00',
+  ];
+
+  $response = BlockChyp::refund($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -590,28 +555,28 @@ Adds a new payment method to the token vault.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['terminalName'] = 'Test Terminal';
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::enroll($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'terminalName' => 'Test Terminal',
+  ];
 
-  // view the result
+  $response = BlockChyp::enroll($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -621,29 +586,29 @@ Activates or recharges a gift card.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['terminalName'] = 'Test Terminal';
-  $request['amount'] = '50.00';
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::giftActivate($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'terminalName' => 'Test Terminal',
+    'amount' => '50.00',
+  ];
 
-  // view the result
+  $response = BlockChyp::giftActivate($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -661,28 +626,28 @@ request to the terminal timed out before you got a response.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['terminalName'] = 'Test Terminal';
-  $request['transactionRef'] = '<LAST TRANSACTION REF>';
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::reverse($request);
+  // Populate request values
+  $request = [
+    'terminalName' => 'Test Terminal',
+    'transactionRef' => '<LAST TRANSACTION REF>',
+  ];
 
-  // view the result
+  $response = BlockChyp::reverse($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -692,28 +657,28 @@ Captures a preauthorization.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['transactionId'] = '<PREAUTH TRANSACTION ID>';
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::capture($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'transactionId' => '<PREAUTH TRANSACTION ID>',
+  ];
 
-  // view the result
+  $response = BlockChyp::capture($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -723,27 +688,27 @@ Closes the current credit card batch.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::closeBatch($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+  ];
 
-  // view the result
+  $response = BlockChyp::closeBatch($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -753,28 +718,28 @@ Discards a previous preauth transaction.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['test'] = true;
-  $request['transactionId'] = '<PREVIOUS TRANSACTION ID>';
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::void($request);
+  // Populate request values
+  $request = [
+    'test' => TRUE,
+    'transactionId' => '<PREVIOUS TRANSACTION ID>',
+  ];
 
-  // view the result
+  $response = BlockChyp::void($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
@@ -784,27 +749,27 @@ Returns the current status of a terminal.
 
 ```php
 <?php
-  // for composer based systems
+  // For composer based systems
   require_once('vendor/autoload.php');
 
-  // for manual installation
+  // For manual installation
   #require_once('/path/to/blockchyp/init.php');
 
-  \BlockChyp\BlockChyp::setApiKey(getenv('BC_API_KEY'));
-  \BlockChyp\BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-  \BlockChyp\BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+  use \BlockChyp\BlockChyp;
 
-  // setup request object
-  $request = [];
-  $request['terminalName'] = 'Test Terminal';
+  BlockChyp::setApiKey(getenv('BC_API_KEY'));
+  BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+  BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
-  $response = \BlockChyp\BlockChyp::terminalStatus($request);
+  // Populate request values
+  $request = [
+    'terminalName' => 'Test Terminal',
+  ];
 
-  // view the result
+  $response = BlockChyp::terminalStatus($request);
+
+  // View the result
   echo 'Response: ' . print_r($response, TRUE) . PHP_EOL;
-
-?>
-
 
 ```
 
