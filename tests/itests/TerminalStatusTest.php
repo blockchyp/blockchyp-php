@@ -7,36 +7,34 @@ require_once(__DIR__ . '/../BlockChypTestCase.php');
 class TerminalStatusTest extends BlockChypTestCase
 {
 
-  /**
-   * @group itest
-   */
-  public function testTerminalStatus()
-  {
+    /**
+     * @group itest
+     */
+    public function testTerminalStatus()
+    {
+        $config = $this->loadTestConfiguration();
 
-    $config = $this->loadTestConfiguration();
+        BlockChyp::setApiKey($config->apiKey);
+        BlockChyp::setBearerToken($config->bearerToken);
+        BlockChyp::setSigningKey($config->signingKey);
+        BlockChyp::setGatewayHost($config->gatewayHost);
+        BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-    BlockChyp::setApiKey($config->apiKey);
-    BlockChyp::setBearerToken($config->bearerToken);
-    BlockChyp::setSigningKey($config->signingKey);
-    BlockChyp::setGatewayHost($config->gatewayHost);
-    BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        $this->processTestDelay("TerminalStatusTest");
 
-    $this->processTestDelay("TerminalStatusTest");
+        // Set request values
+        $request = [
+            'terminalName' => 'Test Terminal',
+        ];
 
-    // Set request values
-    $request = [
-      'terminalName' => 'Test Terminal',
-    ];
+        self::logRequest($request);
 
-    self::logRequest($request);
+        $response = BlockChyp::terminalStatus($request);
 
-    $response = BlockChyp::terminalStatus($request);
+        self::logResponse($response);
 
-    self::logResponse($response);
-
-    // Response assertions
-    $this->assertTrue($response['success']);
-    $this->assertTrue($response['idle']);
-  }
-
+        // Response assertions
+        $this->assertTrue($response['success']);
+        $this->assertTrue($response['idle']);
+    }
 }

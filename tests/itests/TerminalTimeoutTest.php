@@ -7,36 +7,34 @@ require_once(__DIR__ . '/../BlockChypTestCase.php');
 class TerminalTimeoutTest extends BlockChypTestCase
 {
 
-  /**
-   * @group itest
-   */
-  public function testTerminalTimeout()
-  {
+    /**
+     * @group itest
+     */
+    public function testTerminalTimeout()
+    {
+        $config = $this->loadTestConfiguration();
 
-    $config = $this->loadTestConfiguration();
+        BlockChyp::setApiKey($config->apiKey);
+        BlockChyp::setBearerToken($config->bearerToken);
+        BlockChyp::setSigningKey($config->signingKey);
+        BlockChyp::setGatewayHost($config->gatewayHost);
+        BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-    BlockChyp::setApiKey($config->apiKey);
-    BlockChyp::setBearerToken($config->bearerToken);
-    BlockChyp::setSigningKey($config->signingKey);
-    BlockChyp::setGatewayHost($config->gatewayHost);
-    BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        $this->processTestDelay("TerminalTimeoutTest");
 
-    $this->processTestDelay("TerminalTimeoutTest");
+        // Set request values
+        $request = [
+            'timeout' => 1,
+            'terminalName' => 'Test Terminal',
+            'amount' => '25.15',
+            'test' => true,
+        ];
 
-    // Set request values
-    $request = [
-      'timeout' => 1,
-      'terminalName' => 'Test Terminal',
-      'amount' => '25.15',
-      'test' => TRUE,
-    ];
+        self::logRequest($request);
 
-    self::logRequest($request);
+        $this->expectException(\BlockChyp\Exception\ConnectionException::class);
+        $response = BlockChyp::charge($request);
 
-    $this->expectException(\BlockChyp\Exception\ConnectionException::class);
-    $response = BlockChyp::charge($request);
-
-    self::logResponse($response);
-  }
-
+        self::logResponse($response);
+    }
 }

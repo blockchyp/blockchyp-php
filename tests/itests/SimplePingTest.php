@@ -7,36 +7,34 @@ require_once(__DIR__ . '/../BlockChypTestCase.php');
 class SimplePingTest extends BlockChypTestCase
 {
 
-  /**
-   * @group itest
-   */
-  public function testSimplePing()
-  {
+    /**
+     * @group itest
+     */
+    public function testSimplePing()
+    {
+        $config = $this->loadTestConfiguration();
 
-    $config = $this->loadTestConfiguration();
+        BlockChyp::setApiKey($config->apiKey);
+        BlockChyp::setBearerToken($config->bearerToken);
+        BlockChyp::setSigningKey($config->signingKey);
+        BlockChyp::setGatewayHost($config->gatewayHost);
+        BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-    BlockChyp::setApiKey($config->apiKey);
-    BlockChyp::setBearerToken($config->bearerToken);
-    BlockChyp::setSigningKey($config->signingKey);
-    BlockChyp::setGatewayHost($config->gatewayHost);
-    BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        $this->processTestDelay("SimplePingTest");
 
-    $this->processTestDelay("SimplePingTest");
+        // Set request values
+        $request = [
+            'test' => true,
+            'terminalName' => 'Test Terminal',
+        ];
 
-    // Set request values
-    $request = [
-      'test' => TRUE,
-      'terminalName' => 'Test Terminal',
-    ];
+        self::logRequest($request);
 
-    self::logRequest($request);
+        $response = BlockChyp::ping($request);
 
-    $response = BlockChyp::ping($request);
+        self::logResponse($response);
 
-    self::logResponse($response);
-
-    // Response assertions
-    $this->assertTrue($response['success']);
-  }
-
+        // Response assertions
+        $this->assertTrue($response['success']);
+    }
 }

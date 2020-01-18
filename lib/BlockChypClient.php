@@ -4,506 +4,530 @@ namespace BlockChyp;
 
 require_once(__DIR__ . '/CryptoUtils.php');
 
+use DateInterval;
+use DateTime;
+
 /**
  * Base class for the PHP BlockChyp client.
  *
  * @package BlockChyp
  */
-class BlockChypClient {
+class BlockChypClient
+{
+    const CARD_TYPE_CREDIT = 0;
+    const CARD_TYPE_DEBIT = 1;
+    const CARD_TYPE_EBT = 2;
+    const CARD_TYPE_BLOCKCHAIN_GIFT = 3;
 
-  const CARD_TYPE_CREDIT = 0;
-  const CARD_TYPE_DEBIT = 1;
-  const CARD_TYPE_EBT = 2;
-  const CARD_TYPE_BLOCKCHAIN_GIFT = 3;
+    const SIGNATURE_FORMAT_NONE = '';
+    const SIGNATURE_FORMAT_PNG = 'png';
+    const SIGNATURE_FORMAT_JPG = 'jpg';
+    const SIGNATURE_FORMAT_GIF = 'gif';
 
-  const SIGNATURE_FORMAT_NONE = '';
-  const SIGNATURE_FORMAT_PNG = 'png';
-  const SIGNATURE_FORMAT_JPG = 'jpg';
-  const SIGNATURE_FORMAT_GIF = 'gif';
+    const PROMPT_TYPE_AMOUNT = 'amount';
+    const PROMPT_TYPE_EMAIL = 'email';
+    const PROMPT_TYPE_PHONE_NUMBER = 'phone';
+    const PROMPT_TYPE_CUSTOMER_NUMBER = 'customer-number';
+    const PROMPT_TYPE_REWARDS_NUMBER = 'rewards-number';
 
-  const PROMPT_TYPE_AMOUNT = 'amount';
-  const PROMPT_TYPE_EMAIL = 'email';
-  const PROMPT_TYPE_PHONE_NUMBER = 'phone';
-  const PROMPT_TYPE_CUSTOMER_NUMBER = 'customer-number';
-  const PROMPT_TYPE_REWARDS_NUMBER = 'rewards-number';
+    const VERSION = '2.0.1-rc1';
 
-  const VERSION = '2.0.1-rc1';
+    protected static $apiKey;
 
-  protected static $apiKey;
+    protected static $bearerToken;
 
-  protected static $bearerToken;
+    protected static $signingKey;
 
-  protected static $signingKey;
+    protected static $gatewayHost = 'https://api.blockchyp.com';
 
-  protected static $gatewayHost = 'https://api.blockchyp.com';
+    protected static $testGatewayHost = 'https://test.blockchyp.com';
 
-  protected static $testGatewayHost = 'https://test.blockchyp.com';
+    protected static $https = true;
 
-  protected static $https = TRUE;
+    protected static $routeCacheLocation;
 
-  protected static $routeCacheLocation;
+    protected static $routeCacheTTL = 60;
 
-  protected static $routeCacheTTL = 60;
+    protected static $gatewayTimeout = 20;
 
-  protected static $gatewayTimeout = 20;
+    protected static $terminalTimeout = 120;
 
-  protected static $terminalTimeout = 120;
+    protected static $offlineCacheEnabled = true;
 
-  protected static $offlineCacheEnabled = TRUE;
+    protected static $routeCache = [];
 
-  protected static $routeCache = [];
+    private static $offlineFixedKey = 'cb22789c9d5c344a10e0474f134db39e25eb3bbf5a1b1a5e89b507f15ea9519c';
 
-  private static $offlineFixedKey = 'cb22789c9d5c344a10e0474f134db39e25eb3bbf5a1b1a5e89b507f15ea9519c';
+    public static function setApiKey($apiKey)
+    {
+        self::$apiKey = $apiKey;
+    }
 
-  public static function setApiKey($apiKey) {
-    self::$apiKey = $apiKey;
-  }
+    public static function setBearerToken($bearerToken)
+    {
+        self::$bearerToken = $bearerToken;
+    }
 
-  public static function setBearerToken($bearerToken) {
-    self::$bearerToken = $bearerToken;
-  }
+    public static function setSigningKey($signingKey)
+    {
+        self::$signingKey = $signingKey;
+    }
 
-  public static function setSigningKey($signingKey) {
-    self::$signingKey = $signingKey;
-  }
+    public static function setGatewayHost($gatewayHost)
+    {
+        self::$gatewayHost = $gatewayHost;
+    }
 
-  public static function setGatewayHost ($gatewayHost) {
-    self::$gatewayHost = $gatewayHost;
-  }
+    public static function setTestGatewayHost($testGatewayHost)
+    {
+        self::$testGatewayHost = $testGatewayHost;
+    }
 
-  public static function setTestGatewayHost ($testGatewayHost) {
-    self::$testGatewayHost = $testGatewayHost;
-  }
+    public static function setHttps($https)
+    {
+        self::$https = $https;
+    }
 
-  public static function setHttps($https) {
-    self::$https = $https;
-  }
+    public static function setRouteCacheTTL($routeCacheTTL)
+    {
+        self::$routeCacheTTL = $routeCacheTTL;
+    }
 
-  public static function setRouteCacheTTL($routeCacheTTL) {
-    self::$routeCacheTTL = $routeCacheTTL;
-  }
+    public static function setRouteCacheLocation($routeCacheLocation)
+    {
+        self::$routeCacheLocation = $routeCacheLocation;
+    }
 
-  public static function setRouteCacheLocation($routeCacheLocation) {
-    self::$routeCacheLocation = $routeCacheLocation;
-  }
+    public static function setGatewayTimeout($gatewayTimeout)
+    {
+        self::$gatewayTimeout = $gatewayTimeout;
+    }
 
-  public static function setGatewayTimeout($gatewayTimeout) {
-    self::$gatewayTimeout = $gatewayTimeout;
-  }
+    public static function setTerminalTimeout($terminalTimeout)
+    {
+        self::$terminalTimeout = $terminalTimeout;
+    }
 
-  public static function setTerminalTimeout($terminalTimeout) {
-    self::$terminalTimeout = $terminalTimeout;
-  }
+    protected static function routeTerminalRequest($method, $terminalPath, $cloudPath, $request)
+    {
+        $sigFormat = self::getSignatureOptions($request);
+        if (!is_null($sigFormat)) {
+            $request['sigFormat'] = $sigFormat;
+        }
 
-  protected static function generateErrorResponse($msg) {
+        if (!empty($request['terminalName'])) {
+            $route = self::resolveTerminalRoute($request['terminalName']);
+            if (empty($route) || empty($route['success'])) {
+                return self::generateErrorResponse('Unknown Terminal');
+            } elseif (!empty($route['cloudRelayEnabled'])) {
+                $response = self::gatewayRequest($method, $cloudPath, $request, true);
+            } else {
+                $response = self::terminalRequest($method, $route, $terminalPath, $request);
+            }
+        } else {
+            $response = self::gatewayRequest($method, $cloudPath, $request);
+        }
 
-    return [
-      'success' => FALSE,
+        self::handleSignature($request, $response);
+
+        return $response;
+    }
+
+    protected static function gatewayRequest($method, $path, $request=null, $relay=false)
+    {
+        $url = self::resolveGatewayURL($path, !empty($request['test']));
+
+        $content = json_encode($request);
+
+        $headers = self::generateGatewayHeaders();
+
+        array_push($headers, 'Content-Type: application/json');
+        array_push($headers, 'Content-Length: ' . strlen($content));
+
+        $timeout = self::getTimeout($request, $relay ? self::$terminalTimeout : self::$gatewayTimeout);
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_USERAGENT, self::getUserAgent());
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        try {
+            if (!$result = curl_exec($ch)) {
+                throw Exception\ConnectionException::factory(curl_error($ch));
+            }
+        } finally {
+            curl_close($ch);
+        }
+
+        return json_decode($result, true);
+    }
+
+    private static function generateErrorResponse($msg)
+    {
+        return [
+      'success' => false,
       'error' => $msg,
       'responseDescription' => $msg
     ];
-
-  }
-
-  protected static function routeCacheGet($terminalName, $stale) {
-
-    $cacheKey = self::$apiKey . $terminalName;
-
-    if (isset(self::$routeCache[$cacheKey])) {
-      $routeCacheEntry = self::$routeCache[$cacheKey];
-
-      $now = new \DateTime();
-      $ttl = new \DateTime($routeCacheEntry['ttl']['date']);
-
-      if ($stale || ($now < $ttl)) {
-        return $self::routeCacheEntry['route'];
-      }
     }
 
-    if (self::$offlineCacheEnabled) {
-      $offlineCache = self::readOfflineCache();
+    private static function routeCacheGet($terminalName, $stale = false)
+    {
+        $cacheKey = self::toRouteKey($terminalName, self::$apiKey);
 
-      if (isset($offlineCache[$cacheKey])) {
-        $routeCacheEntry = $offlineCache[$cacheKey];
-        $route = $routeCacheEntry['route'];
-        $txCreds = $route['transientCredentials'];
-        $txCreds['apiKey'] = self::decrypt($txCreds['apiKey']);
-        $txCreds['bearerToken'] = self::decrypt($txCreds['bearerToken']);
-        $txCreds['signingKey'] = self::decrypt($txCreds['signingKey']);
-        $route['transientCredentials'] = $txCreds;
-        $routeCacheEntry['route'] = $route;
-      }
-    }
+        if (isset(self::$routeCache[$cacheKey])) {
+            $localRoute = self::$routeCache[$cacheKey];
 
-    return FALSE;
-
-  }
-
-  protected static function routeTerminalRequest($method, $terminalPath, $cloudPath, $request) {
-
-    $sigFormat = self::getSignatureOptions($request);
-    if (!is_null($sigFormat)) {
-      $request['sigFormat'] = $sigFormat;
-    }
-
-    if (!empty($request['terminalName'])) {
-      $route = self::resolveTerminalRoute($request['terminalName']);
-      if (!$route) {
-        return self::generateErrorResponse('Unknown Terminal');
-      } else if (!empty($route['cloudRelayEnabled'])) {
-        $response = self::gatewayRequest($method, $cloudPath, $request, TRUE);
-      } else {
-        $response = self::terminalRequest($method, $route, $terminalPath, $request);
-      }
-    } else {
-      $response = self::gatewayRequest($method, $cloudPath, $request);
-    }
-
-    self::handleSignature($request, $response);
-
-    return $response;
-
-  }
-
-  protected static function resolveTerminalURL($route, $path) {
-
-    $url = '';
-    if (self::$https) {
-      $url = $url . 'https://';
-    } else {
-      $url = $url . 'http://';
-    }
-    $url = $url . $route['ipAddress'];
-    if (self::$https) {
-      $url = $url . ':8443';
-    } else {
-      $url = $url . ':8080';
-    }
-    $url = $url . $path;
-
-    return $url;
-  }
-
-  protected static function terminalRequest($method, $route, $path, $request, $evictEnabled=TRUE) {
-
-    $url = self::resolveTerminalURL($route, $path);
-
-    $txCreds = $route['transientCredentials'];
-
-    $wrappedRequest = [
-      'apiKey' => $txCreds['apiKey'],
-      'bearerToken' => $txCreds['bearerToken'],
-      'signingKey' => $txCreds['signingKey'],
-      'request' => $request
-    ];
-
-    $content = json_encode($wrappedRequest);
-
-    $headers = [];
-    array_push($headers, 'Content-Type: application/json');
-    array_push($headers, 'Content-Length: ' . strlen($content));
-
-    $timeout = self::getTimeout($request, self::$terminalTimeout);
-
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_USERAGENT, self::getUserAgent());
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
-    curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-    if (self::$https) {
-      curl_setopt($ch, CURLOPT_CAINFO, __DIR__.'/terminal.crt');
-      curl_setopt($ch, CURLOPT_CAPATH, __DIR__.'/terminal.crt');
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-    }
-
-    try {
-      if (!$result = curl_exec($ch)) {
-        if ($evictEnabled && curl_errno($ch) == 28 && self::refreshRoute($route)) {
-          // Infinite recursion is prevented by checking that the route actually changed.
-          return self::terminalRequest($method, $route, $path, $request, FALSE);
-        } else {
-          throw Exception\ConnectionException::factory(curl_error($ch));
+            if (self::validRoute($localRoute, $stale)) {
+                return $localRoute;
+            }
         }
-      }
-    } finally {
-      curl_close($ch);
+
+        if (self::$offlineCacheEnabled) {
+            $offlineRoute = self::getOfflineRoute($cacheKey);
+            if (self::validRoute($offlineRoute, $stale)) {
+                self::$routeCache[$cacheKey] = $offlineRoute;
+                return $offlineRoute;
+            }
+        }
+
+        return false;
     }
 
-    return json_decode($result, TRUE);
-
-  }
-
-  protected static function refreshRoute($oldRoute) {
-
-    $route = self::requestRouteFromGateway($oldRoute['terminalName']);
-    if ($route) {
-      if ($route['ipAddress'] == $oldRoute['ipAddress']) {
-        // Route didn't change.
-        return FALSE;
-      }
-
-      $date = new \DateTime();
-      $interval = \DateInterval::createFromDateString(self::$routeCacheTTL . ' minutes');
-      $routeCacheEntry = [
-        'route' => $route,
-        'ttl' => $date->add($interval)
-      ];
-      self::$routeCache[self::$apiKey . $terminalName] = $routeCacheEntry;
-      self::updateOfflineCache($routeCacheEntry);
-
-      return TRUE;
+    private static function toRouteKey($terminalName)
+    {
+        return sprintf("php_%s_%s", self::$apiKey, str_replace(' ', '_', $terminalName));
     }
 
-  }
+    private function validRoute($route, $stale = false)
+    {
+        if (empty($route) || empty($route['success'])) {
+            return false;
+        }
 
-  protected static function resolveTerminalRoute($terminalName) {
+        return $stale || self::validRouteTime($route);
+    }
 
-    $route = self::routeCacheGet($terminalName, FALSE);
+    private function validRouteTime($route)
+    {
+        if (empty($route['timestamp'])) {
+            return false;
+        }
 
-    if (!$route) {
-      $route = self::requestRouteFromGateway($terminalName);
-      if ($route) {
-        $date = new \DateTime();
-        $interval = \DateInterval::createFromDateString(self::$routeCacheTTL . ' minutes');
-        $routeCacheEntry = [
-          'route' => $route,
-          'ttl' => $date->add($interval)
-        ];
-        $routeCache[self::$apiKey . $terminalName] = $routeCacheEntry;
-        self::updateOfflineCache($routeCacheEntry);
+        $timestamp = new DateTime($route['timestamp']);
+
+        $expires = $timestamp->add(new DateInterval('PT' . self::$routeCacheTTL . 'M'));
+
+        return $expires > new DateTime();
+    }
+
+    private function getOfflineRoute($cacheKey)
+    {
+        $path = self::getCacheLocation($cacheKey);
+
+        if (!file_exists($path)) {
+            return false;
+        }
+
+        $content = json_decode(file_get_contents($path), true);
+
+        if (empty($content['transientCredentials'])) {
+            return false;
+        }
+
+        $creds = $content['transientCredentials'];
+        $creds['apiKey'] = self::decrypt($creds['apiKey']);
+        $creds['bearerToken'] = self::decrypt($creds['bearerToken']);
+        $creds['signingKey'] = self::decrypt($creds['signingKey']);
+        $content['transientCredentials'] = $creds;
+
+        return $content;
+    }
+
+    private function getCacheLocation($cacheKey)
+    {
+        if (!empty(self::$routeCacheLocation)) {
+            return self::$routeCacheLocation . DIRECTORY_SEPARATOR . $cacheKey;
+        }
+
+        return sys_get_temp_dir() . DIRECTORY_SEPARATOR . '.blockchyp-routes' . DIRECTORY_SEPARATOR . $cacheKey;
+    }
+
+    private static function resolveTerminalRoute($terminalName)
+    {
+        $route = self::routeCacheGet($terminalName);
+        if (!empty($route)) {
+            return $route;
+        }
+
+        try {
+            $route = self::requestRouteFromGateway($terminalName);
+            if (empty($route)) {
+                throw new Exception\ConnectionException('No route from gateway');
+            }
+        } catch (Throwable | \Exception $e) {
+            // Get from the offline cache even if it's expired.
+            $route = self::routeCacheGet($terminalName, true);
+            if (!empty($route)) {
+                return $route;
+            }
+
+            throw $e;
+        }
+
+        self::routeCachePut($route);
         return $route;
-      }
-    } else {
-      return $route;
     }
 
-  }
+    private function routeCachePut($route)
+    {
+        if (empty($route) || empty($route['terminalName'])) {
+            return;
+        }
 
-  protected static function resolveOfflineCacheLocation() {
+        $cacheKey = self::toRouteKey($route['terminalName']);
+        self::$routeCache[$cacheKey] = $route;
 
-    if (self::$routeCacheLocation) {
-      return self::$routeCacheLocation;
-    } else {
-      return '/' . CacheUtils::joinPaths(sys_get_temp_dir(), '.blockchyp_routes');
+        if (self::$offlineCacheEnabled) {
+            $creds = $route['transientCredentials'];
+            $creds['apiKey'] = self::encrypt($creds['apiKey']);
+            $creds['bearerToken'] = self::encrypt($creds['bearerToken']);
+            $creds['signingKey'] = self::encrypt($creds['signingKey']);
+            $route['transientCredentials'] = $creds;
+
+            $path = self::getCacheLocation($cacheKey);
+
+            $parent = dirname($path);
+            if (!is_dir($parent)) {
+                mkdir($parent, 0755, true);
+            }
+
+            $file = fopen($path, 'w');
+            try {
+                fwrite($file, json_encode($route));
+            } finally {
+                fclose($file);
+            }
+        }
     }
 
-  }
+    private static function resolveTerminalURL($route, $path)
+    {
+        $url = '';
+        if (self::$https) {
+            $url = $url . 'https://';
+        } else {
+            $url = $url . 'http://';
+        }
+        $url = $url . $route['ipAddress'];
+        if (self::$https) {
+            $url = $url . ':8443';
+        } else {
+            $url = $url . ':8080';
+        }
+        $url = $url . $path;
 
-  protected static function updateOfflineCache($routeCacheEntry) {
-
-    if (self::$offlineCacheEnabled) {
-      $offlineCache = self::readOfflineCache();
-      $route = $routeCacheEntry['route'];
-      $txCreds = $route['transientCredentials'];
-      $txCreds['apiKey'] = self::encrypt($txCreds['apiKey']);
-      $txCreds['bearerToken'] = self::encrypt($txCreds['bearerToken']);
-      $txCreds['signingKey'] = self::encrypt($txCreds['signingKey']);
-      $route['transientCredentials'] = $txCreds;
-      $routeCacheEntry['route'] = $route;
-      $offlineCache[self::$apiKey . $route['terminalName']] = $routeCacheEntry;
-      $fileHandle = fopen(self::resolveOfflineCacheLocation(), 'w');
-      fwrite($fileHandle, json_encode($offlineCache));
-      fclose($fileHandle);
+        return $url;
     }
 
-  }
+    private static function terminalRequest($method, $route, $path, $request, $evictEnabled=true)
+    {
+        $url = self::resolveTerminalURL($route, $path);
 
-  protected static function decrypt($cipherText) {
+        $txCreds = $route['transientCredentials'];
 
-    $cipherText = hex2bin($cipherText);
-    $key = self::deriveOfflineKey();
-    $method = 'AES-256-CBC';
-    $iv = substr($cipherText, 0, 16);
-    $cipherText = substr($cipherText, 16, strlen($cipherText));
-    return openssl_decrypt($cipherText , $method, $key, OPENSSL_RAW_DATA, $iv);
-  }
+        $wrappedRequest = [
+            'apiKey' => $txCreds['apiKey'],
+            'bearerToken' => $txCreds['bearerToken'],
+            'signingKey' => $txCreds['signingKey'],
+            'request' => $request
+        ];
 
-  protected static function encrypt($plainText) {
+        $content = json_encode($wrappedRequest);
 
-    $key = self::deriveOfflineKey();
-    $method = 'AES-256-CBC';
-    $iv = openssl_random_pseudo_bytes(16);
-    $cipherText = openssl_encrypt($plainText, $method, $key, OPENSSL_RAW_DATA, $iv);
-    return bin2hex($iv . $cipherText);
-  }
+        $headers = [];
+        array_push($headers, 'Content-Type: application/json');
+        array_push($headers, 'Content-Length: ' . strlen($content));
 
-  protected static function deriveOfflineKey() {
+        $timeout = self::getTimeout($request, self::$terminalTimeout);
 
-    return hash('sha256', self::$offlineFixedKey . self::$signingKey);
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_USERAGENT, self::getUserAgent());
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        if (self::$https) {
+            curl_setopt($ch, CURLOPT_CAINFO, __DIR__.'/terminal.crt');
+            curl_setopt($ch, CURLOPT_CAPATH, __DIR__.'/terminal.crt');
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        }
 
-  }
+        try {
+            if (!$result = curl_exec($ch)) {
+                if ($evictEnabled && curl_errno($ch) == 28 && self::refreshRoute($route)) {
+                    // Infinite recursion is prevented by checking that the route actually changed.
+                    return self::terminalRequest($method, $route, $path, $request, false);
+                } else {
+                    throw Exception\ConnectionException::factory(curl_error($ch));
+                }
+            }
+        } finally {
+            curl_close($ch);
+        }
 
-  protected static function readOfflineCache() {
-
-    if (self::$offlineCacheEnabled) {
-      if (!file_exists(self::resolveOfflineCacheLocation())) {
-        return [];
-      }
-      return json_decode(file_get_contents(self::resolveOfflineCacheLocation()), TRUE);
+        return json_decode($result, true);
     }
 
-  }
-
-  protected static function requestRouteFromGateway($terminalName) {
-
-    $route = self::gatewayRequest('GET', '/api/terminal-route?terminal=' . urlencode($terminalName));
-    if (!$route) {
-      return FALSE;
-    }
-    if ($route && !empty($route['ipAddress'])) {
-      $route['exists'] = true;
-      return $route;
-    }
-    return FALSE;
-
-  }
-
-  protected static function gatewayRequest($method, $path, $request=NULL, $relay=FALSE) {
-
-    $url = self::resolveGatewayURL($path, !empty($request['test']));
-
-    $content = json_encode($request);
-
-    $headers = self::generateGatewayHeaders();
-
-    array_push($headers, 'Content-Type: application/json');
-    array_push($headers, 'Content-Length: ' . strlen($content));
-
-    $timeout = self::getTimeout($request, $relay ? self::$terminalTimeout : self::$gatewayTimeout);
-
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_USERAGENT, self::getUserAgent());
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
-    curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-    try {
-      if (!$result = curl_exec($ch)) {
-        throw Exception\ConnectionException::factory(curl_error($ch));
-      }
-    } finally {
-      curl_close($ch);
+    private static function decrypt($cipherText)
+    {
+        $cipherText = hex2bin($cipherText);
+        $key = self::deriveOfflineKey();
+        $method = 'AES-256-CBC';
+        $iv = substr($cipherText, 0, 16);
+        $cipherText = substr($cipherText, 16, strlen($cipherText));
+        return openssl_decrypt($cipherText, $method, $key, OPENSSL_RAW_DATA, $iv);
     }
 
-    return json_decode($result, TRUE);
-
-  }
-
-  private static function resolveGatewayURL($path, $test) {
-
-    $url = '';
-
-    if ($test) {
-      $url = $url . self::$testGatewayHost;
-    } else {
-      $url = $url . self::$gatewayHost;
+    private static function encrypt($plainText)
+    {
+        $key = self::deriveOfflineKey();
+        $method = 'AES-256-CBC';
+        $iv = openssl_random_pseudo_bytes(16);
+        $cipherText = openssl_encrypt($plainText, $method, $key, OPENSSL_RAW_DATA, $iv);
+        return bin2hex($iv . $cipherText);
     }
 
-    return $url . $path;
-
-  }
-
-  private static function generateGatewayHeaders() {
-
-    $nonce = generateNonce();
-    $timestamp = timestamp();
-    $sig = self::computeHmac($timestamp, $nonce);
-
-    $headers = [
-      'Nonce: ' . $nonce,
-      'Timestamp: ' . $timestamp,
-      'Authorization: Dual ' . self::$bearerToken . ':' . self::$apiKey. ':' . $sig
-    ];
-
-    return $headers;
-
-  }
-
-  private static function computeHmac($ts, $nonce) {
-
-    $c = self::$apiKey . self::$bearerToken . $ts . $nonce;
-    $sig = hash_hmac('sha256', $c, hex2bin(self::$signingKey));
-    return $sig;
-
-  }
-
-  private static function getUserAgent() {
-
-    return 'BlockChyp-PHP/' . BlockChyp::VERSION;
-
-  }
-
-  private static function getTimeout($request, $default) {
-
-    return isset($request['timeout']) ? $request['timeout'] : $default;
-
-  }
-
-  private static function getSignatureOptions($request) {
-
-    if (is_null($request) || empty($request['sigFile'])) {
-      return null;
+    private static function deriveOfflineKey()
+    {
+        return hash('sha256', self::$offlineFixedKey . self::$signingKey);
     }
 
-    $pathinfo = pathinfo($request['sigFile']);
+    private static function requestRouteFromGateway($terminalName)
+    {
+        $route = self::gatewayRequest('GET', '/api/terminal-route?terminal=' . urlencode($terminalName));
+        if (!empty($route['error'])) {
+            throw new Exception\ConnectionException($route['error']);
+        }
+        if (!self::validRoute($route, true)) {
+            return false;
+        }
+        if (!empty($route['ipAddress'])) {
+            $route['exists'] = true;
+            $route['timestamp'] = date(DATE_RFC3339);
 
-    if (!is_writable($pathinfo['dirname'])) {
-      throw Exception\RequestException::factory(
-        'File not writeable: ' . $request['sigFile'],
-        null,
-        null,
-        'sigFile'
-      );
+            return $route;
+        }
+
+        return false;
     }
 
-    if (!empty($request['sigFormat'])) {
-      return null;
+    private static function resolveGatewayURL($path, $test)
+    {
+        $url = '';
+
+        if ($test) {
+            $url = $url . self::$testGatewayHost;
+        } else {
+            $url = $url . self::$gatewayHost;
+        }
+
+        return $url . $path;
     }
 
-    $ext = $pathinfo['extension'];
+    private static function generateGatewayHeaders()
+    {
+        $nonce = generateNonce();
+        $timestamp = timestamp();
+        $sig = self::computeHmac($timestamp, $nonce);
 
-    switch ($ext) {
-    case static::SIGNATURE_FORMAT_PNG:
-    case static::SIGNATURE_FORMAT_JPG:
-    case static::SIGNATURE_FORMAT_GIF:
-      return $ext;
-      break;
-    default:
-      throw Exception\RequestException::factory(
-        'Invalid format: ' . $ext,
-        null,
-        null,
-        'sigFormat'
-      );
+        $headers = [
+            'Nonce: ' . $nonce,
+            'Timestamp: ' . $timestamp,
+            'Authorization: Dual ' . self::$bearerToken . ':' . self::$apiKey. ':' . $sig
+        ];
+
+        return $headers;
     }
 
-  }
-
-  private static function handleSignature($request, $response) {
-
-    if (is_null($request)
-        || is_null($response)
-        || empty($request['sigFile'])
-        || empty($response['sigFile'])
-    ) {
-      return;
+    private static function computeHmac($ts, $nonce)
+    {
+        $c = self::$apiKey . self::$bearerToken . $ts . $nonce;
+        $sig = hash_hmac('sha256', $c, hex2bin(self::$signingKey));
+        return $sig;
     }
 
-    $raw = hex2bin($response['sigFile']);
-
-    try {
-      $file = fopen($request['sigFile'], 'w');
-
-      fwrite($file, $raw);
-    } finally {
-      fclose($file);
+    private static function getUserAgent()
+    {
+        return 'BlockChyp-PHP/' . BlockChyp::VERSION;
     }
 
-  }
+    private static function getTimeout($request, $default)
+    {
+        return isset($request['timeout']) ? $request['timeout'] : $default;
+    }
 
+    private static function getSignatureOptions($request)
+    {
+        if (is_null($request) || empty($request['sigFile'])) {
+            return null;
+        }
 
+        $pathinfo = pathinfo($request['sigFile']);
+
+        if (!is_writable($pathinfo['dirname'])) {
+            throw Exception\RequestException::factory(
+                'File not writeable: ' . $request['sigFile'],
+                null,
+                null,
+                'sigFile'
+            );
+        }
+
+        if (!empty($request['sigFormat'])) {
+            return null;
+        }
+
+        $ext = $pathinfo['extension'];
+
+        switch ($ext) {
+            case static::SIGNATURE_FORMAT_PNG:
+            case static::SIGNATURE_FORMAT_JPG:
+            case static::SIGNATURE_FORMAT_GIF:
+                return $ext;
+                break;
+            default:
+                throw Exception\RequestException::factory(
+                    'Invalid format: ' . $ext,
+                    null,
+                    null,
+                    'sigFormat'
+                );
+        }
+    }
+
+    private static function handleSignature($request, $response)
+    {
+        if (empty($request)
+            || empty($response)
+            || empty($request['sigFile'])
+            || empty($response['sigFile'])
+        ) {
+            return;
+        }
+
+        $raw = hex2bin($response['sigFile']);
+
+        try {
+            $file = fopen($request['sigFile'], 'w');
+
+            fwrite($file, $raw);
+        } finally {
+            fclose($file);
+        }
+    }
 }

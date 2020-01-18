@@ -7,38 +7,36 @@ require_once(__DIR__ . '/../BlockChypTestCase.php');
 class SimpleGiftActivateTest extends BlockChypTestCase
 {
 
-  /**
-   * @group itest
-   */
-  public function testSimpleGiftActivate()
-  {
+    /**
+     * @group itest
+     */
+    public function testSimpleGiftActivate()
+    {
+        $config = $this->loadTestConfiguration();
 
-    $config = $this->loadTestConfiguration();
+        BlockChyp::setApiKey($config->apiKey);
+        BlockChyp::setBearerToken($config->bearerToken);
+        BlockChyp::setSigningKey($config->signingKey);
+        BlockChyp::setGatewayHost($config->gatewayHost);
+        BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-    BlockChyp::setApiKey($config->apiKey);
-    BlockChyp::setBearerToken($config->bearerToken);
-    BlockChyp::setSigningKey($config->signingKey);
-    BlockChyp::setGatewayHost($config->gatewayHost);
-    BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        $this->processTestDelay("SimpleGiftActivateTest");
 
-    $this->processTestDelay("SimpleGiftActivateTest");
+        // Set request values
+        $request = [
+            'test' => true,
+            'terminalName' => 'Test Terminal',
+            'amount' => '50.00',
+        ];
 
-    // Set request values
-    $request = [
-      'test' => TRUE,
-      'terminalName' => 'Test Terminal',
-      'amount' => '50.00',
-    ];
+        self::logRequest($request);
 
-    self::logRequest($request);
+        $response = BlockChyp::giftActivate($request);
 
-    $response = BlockChyp::giftActivate($request);
+        self::logResponse($response);
 
-    self::logResponse($response);
-
-    // Response assertions
-    $this->assertTrue($response['approved']);
-    $this->assertNotEmpty($response['publicKey']);
-  }
-
+        // Response assertions
+        $this->assertTrue($response['approved']);
+        $this->assertNotEmpty($response['publicKey']);
+    }
 }

@@ -7,36 +7,34 @@ require_once(__DIR__ . '/../BlockChypTestCase.php');
 class TerminalClearTest extends BlockChypTestCase
 {
 
-  /**
-   * @group itest
-   */
-  public function testTerminalClear()
-  {
+    /**
+     * @group itest
+     */
+    public function testTerminalClear()
+    {
+        $config = $this->loadTestConfiguration();
 
-    $config = $this->loadTestConfiguration();
+        BlockChyp::setApiKey($config->apiKey);
+        BlockChyp::setBearerToken($config->bearerToken);
+        BlockChyp::setSigningKey($config->signingKey);
+        BlockChyp::setGatewayHost($config->gatewayHost);
+        BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-    BlockChyp::setApiKey($config->apiKey);
-    BlockChyp::setBearerToken($config->bearerToken);
-    BlockChyp::setSigningKey($config->signingKey);
-    BlockChyp::setGatewayHost($config->gatewayHost);
-    BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        $this->processTestDelay("TerminalClearTest");
 
-    $this->processTestDelay("TerminalClearTest");
+        // Set request values
+        $request = [
+            'test' => true,
+            'terminalName' => 'Test Terminal',
+        ];
 
-    // Set request values
-    $request = [
-      'test' => TRUE,
-      'terminalName' => 'Test Terminal',
-    ];
+        self::logRequest($request);
 
-    self::logRequest($request);
+        $response = BlockChyp::clear($request);
 
-    $response = BlockChyp::clear($request);
+        self::logResponse($response);
 
-    self::logResponse($response);
-
-    // Response assertions
-    $this->assertTrue($response['success']);
-  }
-
+        // Response assertions
+        $this->assertTrue($response['success']);
+    }
 }
