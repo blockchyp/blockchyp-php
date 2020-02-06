@@ -109,6 +109,7 @@ stuff you can do with the BlockChyp PHP SDK and a few basic examples.
 
 Executes a standard direct preauth and capture.
 
+
 ```php
 <?php
 // For composer based systems
@@ -140,6 +141,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 #### Preauthorization
 
 Executes a preauthorization intended to be captured later.
+
 
 ```php
 <?php
@@ -173,6 +175,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 Tests connectivity with a payment terminal.
 
+
 ```php
 <?php
 // For composer based systems
@@ -202,6 +205,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 #### Balance
 
 Checks the remaining balance on a payment method.
+
 
 ```php
 <?php
@@ -235,6 +239,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 Clears the line item display and any in progress transaction.
 
+
 ```php
 <?php
 // For composer based systems
@@ -265,6 +270,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 #### Terms & Conditions Capture
 
 Prompts the user to accept terms and conditions.
+
 
 ```php
 <?php
@@ -314,9 +320,10 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 #### Update Transaction Display
 
-Appends items to an existing transaction display Subtotal, Tax, and Total are
+Appends items to an existing transaction display.  Subtotal, Tax, and Total are
 overwritten by the request. Items with the same description are combined into
 groups.
+
 
 ```php
 <?php
@@ -368,6 +375,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 Displays a new transaction on the terminal.
 
+
 ```php
 <?php
 // For composer based systems
@@ -416,7 +424,8 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 #### Text Prompt
 
-Asks the consumer text based question.
+Asks the consumer a text based question.
+
 
 ```php
 <?php
@@ -453,6 +462,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 Asks the consumer a yes/no question.
 
+
 ```php
 <?php
 // For composer based systems
@@ -487,6 +497,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 Displays a short message on the terminal.
 
+
 ```php
 <?php
 // For composer based systems
@@ -518,6 +529,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 #### Refund
 
 Executes a refund.
+
 
 ```php
 <?php
@@ -553,6 +565,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 Adds a new payment method to the token vault.
 
+
 ```php
 <?php
 // For composer based systems
@@ -583,6 +596,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 #### Gift Card Activation
 
 Activates or recharges a gift card.
+
 
 ```php
 <?php
@@ -624,6 +638,7 @@ transaction you're trying to reverse because we may not have assigned it an id
 yet. And if we did assign it an id, you wouldn't know what it is because your
 request to the terminal timed out before you got a response.
 
+
 ```php
 <?php
 // For composer based systems
@@ -654,6 +669,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 #### Capture Preauthorization
 
 Captures a preauthorization.
+
 
 ```php
 <?php
@@ -686,6 +702,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 Closes the current credit card batch.
 
+
 ```php
 <?php
 // For composer based systems
@@ -715,6 +732,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 #### Void Transaction
 
 Discards a previous preauth transaction.
+
 
 ```php
 <?php
@@ -746,6 +764,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 #### Terminal Status
 
 Returns the current status of a terminal.
+
 
 ```php
 <?php

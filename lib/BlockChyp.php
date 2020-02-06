@@ -103,7 +103,7 @@ class BlockChyp extends BlockChypClient
     }
 
     /**
-     * Appends items to an existing transaction display Subtotal, Tax, and Total are
+     * Appends items to an existing transaction display. Subtotal, Tax, and Total are
      * overwritten by the request. Items with the same description are combined into
      * groups.
      *
@@ -133,7 +133,7 @@ class BlockChyp extends BlockChypClient
     }
 
     /**
-     * Asks the consumer text based question.
+     * Asks the consumer a text based question.
      *
      * @param array $request The request body.
      *

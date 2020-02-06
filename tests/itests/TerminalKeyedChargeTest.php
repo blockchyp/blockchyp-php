@@ -37,6 +37,7 @@ class TerminalKeyedChargeTest extends BlockChypTestCase
         self::logResponse($response);
 
         // Response assertions
+        $this->assertTrue($response['success']);
         $this->assertTrue($response['approved']);
         $this->assertTrue($response['test']);
 
