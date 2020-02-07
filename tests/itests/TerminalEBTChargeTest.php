@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockChyp;
+use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
@@ -54,5 +54,6 @@ class TerminalEBTChargeTest extends BlockChypTestCase
         $this->assertEquals('25.00', $response['authorizedAmount']);
 
         $this->assertEquals('75.00', $response['remainingBalance']);
+        $this->processResponseDelay($request);
     }
 }

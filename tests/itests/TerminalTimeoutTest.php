@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockChyp;
+use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
@@ -36,5 +36,6 @@ class TerminalTimeoutTest extends BlockChypTestCase
         $response = BlockChyp::charge($request);
 
         self::logResponse($response);
+        $this->processResponseDelay($request);
     }
 }

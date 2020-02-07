@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockChyp;
+require_once('vendor/autoload.php');
 
 class TestConfiguration
 {

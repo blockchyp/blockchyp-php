@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockChyp;
+use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
@@ -51,5 +51,6 @@ class PANEnrollTest extends BlockChypTestCase
 
         $this->assertEquals('KEYED', $response['entryMethod']);
         $this->assertNotEmpty($response['token']);
+        $this->processResponseDelay($request);
     }
 }

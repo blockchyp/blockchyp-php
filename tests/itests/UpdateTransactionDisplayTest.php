@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockChyp;
+use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
@@ -55,5 +55,6 @@ class UpdateTransactionDisplayTest extends BlockChypTestCase
 
         // Response assertions
         $this->assertTrue($response['success']);
+        $this->processResponseDelay($request);
     }
 }

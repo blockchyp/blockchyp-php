@@ -255,6 +255,21 @@ class BlockChypClient
         return sys_get_temp_dir() . DIRECTORY_SEPARATOR . '.blockchyp-routes' . DIRECTORY_SEPARATOR . $cacheKey;
     }
 
+    private static function refreshRoute($route) {
+
+      $res = self::requestRouteFromGateway($route["terminalName"]);
+
+      if (!$res) {
+        return false;
+      }
+
+      if ($res["ipAddress"] != $route["ipAddress"]) {
+        return $res;
+      }
+
+      return false;
+    }
+
     private static function resolveTerminalRoute($terminalName)
     {
         $route = self::routeCacheGet($terminalName);
@@ -369,6 +384,7 @@ class BlockChypClient
 
         try {
             if (!$result = curl_exec($ch)) {
+
                 if ($evictEnabled && curl_errno($ch) == 28 && self::refreshRoute($route)) {
                     // Infinite recursion is prevented by checking that the route actually changed.
                     return self::terminalRequest($method, $route, $path, $request, false);

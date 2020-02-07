@@ -1,10 +1,10 @@
 <?php
 
-namespace BlockChyp;
-
 use PHPUnit\Framework\TestCase;
 
 require_once(__DIR__ . '/TestConfiguration.php');
+
+use BlockChyp\BlockChyp;
 
 class BlockChypTestCase extends TestCase
 {
@@ -28,7 +28,7 @@ class BlockChypTestCase extends TestCase
             }
         }
 
-        $configHome = CacheUtils::joinPaths($configHome, 'blockchyp', 'sdk-itest-config.json');
+        $configHome = $configHome . '/blockchyp/sdk-itest-config.json';
 
         return json_decode(file_get_contents('/' . $configHome));
     }
@@ -60,6 +60,18 @@ class BlockChypTestCase extends TestCase
                 $request['terminalName'] = 'Test Terminal';
                 $request['message'] = 'Running ' . $testName . ' in ' . $testDelay . ' seconds...';
                 BlockChyp::message($request);
+                sleep($testDelayInt);
+            }
+        }
+    }
+
+    protected function processResponseDelay($request)
+    {
+        $testDelay = getenv('BC_TEST_DELAY');
+
+        if ($testDelay && $request['terminalName']) {
+            $testDelayInt = intval($testDelay) / 2;
+            if ($testDelayInt > 0) {
                 sleep($testDelayInt);
             }
         }

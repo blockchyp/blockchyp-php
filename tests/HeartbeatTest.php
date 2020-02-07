@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockChyp;
+use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/BlockChypTestCase.php');
 

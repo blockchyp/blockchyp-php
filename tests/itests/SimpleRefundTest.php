@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockChyp;
+use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
@@ -32,7 +32,7 @@ class SimpleRefundTest extends BlockChypTestCase
 
         self::logRequest($request);
 
-        $response = BlockChyp::refund($request);
+        $response = BlockChyp::charge($request);
 
         self::logResponse($response);
 
@@ -56,6 +56,8 @@ class SimpleRefundTest extends BlockChypTestCase
         self::logResponse($response);
 
         // Response assertions
+        $this->assertTrue($response['success']);
         $this->assertTrue($response['approved']);
+        $this->processResponseDelay($request);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockChyp;
+use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
@@ -49,5 +49,6 @@ class TerminalEnrollTest extends BlockChypTestCase
         $this->assertNotEmpty($response['maskedPan']);
         $this->assertNotEmpty($response['entryMethod']);
         $this->assertNotEmpty($response['token']);
+        $this->processResponseDelay($request);
     }
 }

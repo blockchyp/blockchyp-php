@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockChyp;
+use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
@@ -36,7 +36,9 @@ class SimpleGiftActivateTest extends BlockChypTestCase
         self::logResponse($response);
 
         // Response assertions
+        $this->assertTrue($response['success']);
         $this->assertTrue($response['approved']);
         $this->assertNotEmpty($response['publicKey']);
+        $this->processResponseDelay($request);
     }
 }

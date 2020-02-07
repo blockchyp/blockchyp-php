@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockChyp;
+use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
@@ -40,5 +40,6 @@ class BooleanPromptTest extends BlockChypTestCase
         // Response assertions
         $this->assertTrue($response['success']);
         $this->assertTrue($response['response']);
+        $this->processResponseDelay($request);
     }
 }

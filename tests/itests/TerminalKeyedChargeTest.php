@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockChyp;
+use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
@@ -52,5 +52,6 @@ class TerminalKeyedChargeTest extends BlockChypTestCase
         $this->assertNotEmpty($response['entryMethod']);
 
         $this->assertEquals('11.11', $response['authorizedAmount']);
+        $this->processResponseDelay($request);
     }
 }

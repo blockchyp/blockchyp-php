@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockChyp;
+use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
@@ -53,5 +53,6 @@ class PANPreauthTest extends BlockChypTestCase
         $this->assertEquals('25.55', $response['authorizedAmount']);
 
         $this->assertEquals('KEYED', $response['entryMethod']);
+        $this->processResponseDelay($request);
     }
 }

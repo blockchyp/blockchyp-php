@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockChyp;
+use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
@@ -38,5 +38,6 @@ class TextPromptTest extends BlockChypTestCase
         // Response assertions
         $this->assertTrue($response['success']);
         $this->assertNotEmpty($response['response']);
+        $this->processResponseDelay($request);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockChyp;
+use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
@@ -51,5 +51,6 @@ class TerminalPreauthTest extends BlockChypTestCase
         $this->assertNotEmpty($response['entryMethod']);
 
         $this->assertEquals('15.15', $response['authorizedAmount']);
+        $this->processResponseDelay($request);
     }
 }

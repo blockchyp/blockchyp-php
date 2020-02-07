@@ -1,6 +1,6 @@
 <?php
 
-namespace BlockChyp;
+use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
@@ -32,7 +32,7 @@ class SimpleBatchCloseTest extends BlockChypTestCase
 
         self::logRequest($request);
 
-        $response = BlockChyp::closeBatch($request);
+        $response = BlockChyp::charge($request);
 
         self::logResponse($response);
 
@@ -58,5 +58,6 @@ class SimpleBatchCloseTest extends BlockChypTestCase
         $this->assertTrue($response['success']);
         $this->assertNotEmpty($response['capturedTotal']);
         $this->assertNotEmpty($response['openPreauths']);
+        $this->processResponseDelay($request);
     }
 }
