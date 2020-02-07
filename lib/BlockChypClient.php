@@ -30,7 +30,7 @@ class BlockChypClient
     const PROMPT_TYPE_CUSTOMER_NUMBER = 'customer-number';
     const PROMPT_TYPE_REWARDS_NUMBER = 'rewards-number';
 
-    const VERSION = '2.0.1-rc6';
+    const VERSION = '2.0.1-rc8';
 
     protected static $apiKey;
 
