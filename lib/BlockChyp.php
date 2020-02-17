@@ -231,6 +231,20 @@ class BlockChyp extends BlockChypClient
     }
 
     /**
+     * Captures and returns a signature.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function captureSignature($request)
+    {
+        return self::routeTerminalRequest('POST', '/api/capture-signature', '/api/capture-signature', $request);
+    }
+
+    /**
      * Executes a manual time out reversal.
      *
      * We love time out reversals. Don't be afraid to use them whenever a request to a
