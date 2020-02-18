@@ -30,6 +30,14 @@ class BlockChypClient
     const PROMPT_TYPE_CUSTOMER_NUMBER = 'customer-number';
     const PROMPT_TYPE_REWARDS_NUMBER = 'rewards-number';
 
+    const AVS_RESPONSE_NOT_APPLICABLE = '';
+    const AVS_RESPONSE_NOT_SUPPORTED = 'not_supported';
+    const AVS_RESPONSE_RETRY = 'retry';
+    const AVS_RESPONSE_NO_MATCH = 'no_match';
+    const AVS_RESPONSE_ADDRESS_MATCH = 'address_match';
+    const AVS_RESPONSE_POSTAL_CODE_MATCH = 'zip_match';
+    const AVS_RESPONSE_ADDRESS_AND_POSTAL_CODE_MATCH = 'match';
+
     const VERSION = '2.0.1';
 
     protected static $apiKey;
