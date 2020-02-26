@@ -29,6 +29,8 @@ class BlockChypClient
     const PROMPT_TYPE_PHONE_NUMBER = 'phone';
     const PROMPT_TYPE_CUSTOMER_NUMBER = 'customer-number';
     const PROMPT_TYPE_REWARDS_NUMBER = 'rewards-number';
+    const PROMPT_TYPE_FIRST_NAME = 'first-name';
+    const PROMPT_TYPE_LAST_NAME = 'last-name';
 
     const AVS_RESPONSE_NOT_APPLICABLE = '';
     const AVS_RESPONSE_NOT_SUPPORTED = 'not_supported';
