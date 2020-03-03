@@ -40,7 +40,7 @@ class BlockChypClient
     const AVS_RESPONSE_POSTAL_CODE_MATCH = 'zip_match';
     const AVS_RESPONSE_ADDRESS_AND_POSTAL_CODE_MATCH = 'match';
 
-    const VERSION = '2.1.0';
+    const VERSION = '2.1.1';
 
     protected static $apiKey;
 
