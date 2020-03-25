@@ -304,4 +304,69 @@ class BlockChyp extends BlockChypClient
     {
         return self::gatewayRequest('POST', '/api/void', $request);
     }
+    /**
+     * Updates or creates a customer record.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function updateCustomer($request)
+    {
+        return self::gatewayRequest('POST', '/api/update-customer', $request);
+    }
+    /**
+     * Retrieves a customer by id.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function customer($request)
+    {
+        return self::gatewayRequest('POST', '/api/customer', $request);
+    }
+    /**
+     * Searches the customer database.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function customerSearch($request)
+    {
+        return self::gatewayRequest('POST', '/api/customer-search', $request);
+    }
+    /**
+     * Retrieves the current status of a transaction.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function transactionStatus($request)
+    {
+        return self::gatewayRequest('POST', '/api/tx-status', $request);
+    }
+    /**
+     * Creates and send a payment link to a customer.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function sendPaymentLink($request)
+    {
+        return self::gatewayRequest('POST', '/api/send-payment-link', $request);
+    }
 }
