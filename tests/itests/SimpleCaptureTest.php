@@ -41,6 +41,9 @@ class SimpleCaptureTest extends BlockChypTestCase
         if (!empty($response['transactionRef'])) {
             $lastTransactionRef = $response['transactionRef'];
         }
+        if (!empty($response['customer'])) {
+            $lastCustomer = $response['customer'];
+        }
 
         // Set request values
         $request = [

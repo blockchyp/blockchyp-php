@@ -4,13 +4,13 @@ use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
-class SimpleRefundTest extends BlockChypTestCase
+class SearchCustomerTest extends BlockChypTestCase
 {
 
     /**
      * @group itest
      */
-    public function testSimpleRefund()
+    public function testSearchCustomer()
     {
         $config = $this->loadTestConfiguration();
 
@@ -20,19 +20,22 @@ class SimpleRefundTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("SimpleRefundTest");
+        $this->processTestDelay("SearchCustomerTest");
 
         // Set request values
         $request = [
-            'pan' => '4111111111111111',
-            'amount' => '25.55',
-            'test' => true,
-            'transactionRef' => $this->getUUID(),
+            'customer' => [
+                'firstName' => 'Test',
+                'lastName' => 'Customer',
+                'companyName' => 'Test Company',
+                'emailAddress' => 'support@blockchyp.com',
+                'smsNumber' => '(123) 123-1234',
+            ],
         ];
 
         self::logRequest($request);
 
-        $response = BlockChyp::charge($request);
+        $response = BlockChyp::updateCustomer($request);
 
         self::logResponse($response);
 
@@ -48,19 +51,17 @@ class SimpleRefundTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'transactionId' => $lastTransactionId,
-            'test' => true,
+            'query' => '123123',
         ];
 
         self::logRequest($request);
 
-        $response = BlockChyp::refund($request);
+        $response = BlockChyp::customerSearch($request);
 
         self::logResponse($response);
 
         // Response assertions
         $this->assertTrue($response['success']);
-        $this->assertTrue($response['approved']);
         $this->processResponseDelay($request);
     }
 }
