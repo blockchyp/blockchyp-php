@@ -46,7 +46,7 @@ class TerminalKeyedChargeTest extends BlockChypTestCase
         $this->assertNotEmpty($response['timestamp']);
         $this->assertNotEmpty($response['tickBlock']);
 
-        $this->assertEquals('Approved', $response['responseDescription']);
+        $this->assertEquals('approved', $response['responseDescription']);
         $this->assertNotEmpty($response['paymentType']);
         $this->assertNotEmpty($response['maskedPan']);
         $this->assertNotEmpty($response['entryMethod']);

@@ -344,6 +344,19 @@ class BlockChyp extends BlockChypClient
         return self::gatewayRequest('POST', '/api/customer-search', $request);
     }
     /**
+     * Calculates the discount for actual cash transactions.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function cashDiscount($request)
+    {
+        return self::gatewayRequest('POST', '/api/cash-discount', $request);
+    }
+    /**
      * Retrieves the current status of a transaction.
      *
      * @param array $request The request body.
