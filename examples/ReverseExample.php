@@ -13,7 +13,6 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'terminalName' => 'Test Terminal',
     'transactionRef' => '<LAST TRANSACTION REF>',
 ];
 

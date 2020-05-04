@@ -19,6 +19,20 @@ class BlockChyp extends BlockChypClient
     }
 
     /**
+     * Tests connectivity with a payment terminal.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function ping($request)
+    {
+        return self::routeTerminalRequest('POST', '/api/test', '/api/terminal-test', $request);
+    }
+
+    /**
      * Executes a standard direct preauth and capture.
      *
      * @param array $request The request body.
@@ -44,134 +58,6 @@ class BlockChyp extends BlockChypClient
     public static function preauth($request)
     {
         return self::routeTerminalRequest('POST', '/api/preauth', '/api/preauth', $request);
-    }
-
-    /**
-     * Tests connectivity with a payment terminal.
-     *
-     * @param array $request The request body.
-     *
-     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
-     *
-     * @return array The API response.
-     */
-    public static function ping($request)
-    {
-        return self::routeTerminalRequest('POST', '/api/test', '/api/terminal-test', $request);
-    }
-
-    /**
-     * Checks the remaining balance on a payment method.
-     *
-     * @param array $request The request body.
-     *
-     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
-     *
-     * @return array The API response.
-     */
-    public static function balance($request)
-    {
-        return self::routeTerminalRequest('POST', '/api/balance', '/api/balance', $request);
-    }
-
-    /**
-     * Clears the line item display and any in progress transaction.
-     *
-     * @param array $request The request body.
-     *
-     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
-     *
-     * @return array The API response.
-     */
-    public static function clear($request)
-    {
-        return self::routeTerminalRequest('POST', '/api/clear', '/api/terminal-clear', $request);
-    }
-
-    /**
-     * Prompts the user to accept terms and conditions.
-     *
-     * @param array $request The request body.
-     *
-     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
-     *
-     * @return array The API response.
-     */
-    public static function termsAndConditions($request)
-    {
-        return self::routeTerminalRequest('POST', '/api/tc', '/api/terminal-tc', $request);
-    }
-
-    /**
-     * Appends items to an existing transaction display. Subtotal, Tax, and Total are
-     * overwritten by the request. Items with the same description are combined into
-     * groups.
-     *
-     * @param array $request The request body.
-     *
-     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
-     *
-     * @return array The API response.
-     */
-    public static function updateTransactionDisplay($request)
-    {
-        return self::routeTerminalRequest('PUT', '/api/txdisplay', '/api/terminal-txdisplay', $request);
-    }
-
-    /**
-     * Displays a new transaction on the terminal.
-     *
-     * @param array $request The request body.
-     *
-     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
-     *
-     * @return array The API response.
-     */
-    public static function newTransactionDisplay($request)
-    {
-        return self::routeTerminalRequest('POST', '/api/txdisplay', '/api/terminal-txdisplay', $request);
-    }
-
-    /**
-     * Asks the consumer a text based question.
-     *
-     * @param array $request The request body.
-     *
-     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
-     *
-     * @return array The API response.
-     */
-    public static function textPrompt($request)
-    {
-        return self::routeTerminalRequest('POST', '/api/text-prompt', '/api/text-prompt', $request);
-    }
-
-    /**
-     * Asks the consumer a yes/no question.
-     *
-     * @param array $request The request body.
-     *
-     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
-     *
-     * @return array The API response.
-     */
-    public static function booleanPrompt($request)
-    {
-        return self::routeTerminalRequest('POST', '/api/boolean-prompt', '/api/boolean-prompt', $request);
-    }
-
-    /**
-     * Displays a short message on the terminal.
-     *
-     * @param array $request The request body.
-     *
-     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
-     *
-     * @return array The API response.
-     */
-    public static function message($request)
-    {
-        return self::routeTerminalRequest('POST', '/api/message', '/api/message', $request);
     }
 
     /**
@@ -217,6 +103,34 @@ class BlockChyp extends BlockChypClient
     }
 
     /**
+     * Checks the remaining balance on a payment method.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function balance($request)
+    {
+        return self::routeTerminalRequest('POST', '/api/balance', '/api/balance', $request);
+    }
+
+    /**
+     * Clears the line item display and any in progress transaction.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function clear($request)
+    {
+        return self::routeTerminalRequest('POST', '/api/clear', '/api/terminal-clear', $request);
+    }
+
+    /**
      * Returns the current status of a terminal.
      *
      * @param array $request The request body.
@@ -228,6 +142,20 @@ class BlockChyp extends BlockChypClient
     public static function terminalStatus($request)
     {
         return self::routeTerminalRequest('POST', '/api/terminal-status', '/api/terminal-status', $request);
+    }
+
+    /**
+     * Prompts the user to accept terms and conditions.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function termsAndConditions($request)
+    {
+        return self::routeTerminalRequest('POST', '/api/tc', '/api/terminal-tc', $request);
     }
 
     /**
@@ -244,6 +172,104 @@ class BlockChyp extends BlockChypClient
         return self::routeTerminalRequest('POST', '/api/capture-signature', '/api/capture-signature', $request);
     }
 
+    /**
+     * Displays a new transaction on the terminal.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function newTransactionDisplay($request)
+    {
+        return self::routeTerminalRequest('POST', '/api/txdisplay', '/api/terminal-txdisplay', $request);
+    }
+
+    /**
+     * Appends items to an existing transaction display. Subtotal, Tax, and Total are
+     * overwritten by the request. Items with the same description are combined into
+     * groups.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function updateTransactionDisplay($request)
+    {
+        return self::routeTerminalRequest('PUT', '/api/txdisplay', '/api/terminal-txdisplay', $request);
+    }
+
+    /**
+     * Displays a short message on the terminal.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function message($request)
+    {
+        return self::routeTerminalRequest('POST', '/api/message', '/api/message', $request);
+    }
+
+    /**
+     * Asks the consumer a yes/no question.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function booleanPrompt($request)
+    {
+        return self::routeTerminalRequest('POST', '/api/boolean-prompt', '/api/boolean-prompt', $request);
+    }
+
+    /**
+     * Asks the consumer a text based question.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function textPrompt($request)
+    {
+        return self::routeTerminalRequest('POST', '/api/text-prompt', '/api/text-prompt', $request);
+    }
+
+    /**
+     * Captures a preauthorization.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function capture($request)
+    {
+        return self::gatewayRequest('POST', '/api/capture', $request);
+    }
+    /**
+     * Discards a previous preauth transaction.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function void($request)
+    {
+        return self::gatewayRequest('POST', '/api/void', $request);
+    }
     /**
      * Executes a manual time out reversal.
      *
@@ -266,19 +292,6 @@ class BlockChyp extends BlockChypClient
         return self::gatewayRequest('POST', '/api/reverse', $request);
     }
     /**
-     * Captures a preauthorization.
-     *
-     * @param array $request The request body.
-     *
-     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
-     *
-     * @return array The API response.
-     */
-    public static function capture($request)
-    {
-        return self::gatewayRequest('POST', '/api/capture', $request);
-    }
-    /**
      * Closes the current credit card batch.
      *
      * @param array $request The request body.
@@ -292,7 +305,7 @@ class BlockChyp extends BlockChypClient
         return self::gatewayRequest('POST', '/api/close-batch', $request);
     }
     /**
-     * Discards a previous preauth transaction.
+     * Creates and send a payment link to a customer.
      *
      * @param array $request The request body.
      *
@@ -300,9 +313,22 @@ class BlockChyp extends BlockChypClient
      *
      * @return array The API response.
      */
-    public static function void($request)
+    public static function sendPaymentLink($request)
     {
-        return self::gatewayRequest('POST', '/api/void', $request);
+        return self::gatewayRequest('POST', '/api/send-payment-link', $request);
+    }
+    /**
+     * Retrieves the current status of a transaction.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function transactionStatus($request)
+    {
+        return self::gatewayRequest('POST', '/api/tx-status', $request);
     }
     /**
      * Updates or creates a customer record.
@@ -355,31 +381,5 @@ class BlockChyp extends BlockChypClient
     public static function cashDiscount($request)
     {
         return self::gatewayRequest('POST', '/api/cash-discount', $request);
-    }
-    /**
-     * Retrieves the current status of a transaction.
-     *
-     * @param array $request The request body.
-     *
-     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
-     *
-     * @return array The API response.
-     */
-    public static function transactionStatus($request)
-    {
-        return self::gatewayRequest('POST', '/api/tx-status', $request);
-    }
-    /**
-     * Creates and send a payment link to a customer.
-     *
-     * @param array $request The request body.
-     *
-     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
-     *
-     * @return array The API response.
-     */
-    public static function sendPaymentLink($request)
-    {
-        return self::gatewayRequest('POST', '/api/send-payment-link', $request);
     }
 }

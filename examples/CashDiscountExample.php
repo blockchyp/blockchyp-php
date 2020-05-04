@@ -14,6 +14,8 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 // Populate request values
 $request = [
     'amount' => '100.00',
+    'cashDiscount' => true,
+    'surcharge' => true,
 ];
 
 $response = BlockChyp::cashDiscount($request);
