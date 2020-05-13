@@ -382,4 +382,43 @@ class BlockChyp extends BlockChypClient
     {
         return self::gatewayRequest('POST', '/api/cash-discount', $request);
     }
+    /**
+     * Returns the batch history for a merchant.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function batchHistory($request)
+    {
+        return self::gatewayRequest('POST', '/api/batch-history', $request);
+    }
+    /**
+     * Returns the batch details for a single batch.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function batchDetails($request)
+    {
+        return self::gatewayRequest('POST', '/api/batch-details', $request);
+    }
+    /**
+     * Returns the transaction history for a merchant.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function transactionHistory($request)
+    {
+        return self::gatewayRequest('POST', '/api/tx-history', $request);
+    }
 }

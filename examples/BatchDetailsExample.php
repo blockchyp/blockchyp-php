@@ -13,13 +13,10 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'transactionId' => '<PREVIOUS TRANSACTION ID>',
-
-    // Optional amount for partial refunds.
-    'amount' => '5.00',
+    'batchId' => 'BATCHID',
 ];
 
-$response = BlockChyp::refund($request);
+$response = BlockChyp::batchDetails($request);
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
