@@ -59,8 +59,6 @@ class SimpleBatchCloseTest extends BlockChypTestCase
 
         // Response assertions
         $this->assertTrue($response['success']);
-        $this->assertNotEmpty($response['capturedTotal']);
-        $this->assertNotEmpty($response['openPreauths']);
         $this->processResponseDelay($request);
     }
 }
