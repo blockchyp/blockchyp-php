@@ -24,6 +24,7 @@ class MerchantProfileTest extends BlockChypTestCase
 
         // Set request values
         $request = [
+            'test' => true,
         ];
 
         self::logRequest($request);
