@@ -25,6 +25,8 @@ class SimpleBatchCloseTest extends BlockChypTestCase
         // Set request values
         $request = [
             'pan' => '4111111111111111',
+            'expMonth' => '12',
+            'expYear' => '2025',
             'amount' => '25.55',
             'test' => true,
             'transactionRef' => $this->getUUID(),
