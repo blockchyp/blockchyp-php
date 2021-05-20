@@ -258,7 +258,7 @@ class BlockChyp extends BlockChypClient
         return self::gatewayRequest('POST', '/api/capture', $request);
     }
     /**
-     * Discards a previous preauth transaction.
+     * Discards a previous transaction.
      *
      * @param array $request The request body.
      *
