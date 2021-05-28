@@ -40,6 +40,12 @@ class BlockChypClient
     const AVS_RESPONSE_POSTAL_CODE_MATCH = 'zip_match';
     const AVS_RESPONSE_ADDRESS_AND_POSTAL_CODE_MATCH = 'match';
 
+    const CVM_TYPE_SIGNATURE = 'Signature';
+    const CVM_TYPE_OFFLINE_PIN = 'Offline PIN';
+    const CVM_TYPE_ONLINE_PIN = 'Online PIN';
+    const CVM_TYPE_CDCVM = 'CDCVM';
+    const CVM_TYPE_NO_CVM = 'No CVM';
+
     const VERSION = '2.8.0';
 
     protected static $apiKey;
