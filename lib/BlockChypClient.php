@@ -46,7 +46,7 @@ class BlockChypClient
     const CVM_TYPE_CDCVM = 'CDCVM';
     const CVM_TYPE_NO_CVM = 'No CVM';
 
-    const VERSION = '2.8.0';
+    const VERSION = '2.8.1';
 
     protected static $apiKey;
 
