@@ -100,6 +100,7 @@ If you get a positive response, you've successfully verified all of the followin
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -165,6 +166,7 @@ might be maliciously running on the point-of-sale system.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -232,6 +234,7 @@ might be maliciously running on the point-of-sale system.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -275,6 +278,7 @@ reduce your interchange fees in some cases. (Level II Processing, for example.)
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -354,6 +358,7 @@ converted to a void.  This saves the merchant a little bit of money.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -405,6 +410,7 @@ are the same tokens and can be used interchangeably.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -445,6 +451,7 @@ Voids work with EBT and gift card transactions with no additional parameters.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -496,6 +503,7 @@ a transaction.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -579,6 +587,7 @@ support@blockchyp.com if you need to white list a BIN range.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -640,6 +649,7 @@ test EBT balance checks always return a balance of $100.00.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -682,6 +692,7 @@ close the batch manually.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -802,6 +813,7 @@ to constantly poll for status updates.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -865,6 +877,7 @@ Transaction Ref is returned.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -902,6 +915,7 @@ idle state.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -947,6 +961,7 @@ transaction.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -1018,6 +1033,7 @@ Transaction ID or Transaction Ref for the associated transaction.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -1090,6 +1106,7 @@ width, preserving the aspect ratio of the original image.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -1149,6 +1166,7 @@ and amount.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -1230,6 +1248,7 @@ and amount.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -1287,6 +1306,7 @@ Just specify the target terminal and the message using the `message` parameter.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -1335,6 +1355,7 @@ using the `yesCaption` and `noCaption` request parameters.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -1394,6 +1415,7 @@ the response is returned in the `response` field.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -1456,6 +1478,7 @@ be returned without needing to ask the customer to provide any additional inform
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -1502,6 +1525,7 @@ Customers can be looked up by `customerId` or `customerRef`.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -1540,6 +1564,7 @@ first or last names contain the query string.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -1579,6 +1604,7 @@ with transactions processed by BlockChyp.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -1636,6 +1662,7 @@ in conjunction with `maxResults` and `startIndex`
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -1678,6 +1705,7 @@ History API.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -1749,6 +1777,7 @@ narrower set of results.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
@@ -1786,6 +1815,7 @@ and bank account information for merchants that support split settlement.
 
 ```php
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 

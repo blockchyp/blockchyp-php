@@ -124,7 +124,7 @@ class BlockChypClient
         self::$terminalTimeout = $terminalTimeout;
     }
 
-    protected static function routeTerminalRequest($method, $terminalPath, $cloudPath, $request)
+    protected function routeTerminalRequest($method, $terminalPath, $cloudPath, $request)
     {
         $sigFormat = self::getSignatureOptions($request);
         if (!is_null($sigFormat)) {
@@ -189,9 +189,9 @@ class BlockChypClient
     ];
     }
 
-    private static function routeCacheGet($terminalName, $stale = false)
+    private function routeCacheGet($terminalName, $stale = false)
     {
-        $cacheKey = self::toRouteKey($terminalName, self::$apiKey);
+        $cacheKey = self::toRouteKey($terminalName);
 
         if (isset(self::$routeCache[$cacheKey])) {
             $localRoute = self::$routeCache[$cacheKey];
@@ -271,22 +271,22 @@ class BlockChypClient
         return sys_get_temp_dir() . DIRECTORY_SEPARATOR . '.blockchyp-routes' . DIRECTORY_SEPARATOR . $cacheKey;
     }
 
-    private static function refreshRoute($route) {
+    private function refreshRoute($route)
+    {
+        $res = self::requestRouteFromGateway($route["terminalName"]);
 
-      $res = self::requestRouteFromGateway($route["terminalName"]);
+        if (!$res) {
+            return false;
+        }
 
-      if (!$res) {
+        if ($res["ipAddress"] != $route["ipAddress"]) {
+            return $res;
+        }
+
         return false;
-      }
-
-      if ($res["ipAddress"] != $route["ipAddress"]) {
-        return $res;
-      }
-
-      return false;
     }
 
-    private static function resolveTerminalRoute($terminalName)
+    private function resolveTerminalRoute($terminalName)
     {
         $route = self::routeCacheGet($terminalName);
         if (!empty($route)) {
@@ -298,7 +298,7 @@ class BlockChypClient
             if (empty($route)) {
                 throw new Exception\ConnectionException('No route from gateway');
             }
-        } catch (Throwable | \Exception $e) {
+        } catch (\Throwable | \Exception $e) {
             // Get from the offline cache even if it's expired.
             $route = self::routeCacheGet($terminalName, true);
             if (!empty($route)) {
@@ -363,7 +363,7 @@ class BlockChypClient
         return $url;
     }
 
-    private static function terminalRequest($method, $route, $path, $request, $evictEnabled=true)
+    private function terminalRequest($method, $route, $path, $request, $evictEnabled=true)
     {
         $url = self::resolveTerminalURL($route, $path);
 
@@ -439,7 +439,7 @@ class BlockChypClient
         return hash('sha256', self::$offlineFixedKey . self::$signingKey);
     }
 
-    private static function requestRouteFromGateway($terminalName)
+    private function requestRouteFromGateway($terminalName)
     {
         $route = self::gatewayRequest('GET', '/api/terminal-route?terminal=' . urlencode($terminalName));
         if (!empty($route['error'])) {

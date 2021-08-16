@@ -1,4 +1,5 @@
 <?php
+
 // For composer based systems
 require_once('vendor/autoload.php');
 
