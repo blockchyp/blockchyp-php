@@ -69,7 +69,7 @@ class BlockChypTestCase extends TestCase
     {
         $testDelay = getenv('BC_TEST_DELAY');
 
-        if ($testDelay && $request['terminalName']) {
+        if ($testDelay && isset($request['terminalName'])) {
             $testDelayInt = intval($testDelay) / 2;
             if ($testDelayInt > 0) {
                 sleep($testDelayInt);
