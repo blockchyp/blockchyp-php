@@ -1839,6 +1839,83 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 ```
 
+#### List Queued Transactions
+
+
+
+Returns a list of transaction refs of transactions queued on a terminal.
+Details about the transactions can be retrieved using the Transaction Status
+API.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'terminalName' => 'Test Terminal',
+];
+
+$response = BlockChyp::listQueuedTransactions($request);
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
+#### Delete Queued Transaction
+
+
+
+Deletes one or all queued transactions from a terminal. If `*` is passed as
+a transaction ref, then the entire terminal queue will be cleared. An error is
+returned if the passed transaction ref is not queued on the terminal.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'terminalName' => 'Test Terminal',
+    'transactionRef' => '*',
+];
+
+$response = BlockChyp::deleteQueuedTransaction($request);
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
 ## Running Integration Tests
 
 If you'd like to run the integration tests, create a new file on your system

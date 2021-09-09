@@ -245,6 +245,34 @@ class BlockChyp extends BlockChypClient
     }
 
     /**
+     * Returns a list of queued transactions on a terminal.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function listQueuedTransactions($request)
+    {
+        return self::routeTerminalRequest('GET', '/api/queue/list', '/api/queue/list', $request);
+    }
+
+    /**
+     * Deletes a queued transaction from the terminal.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function deleteQueuedTransaction($request)
+    {
+        return self::routeTerminalRequest('POST', '/api/queue/delete', '/api/queue/delete', $request);
+    }
+
+    /**
      * Captures a preauthorization.
      *
      * @param array $request The request body.
