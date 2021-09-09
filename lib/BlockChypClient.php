@@ -124,7 +124,7 @@ class BlockChypClient
         self::$terminalTimeout = $terminalTimeout;
     }
 
-    protected function routeTerminalRequest($method, $terminalPath, $cloudPath, $request)
+    protected static function routeTerminalRequest($method, $terminalPath, $cloudPath, $request)
     {
         $sigFormat = self::getSignatureOptions($request);
         if (!is_null($sigFormat)) {
@@ -189,7 +189,7 @@ class BlockChypClient
     ];
     }
 
-    private function routeCacheGet($terminalName, $stale = false)
+    private static function routeCacheGet($terminalName, $stale = false)
     {
         $cacheKey = self::toRouteKey($terminalName);
 
@@ -217,7 +217,7 @@ class BlockChypClient
         return sprintf("php_%s_%s", self::$apiKey, str_replace(' ', '_', $terminalName));
     }
 
-    private function validRoute($route, $stale = false)
+    private static function validRoute($route, $stale = false)
     {
         if (empty($route) || empty($route['success'])) {
             return false;
@@ -226,7 +226,7 @@ class BlockChypClient
         return $stale || self::validRouteTime($route);
     }
 
-    private function validRouteTime($route)
+    private static function validRouteTime($route)
     {
         if (empty($route['timestamp'])) {
             return false;
@@ -239,7 +239,7 @@ class BlockChypClient
         return $expires > new DateTime();
     }
 
-    private function getOfflineRoute($cacheKey)
+    private static function getOfflineRoute($cacheKey)
     {
         $path = self::getCacheLocation($cacheKey);
 
@@ -262,7 +262,7 @@ class BlockChypClient
         return $content;
     }
 
-    private function getCacheLocation($cacheKey)
+    private static function getCacheLocation($cacheKey)
     {
         if (!empty(self::$routeCacheLocation)) {
             return self::$routeCacheLocation . DIRECTORY_SEPARATOR . $cacheKey;
@@ -271,7 +271,7 @@ class BlockChypClient
         return sys_get_temp_dir() . DIRECTORY_SEPARATOR . '.blockchyp-routes' . DIRECTORY_SEPARATOR . $cacheKey;
     }
 
-    private function refreshRoute($route)
+    private static function refreshRoute($route)
     {
         $res = self::requestRouteFromGateway($route["terminalName"]);
 
@@ -286,7 +286,7 @@ class BlockChypClient
         return false;
     }
 
-    private function resolveTerminalRoute($terminalName)
+    private static function resolveTerminalRoute($terminalName)
     {
         $route = self::routeCacheGet($terminalName);
         if (!empty($route)) {
@@ -312,7 +312,7 @@ class BlockChypClient
         return $route;
     }
 
-    private function routeCachePut($route)
+    private static function routeCachePut($route)
     {
         if (empty($route) || empty($route['terminalName'])) {
             return;
@@ -363,7 +363,7 @@ class BlockChypClient
         return $url;
     }
 
-    private function terminalRequest($method, $route, $path, $request, $evictEnabled=true)
+    private static function terminalRequest($method, $route, $path, $request, $evictEnabled=true)
     {
         $url = self::resolveTerminalURL($route, $path);
 
@@ -439,7 +439,7 @@ class BlockChypClient
         return hash('sha256', self::$offlineFixedKey . self::$signingKey);
     }
 
-    private function requestRouteFromGateway($terminalName)
+    private static function requestRouteFromGateway($terminalName)
     {
         $route = self::gatewayRequest('GET', '/api/terminal-route?terminal=' . urlencode($terminalName));
         if (!empty($route['error'])) {
