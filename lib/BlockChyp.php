@@ -255,7 +255,7 @@ class BlockChyp extends BlockChypClient
      */
     public static function listQueuedTransactions($request)
     {
-        return self::routeTerminalRequest('GET', '/api/queue/list', '/api/queue/list', $request);
+        return self::routeTerminalRequest('POST', '/api/queue/list', '/api/queue/list', $request);
     }
 
     /**
@@ -461,5 +461,31 @@ class BlockChyp extends BlockChypClient
     public static function merchantProfile($request)
     {
         return self::gatewayRequest('POST', '/api/public-merchant-profile', $request);
+    }
+    /**
+     * Deletes a customer record.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function deleteCustomer($request)
+    {
+        return self::gatewayRequest('DELETE', '/api/customer/' . $request["customerId"], $request);
+    }
+    /**
+     * Deletes a payment token.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function deleteToken($request)
+    {
+        return self::gatewayRequest('DELETE', '/api/token/' . $request["token"], $request);
     }
 }

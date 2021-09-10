@@ -14,10 +14,10 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'terminalName' => 'Test Terminal',
+    'customerId' => 'ID of the customer to delete',
 ];
 
-$response = BlockChyp::deleteQueuedTransactions($request);
+$response = BlockChyp::deleteCustomer($request);
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

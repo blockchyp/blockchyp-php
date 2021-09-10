@@ -20,12 +20,12 @@ class SimpleMessageTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("SimpleMessageTest");
+        $this->processTestDelay("SimpleMessageTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
             'test' => true,
-            'terminalName' => 'Test Terminal',
+            'terminalName' => $config->defaultTerminalName,
             'message' => 'Thank You For Your Business',
         ];
 

@@ -20,12 +20,12 @@ class TerminalTimeoutTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("TerminalTimeoutTest");
+        $this->processTestDelay("TerminalTimeoutTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
             'timeout' => 1,
-            'terminalName' => 'Test Terminal',
+            'terminalName' => $config->defaultTerminalName,
             'amount' => '25.15',
             'test' => true,
         ];

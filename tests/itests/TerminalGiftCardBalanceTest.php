@@ -20,12 +20,12 @@ class TerminalGiftCardBalanceTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("TerminalGiftCardBalanceTest");
+        $this->processTestDelay("TerminalGiftCardBalanceTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
             'test' => true,
-            'terminalName' => 'Test Terminal',
+            'terminalName' => $config->defaultTerminalName,
         ];
 
         self::logRequest($request);

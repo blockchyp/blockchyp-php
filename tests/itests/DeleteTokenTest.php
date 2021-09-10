@@ -4,13 +4,13 @@ use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
-class SimpleReversalTest extends BlockChypTestCase
+class DeleteTokenTest extends BlockChypTestCase
 {
 
     /**
      * @group itest
      */
-    public function testSimpleReversal()
+    public function testDeleteToken()
     {
         $config = $this->loadTestConfiguration();
 
@@ -20,21 +20,17 @@ class SimpleReversalTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("SimpleReversalTest", $config->defaultTerminalName);
+        $this->processTestDelay("DeleteTokenTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
             'pan' => '4111111111111111',
-            'expMonth' => '12',
-            'expYear' => '2025',
-            'amount' => '25.55',
             'test' => true,
-            'transactionRef' => $this->getUUID(),
         ];
 
         self::logRequest($request);
 
-        $response = BlockChyp::charge($request);
+        $response = BlockChyp::enroll($request);
 
         self::logResponse($response);
 
@@ -53,19 +49,17 @@ class SimpleReversalTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'transactionRef' => $lastTransactionRef,
-            'test' => true,
+            'token' => $lastToken,
         ];
 
         self::logRequest($request);
 
-        $response = BlockChyp::reverse($request);
+        $response = BlockChyp::deleteToken($request);
 
         self::logResponse($response);
 
         // Response assertions
         $this->assertTrue($response['success']);
-        $this->assertTrue($response['approved']);
         $this->processResponseDelay($request);
     }
 }

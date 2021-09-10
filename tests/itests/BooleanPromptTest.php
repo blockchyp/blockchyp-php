@@ -20,12 +20,12 @@ class BooleanPromptTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("BooleanPromptTest");
+        $this->processTestDelay("BooleanPromptTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
             'test' => true,
-            'terminalName' => 'Test Terminal',
+            'terminalName' => $config->defaultTerminalName,
             'prompt' => 'Would you like to become a member?',
             'yesCaption' => 'Yes',
             'noCaption' => 'No',

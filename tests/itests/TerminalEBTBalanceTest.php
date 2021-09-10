@@ -20,12 +20,12 @@ class TerminalEBTBalanceTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("TerminalEBTBalanceTest");
+        $this->processTestDelay("TerminalEBTBalanceTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
             'test' => true,
-            'terminalName' => 'Test Terminal',
+            'terminalName' => $config->defaultTerminalName,
             'cardType' => BlockChyp::CARD_TYPE_EBT,
         ];
 

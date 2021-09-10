@@ -20,7 +20,7 @@ class GatewayTimeoutTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("GatewayTimeoutTest");
+        $this->processTestDelay("GatewayTimeoutTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [

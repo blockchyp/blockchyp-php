@@ -20,11 +20,11 @@ class TerminalStatusTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("TerminalStatusTest");
+        $this->processTestDelay("TerminalStatusTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
-            'terminalName' => 'Test Terminal',
+            'terminalName' => $config->defaultTerminalName,
         ];
 
         self::logRequest($request);

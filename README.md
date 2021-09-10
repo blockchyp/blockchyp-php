@@ -1916,6 +1916,78 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 ```
 
+#### Delete Customer
+
+
+
+Deletes a customer record.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'customerId' => 'ID of the customer to delete',
+];
+
+$response = BlockChyp::deleteCustomer($request);
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
+#### Delete Token
+
+
+
+Deletes a payment token from the gateway.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'token' => 'Token to delete',
+];
+
+$response = BlockChyp::deleteToken($request);
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
 ## Running Integration Tests
 
 If you'd like to run the integration tests, create a new file on your system

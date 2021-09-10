@@ -4,13 +4,13 @@ use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
-class SimpleReversalTest extends BlockChypTestCase
+class DeleteCustomerTest extends BlockChypTestCase
 {
 
     /**
      * @group itest
      */
-    public function testSimpleReversal()
+    public function testDeleteCustomer()
     {
         $config = $this->loadTestConfiguration();
 
@@ -20,21 +20,22 @@ class SimpleReversalTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("SimpleReversalTest", $config->defaultTerminalName);
+        $this->processTestDelay("DeleteCustomerTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
-            'pan' => '4111111111111111',
-            'expMonth' => '12',
-            'expYear' => '2025',
-            'amount' => '25.55',
-            'test' => true,
-            'transactionRef' => $this->getUUID(),
+            'customer' => [
+                'firstName' => 'Test',
+                'lastName' => 'Customer',
+                'companyName' => 'Test Company',
+                'emailAddress' => 'support@blockchyp.com',
+                'smsNumber' => '(123) 123-1234',
+            ],
         ];
 
         self::logRequest($request);
 
-        $response = BlockChyp::charge($request);
+        $response = BlockChyp::updateCustomer($request);
 
         self::logResponse($response);
 
@@ -53,19 +54,17 @@ class SimpleReversalTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'transactionRef' => $lastTransactionRef,
-            'test' => true,
+            'customerId' => $lastCustomer['id'],
         ];
 
         self::logRequest($request);
 
-        $response = BlockChyp::reverse($request);
+        $response = BlockChyp::deleteCustomer($request);
 
         self::logResponse($response);
 
         // Response assertions
         $this->assertTrue($response['success']);
-        $this->assertTrue($response['approved']);
         $this->processResponseDelay($request);
     }
 }

@@ -20,12 +20,12 @@ class TextPromptTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("TextPromptTest");
+        $this->processTestDelay("TextPromptTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
             'test' => true,
-            'terminalName' => 'Test Terminal',
+            'terminalName' => $config->defaultTerminalName,
             'promptType' => BlockChyp::PROMPT_TYPE_EMAIL,
         ];
 

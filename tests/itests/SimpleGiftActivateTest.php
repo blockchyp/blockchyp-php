@@ -20,12 +20,12 @@ class SimpleGiftActivateTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("SimpleGiftActivateTest");
+        $this->processTestDelay("SimpleGiftActivateTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
             'test' => true,
-            'terminalName' => 'Test Terminal',
+            'terminalName' => $config->defaultTerminalName,
             'amount' => '50.00',
         ];
 

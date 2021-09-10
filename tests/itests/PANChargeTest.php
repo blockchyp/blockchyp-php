@@ -20,7 +20,7 @@ class PANChargeTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("PANChargeTest");
+        $this->processTestDelay("PANChargeTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [

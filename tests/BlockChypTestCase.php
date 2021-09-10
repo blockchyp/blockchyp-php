@@ -48,7 +48,7 @@ class BlockChypTestCase extends TestCase
         );
     }
 
-    protected function processTestDelay($testName)
+    protected function processTestDelay($testName, $terminalName)
     {
         $testDelay = getenv('BC_TEST_DELAY');
 
@@ -57,7 +57,7 @@ class BlockChypTestCase extends TestCase
             if ($testDelayInt > 0) {
                 $request = [];
                 $request['test'] = true;
-                $request['terminalName'] = 'Test Terminal';
+                $request['terminalName'] = $terminalName;
                 $request['message'] = 'Running ' . $testName . ' in ' . $testDelay . ' seconds...';
                 BlockChyp::message($request);
                 sleep($testDelayInt);

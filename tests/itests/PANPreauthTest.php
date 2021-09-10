@@ -20,7 +20,7 @@ class PANPreauthTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("PANPreauthTest");
+        $this->processTestDelay("PANPreauthTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [

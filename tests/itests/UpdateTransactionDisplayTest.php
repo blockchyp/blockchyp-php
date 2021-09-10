@@ -20,12 +20,12 @@ class UpdateTransactionDisplayTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("UpdateTransactionDisplayTest");
+        $this->processTestDelay("UpdateTransactionDisplayTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
             'test' => true,
-            'terminalName' => 'Test Terminal',
+            'terminalName' => $config->defaultTerminalName,
             'transaction' => [
                 'subtotal' => '35.00',
                 'tax' => '5.00',

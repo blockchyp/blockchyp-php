@@ -47,7 +47,7 @@ test:
 .PHONY: integration
 integration:
 	$(if $(LOCALBUILD), \
-		$(PHPUNIT) --bootstrap vendor/autoload.php --group itest tests, \
+		$(PHPUNIT) --bootstrap vendor/autoload.php $(if $(TEST),--filter $(TEST) ./tests,--group itest tests), \
 		$(foreach path,$(CACHEPATHS),mkdir -p $(CACHE)/$(path) ; ) \
 		sed 's/localhost/$(HOSTIP)/' $(CONFIGFILE) >$(CACHE)/$(CONFIGFILE) ; \
 		$(DOCKER) run \
@@ -60,7 +60,7 @@ integration:
 		-w $(PWD) \
 		--init \
 		--rm -it $(IMAGE) \
-		bash -c "composer install -n --prefer-dist && $(PHPUNIT) --bootstrap vendor/autoload.php $(if $(TEST),--filter $(TEST),--group itest tests)")
+		bash -c "composer install -n --prefer-dist && $(PHPUNIT) --bootstrap vendor/autoload.php $(if $(TEST),--filter $(TEST) ./tests,--group itest tests)")
 
 # Performs any tasks necessary before a release build
 .PHONY: stage

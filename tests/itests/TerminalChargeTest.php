@@ -20,11 +20,11 @@ class TerminalChargeTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("TerminalChargeTest");
+        $this->processTestDelay("TerminalChargeTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
-            'terminalName' => 'Test Terminal',
+            'terminalName' => '$testTerminal',
             'amount' => '25.15',
             'test' => true,
         ];

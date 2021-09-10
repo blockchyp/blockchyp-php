@@ -20,7 +20,7 @@ class SimpleVoidTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("SimpleVoidTest");
+        $this->processTestDelay("SimpleVoidTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
@@ -46,6 +46,9 @@ class SimpleVoidTest extends BlockChypTestCase
         }
         if (!empty($response['customer'])) {
             $lastCustomer = $response['customer'];
+        }
+        if (!empty($response['token'])) {
+            $lastToken = $response['token'];
         }
 
         // Set request values

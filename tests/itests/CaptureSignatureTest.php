@@ -20,11 +20,11 @@ class CaptureSignatureTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("CaptureSignatureTest");
+        $this->processTestDelay("CaptureSignatureTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
-            'terminalName' => 'Test Terminal',
+            'terminalName' => $config->defaultTerminalName,
             'sigFormat' => BlockChyp::SIGNATURE_FORMAT_PNG,
             'sigWidth' => 200,
         ];

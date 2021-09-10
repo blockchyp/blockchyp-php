@@ -20,11 +20,11 @@ class TerminalEnrollTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("TerminalEnrollTest");
+        $this->processTestDelay("TerminalEnrollTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
-            'terminalName' => 'Test Terminal',
+            'terminalName' => $config->defaultTerminalName,
             'test' => true,
         ];
 

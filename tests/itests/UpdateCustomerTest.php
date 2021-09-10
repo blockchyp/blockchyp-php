@@ -20,7 +20,7 @@ class UpdateCustomerTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("UpdateCustomerTest");
+        $this->processTestDelay("UpdateCustomerTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [

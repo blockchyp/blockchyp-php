@@ -20,7 +20,7 @@ class BatchHistoryTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("BatchHistoryTest");
+        $this->processTestDelay("BatchHistoryTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
@@ -46,6 +46,9 @@ class BatchHistoryTest extends BlockChypTestCase
         }
         if (!empty($response['customer'])) {
             $lastCustomer = $response['customer'];
+        }
+        if (!empty($response['token'])) {
+            $lastToken = $response['token'];
         }
 
         // Set request values

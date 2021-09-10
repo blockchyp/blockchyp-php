@@ -20,11 +20,11 @@ class TerminalPreauthTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("TerminalPreauthTest");
+        $this->processTestDelay("TerminalPreauthTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
-            'terminalName' => 'Test Terminal',
+            'terminalName' => $config->defaultTerminalName,
             'amount' => '15.15',
             'test' => true,
         ];

@@ -20,12 +20,12 @@ class SimplePingTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("SimplePingTest");
+        $this->processTestDelay("SimplePingTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
             'test' => true,
-            'terminalName' => 'Test Terminal',
+            'terminalName' => '$testTerminal',
         ];
 
         self::logRequest($request);

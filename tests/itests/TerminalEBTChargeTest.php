@@ -20,11 +20,11 @@ class TerminalEBTChargeTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("TerminalEBTChargeTest");
+        $this->processTestDelay("TerminalEBTChargeTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
-            'terminalName' => 'Test Terminal',
+            'terminalName' => $config->defaultTerminalName,
             'amount' => '25.00',
             'test' => true,
             'cardType' => BlockChyp::CARD_TYPE_EBT,

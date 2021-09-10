@@ -20,7 +20,7 @@ class SendPaymentLinkTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("SendPaymentLinkTest");
+        $this->processTestDelay("SendPaymentLinkTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [

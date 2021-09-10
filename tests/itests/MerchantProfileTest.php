@@ -20,7 +20,7 @@ class MerchantProfileTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("MerchantProfileTest");
+        $this->processTestDelay("MerchantProfileTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [

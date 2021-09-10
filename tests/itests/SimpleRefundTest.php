@@ -20,7 +20,7 @@ class SimpleRefundTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("SimpleRefundTest");
+        $this->processTestDelay("SimpleRefundTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
@@ -46,6 +46,9 @@ class SimpleRefundTest extends BlockChypTestCase
         }
         if (!empty($response['customer'])) {
             $lastCustomer = $response['customer'];
+        }
+        if (!empty($response['token'])) {
+            $lastToken = $response['token'];
         }
 
         // Set request values
