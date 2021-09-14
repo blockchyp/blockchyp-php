@@ -51,6 +51,9 @@ class SearchCustomerTest extends BlockChypTestCase
         if (!empty($response['token'])) {
             $lastToken = $response['token'];
         }
+        if (!empty($response['linkCode'])) {
+            $lastLinkCode = $response['linkCode'];
+        }
 
         // Set request values
         $request = [

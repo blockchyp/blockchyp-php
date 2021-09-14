@@ -4,13 +4,13 @@ use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
-class SimpleCaptureTest extends BlockChypTestCase
+class CancelPaymentLinkTest extends BlockChypTestCase
 {
 
     /**
      * @group itest
      */
-    public function testSimpleCapture()
+    public function testCancelPaymentLink()
     {
         $config = $this->loadTestConfiguration();
 
@@ -20,20 +20,39 @@ class SimpleCaptureTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("SimpleCaptureTest", $config->defaultTerminalName);
+        $this->processTestDelay("CancelPaymentLinkTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
-            'pan' => '4111111111111111',
-            'expMonth' => '12',
-            'expYear' => '2025',
-            'amount' => '25.55',
-            'test' => true,
+            'amount' => '199.99',
+            'description' => 'Widget',
+            'subject' => 'Widget invoice',
+            'transaction' => [
+                'subtotal' => '195.00',
+                'tax' => '4.99',
+                'total' => '199.99',
+                'items' => [
+                    [
+                        'description' => 'Widget',
+                        'price' => '195.00',
+                        'quantity' => 1,
+                    ],
+                ],
+            ],
+            'autoSend' => true,
+            'customer' => [
+                'customerRef' => 'Customer reference string',
+                'firstName' => 'FirstName',
+                'lastName' => 'LastName',
+                'companyName' => 'Company Name',
+                'emailAddress' => 'support@blockchyp.com',
+                'smsNumber' => '(123) 123-1231',
+            ],
         ];
 
         self::logRequest($request);
 
-        $response = BlockChyp::preauth($request);
+        $response = BlockChyp::sendPaymentLink($request);
 
         self::logResponse($response);
 
@@ -55,19 +74,17 @@ class SimpleCaptureTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'transactionId' => $lastTransactionId,
-            'test' => true,
+            'linkCode' => $lastLinkCode,
         ];
 
         self::logRequest($request);
 
-        $response = BlockChyp::capture($request);
+        $response = BlockChyp::cancelPaymentLink($request);
 
         self::logResponse($response);
 
         // Response assertions
         $this->assertTrue($response['success']);
-        $this->assertTrue($response['approved']);
         $this->processResponseDelay($request);
     }
 }
