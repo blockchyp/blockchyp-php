@@ -25,7 +25,7 @@ class SimplePingTest extends BlockChypTestCase
         // Set request values
         $request = [
             'test' => true,
-            'terminalName' => '$testTerminal',
+            'terminalName' => $config->defaultTerminalName,
         ];
 
         self::logRequest($request);

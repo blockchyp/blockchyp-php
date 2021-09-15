@@ -24,7 +24,7 @@ class TerminalChargeTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'terminalName' => '$testTerminal',
+            'terminalName' => $config->defaultTerminalName,
             'amount' => '25.15',
             'test' => true,
         ];
