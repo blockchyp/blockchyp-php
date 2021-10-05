@@ -1808,6 +1808,15 @@ None of the above filters are mutually exclusive.  You can combine any of the
 above properties in a single request to restrict transaction results to a
 narrower set of results.
 
+**Searching Transaction History**
+
+You can search transaction history by passing in search criteria with the 
+`query` option.  The search system will match on amount (requested and authorized),
+last four of the card number, cardholder name, and the auth code.
+
+Note that when search queries are used, terminalName or 
+batch id filters are not supported.
+
 
 
 
@@ -2018,6 +2027,126 @@ $request = [
 ];
 
 $response = BlockChyp::deleteToken($request);
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
+#### Token Metadata
+
+
+
+Retrieves status and metadata information about a token, 
+including any links to customer records.  
+
+This will also return any customer records related to the card
+behind the token.  If the underlying card has been tokenized
+multiple times, all customers related to the card will be returned,
+even if those customer associations are related to other tokens.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'token' => 'Token to retrieve',
+];
+
+$response = BlockChyp::tokenMetadata($request);
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
+#### Link Token
+
+
+
+Links a payment token with a customer record.  Usually this would only be used
+to reverse a previous unlink operation.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'token' => 'Token to link',
+    'customerId' => 'Customer to link',
+];
+
+$response = BlockChyp::linkToken($request);
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
+#### Unlink Token
+
+
+
+Removes a payment token link from a customer record.
+
+This will remove links between the customer record and all tokens
+for the same underlying card.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'token' => 'Token to unlink',
+    'customerId' => 'Customer to unlink',
+];
+
+$response = BlockChyp::unlinkToken($request);
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
