@@ -26,6 +26,11 @@ class UnlinkTokenTest extends BlockChypTestCase
         $request = [
             'pan' => '4111111111111111',
             'test' => true,
+            'customer' => [
+                'customerRef' => 'TESTCUSTOMER',
+                'firstName' => 'Test',
+                'lastName' => 'Customer',
+            ],
         ];
 
         self::logRequest($request);
@@ -53,7 +58,7 @@ class UnlinkTokenTest extends BlockChypTestCase
         // Set request values
         $request = [
             'token' => $lastToken,
-            'customerId' => '$customerId',
+            'customerId' => $lastCustomer['id'],
         ];
 
         self::logRequest($request);
