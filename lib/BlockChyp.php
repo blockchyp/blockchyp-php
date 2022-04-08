@@ -273,6 +273,19 @@ class BlockChyp extends BlockChypClient
     }
 
     /**
+     * Returns routing and location data for a payment terminal.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function locate($request)
+    {
+        return self::gatewayRequest('POST', '/api/terminal-locate', $request);
+    }
+    /**
      * Captures a preauthorization.
      *
      * @param array $request The request body.

@@ -125,6 +125,46 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 ```
 
+#### Terminal Locate
+
+
+This endpoint returns routing and location information for a terminal.
+
+The result will indicate whether or not the terminal is in cloud relay mode and will
+return the local IP address if the terminal is in local mode.
+
+The terminal will also return the public key for the terminal.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'terminalName' => 'Test Terminal',
+];
+
+$response = BlockChyp::locate($request);
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
 #### Charge
 
 
