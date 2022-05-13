@@ -2193,6 +2193,156 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 ```
 
+#### Add Test Merchant
+
+
+
+This is a partner level API that can be used to create test merchant accounts.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'dbaName' => 'DBA name.',
+    'companyName' => 'test merchant customer name.',
+];
+
+$response = BlockChyp::addTestMerchant($request);
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
+#### Get Merchants
+
+
+
+This is a partner or organization level API that can be used to return the merchant portfolio.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'test' => true,
+];
+
+$response = BlockChyp::getMerchants($request);
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
+#### Update Or Create Merchant
+
+
+
+This API can be used to update or create merchant accounts.
+
+Merchant scoped API credentials can be used to update merchant account settings.
+
+Partner scoped API credentials can be used to update merchants, create new test 
+merchants or board new gateway merchants. 
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'test' => true,
+];
+
+$response = BlockChyp::updateMerchant($request);
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
+#### Delete Test Merchant
+
+
+
+This partner API can be used to deleted unused test merchant accounts.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'merchantId' => 'ID for the test merchant being deleted.',
+];
+
+$response = BlockChyp::deleteTestMerchant($request);
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
 ## Running Integration Tests
 
 If you'd like to run the integration tests, create a new file on your system
