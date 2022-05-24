@@ -14,7 +14,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'terminalId' => 'XXXXXXX',
+    'terminalId' => $this->getUUID(),
     'timeout' => 120,
 ];
 

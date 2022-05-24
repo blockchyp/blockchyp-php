@@ -502,19 +502,6 @@ class BlockChyp extends BlockChypClient
         return self::gatewayRequest('DELETE', '/api/customer/' . $request["customerId"], $request);
     }
     /**
-     * Deletes a payment token.
-     *
-     * @param array $request The request body.
-     *
-     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
-     *
-     * @return array The API response.
-     */
-    public static function deleteToken($request)
-    {
-        return self::gatewayRequest('DELETE', '/api/token/' . $request["token"], $request);
-    }
-    /**
      * Retrieves payment token metadata.
      *
      * @param array $request The request body.
@@ -552,5 +539,18 @@ class BlockChyp extends BlockChypClient
     public static function unlinkToken($request)
     {
         return self::gatewayRequest('POST', '/api/unlink-token', $request);
+    }
+    /**
+     * Deletes a payment token.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function deleteToken($request)
+    {
+        return self::gatewayRequest('DELETE', '/api/token/' . $request["token"], $request);
     }
 }

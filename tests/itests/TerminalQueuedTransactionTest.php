@@ -4,13 +4,13 @@ use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
-class TCTemplateUpdateTest extends BlockChypTestCase
+class TerminalQueuedTransactionTest extends BlockChypTestCase
 {
 
     /**
      * @group itest
      */
-    public function testTCTemplateUpdate()
+    public function testTerminalQueuedTransaction()
     {
         $config = $this->loadTestConfiguration();
 
@@ -20,28 +20,29 @@ class TCTemplateUpdateTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("TCTemplateUpdateTest", $config->defaultTerminalName);
+        $this->processTestDelay("TerminalQueuedTransactionTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
-            'alias' => $this->getUUID(),
-            'name' => 'HIPPA Disclosure',
-            'content' => 'Lorem ipsum dolor sit amet.',
+            'terminalName' => $config->defaultTerminalName,
+            'transactionRef' => $this->getUUID(),
+            'description' => '1060 West Addison',
+            'amount' => '25.15',
+            'test' => true,
+            'queue' => true,
         ];
 
         self::logRequest($request);
 
-        $response = BlockChyp::tcUpdateTemplate($request);
+        $response = BlockChyp::charge($request);
 
         self::logResponse($response);
 
         // Response assertions
         $this->assertTrue($response['success']);
-        $this->assertNotEmpty($response['alias']);
+        $this->assertFalse($response['approved']);
 
-        $this->assertEquals('HIPPA Disclosure', $response['name']);
-
-        $this->assertEquals('Lorem ipsum dolor sit amet.', $response['content']);
+        $this->assertEquals('Queued', $response['responseDescription']);
         $this->processResponseDelay($request);
     }
 }

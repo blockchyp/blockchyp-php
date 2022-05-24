@@ -24,6 +24,8 @@ class ActivateTerminalTest extends BlockChypTestCase
 
         // Set request values
         $request = [
+            'terminalName' => 'Bad Terminal Code',
+            'activationCode' => 'XXXXXX',
         ];
 
         self::logRequest($request);
@@ -33,7 +35,9 @@ class ActivateTerminalTest extends BlockChypTestCase
         self::logResponse($response);
 
         // Response assertions
-        $this->assertTrue($response['success']);
+        $this->assertFalse($response['success']);
+
+        $this->assertEquals('Invalid Activation Code', $response['error']);
         $this->processResponseDelay($request);
     }
 }

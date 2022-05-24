@@ -4,13 +4,13 @@ use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
-class TCTemplateTest extends BlockChypTestCase
+class ListQueuedTransactionsTest extends BlockChypTestCase
 {
 
     /**
      * @group itest
      */
-    public function testTCTemplate()
+    public function testListQueuedTransactions()
     {
         $config = $this->loadTestConfiguration();
 
@@ -20,18 +20,21 @@ class TCTemplateTest extends BlockChypTestCase
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
 
-        $this->processTestDelay("TCTemplateTest", $config->defaultTerminalName);
+        $this->processTestDelay("ListQueuedTransactionsTest", $config->defaultTerminalName);
 
         // Set request values
         $request = [
-            'alias' => $this->getUUID(),
-            'name' => 'HIPPA Disclosure',
-            'content' => 'Lorem ipsum dolor sit amet.',
+            'terminalName' => $config->defaultTerminalName,
+            'transactionRef' => $this->getUUID(),
+            'description' => '1060 West Addison',
+            'amount' => '25.15',
+            'test' => true,
+            'queue' => true,
         ];
 
         self::logRequest($request);
 
-        $response = BlockChyp::tcUpdateTemplate($request);
+        $response = BlockChyp::charge($request);
 
         self::logResponse($response);
 
@@ -53,21 +56,17 @@ class TCTemplateTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'templateId' => ,
+            'terminalName' => $config->defaultTerminalName,
         ];
 
         self::logRequest($request);
 
-        $response = BlockChyp::tcTemplate($request);
+        $response = BlockChyp::listQueuedTransactions($request);
 
         self::logResponse($response);
 
         // Response assertions
         $this->assertTrue($response['success']);
-
-        $this->assertEquals('HIPPA Disclosure', $response['name']);
-
-        $this->assertEquals('Lorem ipsum dolor sit amet.', $response['content']);
         $this->processResponseDelay($request);
     }
 }

@@ -28,12 +28,47 @@ class TCEntryTest extends BlockChypTestCase
 
         self::logRequest($request);
 
+        $response = BlockChyp::tcLog($request);
+
+        self::logResponse($response);
+
+        if (!empty($response['transactionId'])) {
+            $lastTransactionId = $response['transactionId'];
+        }
+        if (!empty($response['transactionRef'])) {
+            $lastTransactionRef = $response['transactionRef'];
+        }
+        if (!empty($response['customer'])) {
+            $lastCustomer = $response['customer'];
+        }
+        if (!empty($response['token'])) {
+            $lastToken = $response['token'];
+        }
+        if (!empty($response['linkCode'])) {
+            $lastLinkCode = $response['linkCode'];
+        }
+
+        // Set request values
+        $request = [
+            'logEntryId' => ,
+        ];
+
+        self::logRequest($request);
+
         $response = BlockChyp::tcEntry($request);
 
         self::logResponse($response);
 
         // Response assertions
         $this->assertTrue($response['success']);
+        $this->assertNotEmpty($response['id']);
+        $this->assertNotEmpty($response['terminalId']);
+        $this->assertNotEmpty($response['terminalName']);
+        $this->assertNotEmpty($response['timestamp']);
+        $this->assertNotEmpty($response['name']);
+        $this->assertNotEmpty($response['content']);
+        $this->assertTrue($response['hasSignature']);
+        $this->assertNotEmpty($response['signature']);
         $this->processResponseDelay($request);
     }
 }

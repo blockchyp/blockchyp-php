@@ -24,6 +24,7 @@ class DeactivateTerminalTest extends BlockChypTestCase
 
         // Set request values
         $request = [
+            'terminalId' => $this->getUUID(),
         ];
 
         self::logRequest($request);
@@ -33,7 +34,7 @@ class DeactivateTerminalTest extends BlockChypTestCase
         self::logResponse($response);
 
         // Response assertions
-        $this->assertTrue($response['success']);
+        $this->assertFalse($response['success']);
         $this->processResponseDelay($request);
     }
 }
