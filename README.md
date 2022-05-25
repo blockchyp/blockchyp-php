@@ -3264,7 +3264,16 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 
 
-This API returns the terminal branding stack for a given API scope.
+This API returns the full branding stack for a given API scope in the order of priority.
+
+Consumers of this API should pay special attention to the `editable` field.  This field indicates whether or
+not a branding asset is read only from the perspective of a particular API Credential scope.
+
+The `thumbnail` and `previewImage` attributes can be used to support building user interfaces for
+managing the branding stack. `previewImage` differs from `thumbnail` in that the preview image is 
+intended to show how an asset would actually look when displayed on the terminal.
+
+`activeAsset` returns the asset that is currently visible on the terminal.
 
 
 
@@ -3286,7 +3295,6 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
 ];
 
 $response = BlockChyp::terminalBranding($request);
@@ -3358,7 +3366,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
+    'assetId' => '<BRANDING ASSET ID>',
 ];
 
 $response = BlockChyp::deleteBrandingAsset($request);
