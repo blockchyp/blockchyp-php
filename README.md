@@ -3140,7 +3140,10 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 
 
-This API returns a single slide show.
+This API returns a single slide show.  Slide level detail is returned with the fully qualified thumbnail URL
+for each slide.
+
+`slideShowId` is the only required parameter.
 
 
 
@@ -3162,7 +3165,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
+    'slideShowId' => '<SLIDE SHOW ID>',
 ];
 
 $response = BlockChyp::slideShow($request);
@@ -3225,7 +3228,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 
 
-This API deletes a single slide show.
+This API deletes a slide show  `slideShowId` is the only required parameter.
 
 
 
@@ -3247,7 +3250,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
+    'slideShowId' => '<SLIDE SHOW ID>',
 ];
 
 $response = BlockChyp::deleteSlideShow($request);

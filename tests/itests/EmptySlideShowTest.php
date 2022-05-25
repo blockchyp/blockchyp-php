@@ -36,6 +36,8 @@ class EmptySlideShowTest extends BlockChypTestCase
 
         // Response assertions
         $this->assertTrue($response['success']);
+
+        $this->assertEquals('Test Slide Show', $response['name']);
         $this->processResponseDelay($request);
     }
 }
