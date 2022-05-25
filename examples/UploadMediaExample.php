@@ -14,7 +14,9 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
+    'fileName' => 'aviato.png',
+    'fileSize' => 18843,
+    'uploadId' => '<RANDOM ID>',
 ];
 
 $response = BlockChyp::uploadMedia($request);

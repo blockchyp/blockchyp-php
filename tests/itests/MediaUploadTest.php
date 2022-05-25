@@ -24,6 +24,9 @@ class MediaUploadTest extends BlockChypTestCase
 
         // Set request values
         $request = [
+            'fileName' => 'aviato.png',
+            'fileSize' => 18843,
+            'uploadId' => $this->getUUID(),
         ];
 
         self::logRequest($request);
@@ -34,6 +37,11 @@ class MediaUploadTest extends BlockChypTestCase
 
         // Response assertions
         $this->assertTrue($response['success']);
+        $this->assertNotEmpty($response['id']);
+
+        $this->assertEquals('aviato.png', $response['originalFile']);
+        $this->assertNotEmpty($response['fileUrl']);
+        $this->assertNotEmpty($response['thumbnailUrl']);
         $this->processResponseDelay($request);
     }
 }

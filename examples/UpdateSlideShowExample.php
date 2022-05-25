@@ -14,7 +14,13 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
+    'name' => 'Test Slide Show',
+    'delay' => 5,
+    'slides' => [
+        [
+            'mediaId' => ,
+        ],
+    ],
 ];
 
 $response = BlockChyp::updateSlideShow($request);

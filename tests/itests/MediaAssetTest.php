@@ -24,6 +24,36 @@ class MediaAssetTest extends BlockChypTestCase
 
         // Set request values
         $request = [
+            'fileName' => 'aviato.png',
+            'fileSize' => 18843,
+            'uploadId' => $this->getUUID(),
+        ];
+
+        self::logRequest($request);
+
+        $response = BlockChyp::uploadMedia($request);
+
+        self::logResponse($response);
+
+        if (!empty($response['transactionId'])) {
+            $lastTransactionId = $response['transactionId'];
+        }
+        if (!empty($response['transactionRef'])) {
+            $lastTransactionRef = $response['transactionRef'];
+        }
+        if (!empty($response['customer'])) {
+            $lastCustomer = $response['customer'];
+        }
+        if (!empty($response['token'])) {
+            $lastToken = $response['token'];
+        }
+        if (!empty($response['linkCode'])) {
+            $lastLinkCode = $response['linkCode'];
+        }
+
+        // Set request values
+        $request = [
+            'mediaId' => ,
         ];
 
         self::logRequest($request);
@@ -34,6 +64,11 @@ class MediaAssetTest extends BlockChypTestCase
 
         // Response assertions
         $this->assertTrue($response['success']);
+        $this->assertNotEmpty($response['id']);
+
+        $this->assertEquals('aviato.png', $response['originalFile']);
+        $this->assertNotEmpty($response['fileUrl']);
+        $this->assertNotEmpty($response['thumbnailUrl']);
         $this->processResponseDelay($request);
     }
 }

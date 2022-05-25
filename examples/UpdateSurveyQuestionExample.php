@@ -14,7 +14,10 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
+    'ordinal' => 1,
+    'questionText' => 'Would you shop here again?',
+    'questionType' => 'yes_no',
+    'enabled' => true,
 ];
 
 $response = BlockChyp::updateSurveyQuestion($request);

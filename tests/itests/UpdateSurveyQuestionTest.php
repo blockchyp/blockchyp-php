@@ -24,6 +24,9 @@ class UpdateSurveyQuestionTest extends BlockChypTestCase
 
         // Set request values
         $request = [
+            'ordinal' => 1,
+            'questionText' => 'Would you shop here again?',
+            'questionType' => 'yes_no',
         ];
 
         self::logRequest($request);
@@ -34,6 +37,10 @@ class UpdateSurveyQuestionTest extends BlockChypTestCase
 
         // Response assertions
         $this->assertTrue($response['success']);
+
+        $this->assertEquals('Would you shop here again?', $response['questionText']);
+
+        $this->assertEquals('yes_no', $response['questionType']);
         $this->processResponseDelay($request);
     }
 }
