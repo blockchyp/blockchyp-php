@@ -36,6 +36,11 @@ class AddTestMerchantTest extends BlockChypTestCase
 
         // Response assertions
         $this->assertTrue($response['success']);
+
+        $this->assertEquals('Test Merchant', $response['dbaName']);
+
+        $this->assertEquals('Test Merchant', $response['companyName']);
+        $this->assertTrue($response['visa']);
         $this->processResponseDelay($request);
     }
 }

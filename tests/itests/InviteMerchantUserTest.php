@@ -24,6 +24,9 @@ class InviteMerchantUserTest extends BlockChypTestCase
 
         // Set request values
         $request = [
+            'email' => 'doublea@blockchypteam.m8r.co',
+            'firstName' => 'Aaron',
+            'lastName' => 'Anderson',
         ];
 
         self::logRequest($request);
