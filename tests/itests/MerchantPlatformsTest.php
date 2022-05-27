@@ -24,6 +24,35 @@ class MerchantPlatformsTest extends BlockChypTestCase
 
         // Set request values
         $request = [
+            'dbaName' => 'Test Merchant',
+            'companyName' => 'Test Merchant',
+        ];
+
+        self::logRequest($request);
+
+        $response = BlockChyp::addTestMerchant($request);
+
+        self::logResponse($response);
+
+        if (!empty($response['transactionId'])) {
+            $lastTransactionId = $response['transactionId'];
+        }
+        if (!empty($response['transactionRef'])) {
+            $lastTransactionRef = $response['transactionRef'];
+        }
+        if (!empty($response['customer'])) {
+            $lastCustomer = $response['customer'];
+        }
+        if (!empty($response['token'])) {
+            $lastToken = $response['token'];
+        }
+        if (!empty($response['linkCode'])) {
+            $lastLinkCode = $response['linkCode'];
+        }
+
+        // Set request values
+        $request = [
+            'merchantId' => ,
         ];
 
         self::logRequest($request);
