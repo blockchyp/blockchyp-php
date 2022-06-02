@@ -19,21 +19,30 @@ class MediaTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("MediaTest", $config->defaultTerminalName);
-
-        // Set request values
+        echo 'Running MediaTest...' . PHP_EOL;        // Set request values
         $request = [
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::media($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::media($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

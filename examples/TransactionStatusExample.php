@@ -17,7 +17,9 @@ $request = [
     'transactionId' => 'ID of transaction to retrieve',
 ];
 
+
 $response = BlockChyp::transactionStatus($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

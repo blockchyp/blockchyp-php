@@ -17,7 +17,9 @@ $request = [
     'email' => 'Email address for the invite',
 ];
 
+
 $response = BlockChyp::inviteMerchantUser($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

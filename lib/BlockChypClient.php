@@ -58,6 +58,8 @@ class BlockChypClient
 
     protected static $testGatewayHost = 'https://test.blockchyp.com';
 
+    protected static $dashboardHost = 'https://dashboard.blockchyp.com';
+
     protected static $https = true;
 
     protected static $routeCacheLocation;
@@ -92,6 +94,11 @@ class BlockChypClient
     public static function setGatewayHost($gatewayHost)
     {
         self::$gatewayHost = $gatewayHost;
+    }
+
+    public static function setDashboardHost($dashboardHost)
+    {
+        self::$dashboardHost = $dashboardHost;
     }
 
     public static function setTestGatewayHost($testGatewayHost)
@@ -149,11 +156,88 @@ class BlockChypClient
         return $response;
     }
 
+    protected static function uploadRequest($path, $request, $file)
+    {
+        $url = self::resolveDashboardURL($path);
+
+        $headers = self::generateGatewayHeaders();
+
+        if (!empty($request['fileName'])) {
+            array_push($headers, 'X-Upload-File-Name: ' . $request['fileName']);
+        }
+        if (!empty($request['uploadId'])) {
+            array_push($headers, 'X-Upload-ID: ' . $request['uploadId']);
+        }
+        if (!empty($request['fileSize'])) {
+            array_push($headers, 'X-File-Size: ' . $request['fileSize']);
+        }
+        array_push($headers, 'Content-Type: application/octet-stream');
+        if (!empty($request->fileSize)) {
+            array_push($headers, 'Content-Length: ' . $request->fileSize);
+        }
+
+        $timeout = self::getTimeout($request, self::$gatewayTimeout);
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_USERAGENT, self::getUserAgent());
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $file);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        try {
+            if (!$result = curl_exec($ch)) {
+                throw Exception\ConnectionException::factory(curl_error($ch));
+            }
+        } finally {
+            curl_close($ch);
+        }
+
+        return json_decode($result, true);
+    }
+
+    protected static function dashboardRequest($method, $path, $request=null)
+    {
+        $url = self::resolveDashboardURL($path);
+
+        $content = json_encode($request);
+        if (empty($request)) {
+            $content = '{}';
+        }
+
+        $headers = self::generateGatewayHeaders();
+
+        array_push($headers, 'Content-Type: application/json');
+        array_push($headers, 'Content-Length: ' . strlen($content));
+
+        $timeout = self::getTimeout($request, self::$gatewayTimeout);
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_USERAGENT, self::getUserAgent());
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        try {
+            if (!$result = curl_exec($ch)) {
+                throw Exception\ConnectionException::factory(curl_error($ch));
+            }
+        } finally {
+            curl_close($ch);
+        }
+
+        return json_decode($result, true);
+    }
+
     protected static function gatewayRequest($method, $path, $request=null, $relay=false)
     {
         $url = self::resolveGatewayURL($path, !empty($request['test']));
 
         $content = json_encode($request);
+        if (empty($request)) {
+            $content = '{}';
+        }
 
         $headers = self::generateGatewayHeaders();
 
@@ -456,6 +540,11 @@ class BlockChypClient
         }
 
         return false;
+    }
+
+    private static function resolveDashboardURL($path)
+    {
+        return self::$dashboardHost . $path;
     }
 
     private static function resolveGatewayURL($path, $test)

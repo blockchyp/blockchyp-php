@@ -19,7 +19,10 @@ $request = [
     'uploadId' => '<RANDOM ID>',
 ];
 
-$response = BlockChyp::uploadMedia($request);
+
+$file = file_get_contents('aviato.png');
+$response = BlockChyp::uploadMedia($request, $file);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

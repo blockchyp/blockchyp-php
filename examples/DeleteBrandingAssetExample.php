@@ -17,7 +17,9 @@ $request = [
     'assetId' => '<BRANDING ASSET ID>',
 ];
 
+
 $response = BlockChyp::deleteBrandingAsset($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

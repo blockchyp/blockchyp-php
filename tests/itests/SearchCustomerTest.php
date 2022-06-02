@@ -19,8 +19,9 @@ class SearchCustomerTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("SearchCustomerTest", $config->defaultTerminalName);
+        echo 'Running SearchCustomerTest...' . PHP_EOL;
 
         // Set request values
         $request = [
@@ -33,11 +34,11 @@ class SearchCustomerTest extends BlockChypTestCase
             ],
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
         $response = BlockChyp::updateCustomer($request);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -60,14 +61,24 @@ class SearchCustomerTest extends BlockChypTestCase
             'query' => '123123',
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::customerSearch($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::customerSearch($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

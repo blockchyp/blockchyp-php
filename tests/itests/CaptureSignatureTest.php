@@ -19,24 +19,35 @@ class CaptureSignatureTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
+        echo 'Running CaptureSignatureTest...' . PHP_EOL;
         $this->processTestDelay("CaptureSignatureTest", $config->defaultTerminalName);
-
-        // Set request values
+             // Set request values
         $request = [
             'terminalName' => $config->defaultTerminalName,
             'sigFormat' => BlockChyp::SIGNATURE_FORMAT_PNG,
             'sigWidth' => 200,
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::captureSignature($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::captureSignature($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+    
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

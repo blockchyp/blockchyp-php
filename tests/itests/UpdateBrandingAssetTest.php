@@ -19,8 +19,9 @@ class UpdateBrandingAssetTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("UpdateBrandingAssetTest", $config->defaultTerminalName);
+        echo 'Running UpdateBrandingAssetTest...' . PHP_EOL;
 
         // Set request values
         $request = [
@@ -29,11 +30,12 @@ class UpdateBrandingAssetTest extends BlockChypTestCase
             'uploadId' => $this->getUUID(),
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::uploadMedia($request);
+        $file = file_get_contents('./tests/itests/testdata/aviato.png');
+        $response = BlockChyp::uploadMedia($request, $file);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -53,7 +55,7 @@ class UpdateBrandingAssetTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'mediaId' => ,
+            'mediaId' => $response['id'],
             'padded' => true,
             'ordinal' => 10,
             'startDate' => '01/06/2021',
@@ -65,14 +67,24 @@ class UpdateBrandingAssetTest extends BlockChypTestCase
             'enabled' => true,
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::updateBrandingAsset($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::updateBrandingAsset($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

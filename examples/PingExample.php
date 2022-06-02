@@ -17,7 +17,9 @@ $request = [
     'terminalName' => 'Test Terminal',
 ];
 
+
 $response = BlockChyp::ping($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

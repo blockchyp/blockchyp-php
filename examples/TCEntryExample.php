@@ -17,7 +17,9 @@ $request = [
     'timeout' => 120,
 ];
 
+
 $response = BlockChyp::tcEntry($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

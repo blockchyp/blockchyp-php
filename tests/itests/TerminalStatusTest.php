@@ -19,23 +19,35 @@ class TerminalStatusTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
+        echo 'Running TerminalStatusTest...' . PHP_EOL;
         $this->processTestDelay("TerminalStatusTest", $config->defaultTerminalName);
-
-        // Set request values
+             // Set request values
         $request = [
             'terminalName' => $config->defaultTerminalName,
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::terminalStatus($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::terminalStatus($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
-        $this->assertTrue($response['idle']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+    
+            $this->assertTrue($response['idle']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

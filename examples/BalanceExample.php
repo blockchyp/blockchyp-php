@@ -19,7 +19,9 @@ $request = [
     'cardType' => BlockChyp::CARD_TYPE_EBT,
 ];
 
+
 $response = BlockChyp::balance($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

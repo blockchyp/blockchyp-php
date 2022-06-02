@@ -19,25 +19,34 @@ class EmptySlideShowTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("EmptySlideShowTest", $config->defaultTerminalName);
-
-        // Set request values
+        echo 'Running EmptySlideShowTest...' . PHP_EOL;        // Set request values
         $request = [
             'name' => 'Test Slide Show',
             'delay' => 5,
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::updateSlideShow($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::updateSlideShow($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
 
-        $this->assertEquals('Test Slide Show', $response['name']);
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+    
+            $this->assertEquals('Test Slide Show', $response['name']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

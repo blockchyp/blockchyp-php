@@ -19,10 +19,11 @@ class TerminalTimeoutTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
+        echo 'Running TerminalTimeoutTest...' . PHP_EOL;
         $this->processTestDelay("TerminalTimeoutTest", $config->defaultTerminalName);
-
-        // Set request values
+             // Set request values
         $request = [
             'timeout' => 1,
             'terminalName' => $config->defaultTerminalName,
@@ -30,12 +31,21 @@ class TerminalTimeoutTest extends BlockChypTestCase
             'test' => true,
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $this->expectException(\BlockChyp\Exception\ConnectionException::class);
-        $response = BlockChyp::charge($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::charge($request);
+
+            // self::logResponse($response);
+
+            // Response assertions
+
+        } catch (Exception $ex) {
+
+            // exception expected
+
+        }
         $this->processResponseDelay($request);
     }
 }

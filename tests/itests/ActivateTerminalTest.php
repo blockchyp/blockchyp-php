@@ -19,25 +19,34 @@ class ActivateTerminalTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("ActivateTerminalTest", $config->defaultTerminalName);
-
-        // Set request values
+        echo 'Running ActivateTerminalTest...' . PHP_EOL;        // Set request values
         $request = [
             'terminalName' => 'Bad Terminal Code',
             'activationCode' => 'XXXXXX',
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::activateTerminal($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::activateTerminal($request);
 
-        // Response assertions
-        $this->assertFalse($response['success']);
+            // self::logResponse($response);
 
-        $this->assertEquals('Invalid Activation Code', $response['error']);
+            // Response assertions
+    
+            $this->assertFalse($response['success']);
+    
+            $this->assertEquals('Invalid Activation Code', $response['error']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

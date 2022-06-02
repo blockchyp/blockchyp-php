@@ -23,7 +23,9 @@ $request = [
     'sigWidth' => 200,
 ];
 
+
 $response = BlockChyp::captureSignature($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

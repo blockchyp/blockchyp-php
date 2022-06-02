@@ -17,7 +17,9 @@ $request = [
     'merchantId' => 'ID for the test merchant being deleted.',
 ];
 
+
 $response = BlockChyp::deleteTestMerchant($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

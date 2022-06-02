@@ -62,6 +62,7 @@ integration:
 		--rm -it $(IMAGE) \
 		bash -c "composer install -n --prefer-dist && $(PHPUNIT) --bootstrap vendor/autoload.php $(if $(TEST),--filter $(TEST) ./tests,--group itest tests)")
 
+
 # Performs any tasks necessary before a release build
 .PHONY: stage
 stage:

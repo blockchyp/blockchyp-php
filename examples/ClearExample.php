@@ -18,7 +18,9 @@ $request = [
     'terminalName' => 'Test Terminal',
 ];
 
+
 $response = BlockChyp::clear($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

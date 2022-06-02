@@ -19,8 +19,9 @@ class MediaAssetTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("MediaAssetTest", $config->defaultTerminalName);
+        echo 'Running MediaAssetTest...' . PHP_EOL;
 
         // Set request values
         $request = [
@@ -29,11 +30,12 @@ class MediaAssetTest extends BlockChypTestCase
             'uploadId' => $this->getUUID(),
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::uploadMedia($request);
+        $file = file_get_contents('./tests/itests/testdata/aviato.png');
+        $response = BlockChyp::uploadMedia($request, $file);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -53,22 +55,35 @@ class MediaAssetTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'mediaId' => ,
+            'mediaId' => $response['id'],
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::mediaAsset($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::mediaAsset($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
-        $this->assertNotEmpty($response['id']);
+            // self::logResponse($response);
 
-        $this->assertEquals('aviato.png', $response['originalFile']);
-        $this->assertNotEmpty($response['fileUrl']);
-        $this->assertNotEmpty($response['thumbnailUrl']);
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+    
+            $this->assertNotEmpty($response['id']);
+    
+            $this->assertEquals('aviato.png', $response['originalFile']);
+    
+            $this->assertNotEmpty($response['fileUrl']);
+    
+            $this->assertNotEmpty($response['thumbnailUrl']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

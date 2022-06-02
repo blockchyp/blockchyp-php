@@ -17,7 +17,9 @@ $request = [
     'linkCode' => 'Payment link code to cancel',
 ];
 
+
 $response = BlockChyp::cancelPaymentLink($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

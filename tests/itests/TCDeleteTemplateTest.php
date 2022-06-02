@@ -19,8 +19,9 @@ class TCDeleteTemplateTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("TCDeleteTemplateTest", $config->defaultTerminalName);
+        echo 'Running TCDeleteTemplateTest...' . PHP_EOL;
 
         // Set request values
         $request = [
@@ -29,11 +30,11 @@ class TCDeleteTemplateTest extends BlockChypTestCase
             'content' => 'Lorem ipsum dolor sit amet.',
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
         $response = BlockChyp::tcUpdateTemplate($request);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -53,17 +54,27 @@ class TCDeleteTemplateTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'templateId' => ,
+            'templateId' => $response['id'],
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::tcDeleteTemplate($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::tcDeleteTemplate($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

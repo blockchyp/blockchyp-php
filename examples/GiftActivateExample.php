@@ -19,7 +19,9 @@ $request = [
     'amount' => '50.00',
 ];
 
+
 $response = BlockChyp::giftActivate($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

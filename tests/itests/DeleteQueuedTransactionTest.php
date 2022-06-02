@@ -19,8 +19,11 @@ class DeleteQueuedTransactionTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
+        echo 'Running DeleteQueuedTransactionTest...' . PHP_EOL;
         $this->processTestDelay("DeleteQueuedTransactionTest", $config->defaultTerminalName);
+
 
         // Set request values
         $request = [
@@ -32,11 +35,11 @@ class DeleteQueuedTransactionTest extends BlockChypTestCase
             'queue' => true,
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
         $response = BlockChyp::charge($request);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -60,14 +63,24 @@ class DeleteQueuedTransactionTest extends BlockChypTestCase
             'transactionRef' => '*',
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::deleteQueuedTransaction($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::deleteQueuedTransaction($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

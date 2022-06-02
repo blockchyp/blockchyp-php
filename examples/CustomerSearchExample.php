@@ -17,7 +17,9 @@ $request = [
     'query' => '(123) 123-1234',
 ];
 
+
 $response = BlockChyp::customerSearch($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

@@ -19,8 +19,9 @@ class BatchHistoryTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("BatchHistoryTest", $config->defaultTerminalName);
+        echo 'Running BatchHistoryTest...' . PHP_EOL;
 
         // Set request values
         $request = [
@@ -32,11 +33,11 @@ class BatchHistoryTest extends BlockChypTestCase
             'transactionRef' => $this->getUUID(),
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
         $response = BlockChyp::charge($request);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -59,14 +60,24 @@ class BatchHistoryTest extends BlockChypTestCase
             'maxResults' => 10,
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::batchHistory($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::batchHistory($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

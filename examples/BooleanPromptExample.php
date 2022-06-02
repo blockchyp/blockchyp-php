@@ -21,7 +21,9 @@ $request = [
     'noCaption' => 'No',
 ];
 
+
 $response = BlockChyp::booleanPrompt($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

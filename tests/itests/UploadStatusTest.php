@@ -19,8 +19,9 @@ class UploadStatusTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("UploadStatusTest", $config->defaultTerminalName);
+        echo 'Running UploadStatusTest...' . PHP_EOL;
 
         // Set request values
         $request = [
@@ -29,11 +30,12 @@ class UploadStatusTest extends BlockChypTestCase
             'uploadId' => $this->getUUID(),
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::uploadMedia($request);
+        $file = file_get_contents('./tests/itests/testdata/aviato.png');
+        $response = BlockChyp::uploadMedia($request, $file);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -53,17 +55,27 @@ class UploadStatusTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'uploadId' => ,
+            'uploadId' => $request['uploadId'],
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::uploadStatus($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::uploadStatus($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

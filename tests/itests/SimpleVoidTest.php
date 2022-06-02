@@ -19,8 +19,9 @@ class SimpleVoidTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("SimpleVoidTest", $config->defaultTerminalName);
+        echo 'Running SimpleVoidTest...' . PHP_EOL;
 
         // Set request values
         $request = [
@@ -32,11 +33,11 @@ class SimpleVoidTest extends BlockChypTestCase
             'transactionRef' => $this->getUUID(),
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
         $response = BlockChyp::charge($request);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -60,15 +61,26 @@ class SimpleVoidTest extends BlockChypTestCase
             'test' => true,
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::void($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::void($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
-        $this->assertTrue($response['approved']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+    
+            $this->assertTrue($response['approved']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

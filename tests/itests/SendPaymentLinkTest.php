@@ -19,10 +19,9 @@ class SendPaymentLinkTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("SendPaymentLinkTest", $config->defaultTerminalName);
-
-        // Set request values
+        echo 'Running SendPaymentLinkTest...' . PHP_EOL;        // Set request values
         $request = [
             'amount' => '199.99',
             'description' => 'Widget',
@@ -50,15 +49,26 @@ class SendPaymentLinkTest extends BlockChypTestCase
             ],
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::sendPaymentLink($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::sendPaymentLink($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
-        $this->assertNotEmpty($response['url']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+    
+            $this->assertNotEmpty($response['url']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

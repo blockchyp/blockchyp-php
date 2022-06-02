@@ -18,7 +18,9 @@ $request = [
     'companyName' => 'test merchant customer name.',
 ];
 
+
 $response = BlockChyp::addTestMerchant($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

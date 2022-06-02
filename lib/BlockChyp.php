@@ -553,4 +553,532 @@ class BlockChyp extends BlockChypClient
     {
         return self::gatewayRequest('DELETE', '/api/token/' . $request["token"], $request);
     }
+    /**
+     * Adds a test merchant account.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function getMerchants($request)
+    {
+        return self::dashboardRequest('POST', '/api/get-merchants', $request);
+    }
+
+    /**
+     * Adds or updates a merchant account. Can be used to create or update test merchants.
+     * Only gateway only partners may create new live merchants.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function updateMerchant($request)
+    {
+        return self::dashboardRequest('POST', '/api/update-merchant', $request);
+    }
+
+    /**
+     * List all active users and pending invites for a merchant account.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function merchantUsers($request)
+    {
+        return self::dashboardRequest('POST', '/api/merchant-users', $request);
+    }
+
+    /**
+     * Invites a user to join a merchant account.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function inviteMerchantUser($request)
+    {
+        return self::dashboardRequest('POST', '/api/invite-merchant-user', $request);
+    }
+
+    /**
+     * Adds a test merchant account.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function addTestMerchant($request)
+    {
+        return self::dashboardRequest('POST', '/api/add-test-merchant', $request);
+    }
+
+    /**
+     * Deletes a test merchant account. Supports partner scoped API credentials only.
+     * Live merchant accounts cannot be deleted.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function deleteTestMerchant($request)
+    {
+        return self::dashboardRequest('DELETE', '/api/test-merchant/' . $request["merchantId"], $request);
+    }
+
+    /**
+     * List all merchant platforms configured for a gateway merchant.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function merchantPlatforms($request)
+    {
+        return self::dashboardRequest('GET', '/api/plugin-configs/' . $request["merchantId"], $request);
+    }
+
+    /**
+     * List all merchant platforms configured for a gateway merchant.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function updateMerchantPlatforms($request)
+    {
+        return self::dashboardRequest('POST', '/api/plugin-configs', $request);
+    }
+
+    /**
+     * Deletes a boarding platform configuration.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function deleteMerchantPlatforms($request)
+    {
+        return self::dashboardRequest('DELETE', '/api/plugin-config/' . $request["platformId"], $request);
+    }
+
+    /**
+     * Returns all terminals associated with the merchant account.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function terminals($request)
+    {
+        return self::dashboardRequest('GET', '/api/terminals', $request);
+    }
+
+    /**
+     * Deactivates a terminal.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function deactivateTerminal($request)
+    {
+        return self::dashboardRequest('DELETE', '/api/terminal/' . $request["terminalId"], $request);
+    }
+
+    /**
+     * Activates a terminal.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function activateTerminal($request)
+    {
+        return self::dashboardRequest('POST', '/api/terminal-activate', $request);
+    }
+
+    /**
+     * Returns a list of terms and conditions templates associated with a merchant
+     * account.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function tcTemplates($request)
+    {
+        return self::dashboardRequest('GET', '/api/tc-templates', $request);
+    }
+
+    /**
+     * Returns a single terms and conditions template.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function tcTemplate($request)
+    {
+        return self::dashboardRequest('GET', '/api/tc-templates/' . $request["templateId"], $request);
+    }
+
+    /**
+     * Updates or creates a terms and conditions template.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function tcUpdateTemplate($request)
+    {
+        return self::dashboardRequest('POST', '/api/tc-templates', $request);
+    }
+
+    /**
+     * Deletes a single terms and conditions template.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function tcDeleteTemplate($request)
+    {
+        return self::dashboardRequest('DELETE', '/api/tc-templates/' . $request["templateId"], $request);
+    }
+
+    /**
+     * Returns up to 250 entries from the Terms and Conditions log.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function tcLog($request)
+    {
+        return self::dashboardRequest('POST', '/api/tc-log', $request);
+    }
+
+    /**
+     * Returns a single detailed Terms and Conditions entry.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function tcEntry($request)
+    {
+        return self::dashboardRequest('GET', '/api/tc-entry/' . $request["logEntryId"], $request);
+    }
+
+    /**
+     * Returns all survey questions for a given merchant.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function surveyQuestions($request)
+    {
+        return self::dashboardRequest('GET', '/api/survey-questions', $request);
+    }
+
+    /**
+     * Returns a single survey question with response data.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function surveyQuestion($request)
+    {
+        return self::dashboardRequest('GET', '/api/survey-questions/' . $request["questionId"], $request);
+    }
+
+    /**
+     * Updates or creates a survey question.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function updateSurveyQuestion($request)
+    {
+        return self::dashboardRequest('POST', '/api/survey-questions', $request);
+    }
+
+    /**
+     * Deletes a survey question.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function deleteSurveyQuestion($request)
+    {
+        return self::dashboardRequest('DELETE', '/api/survey-questions/' . $request["questionId"], $request);
+    }
+
+    /**
+     * Returns results for a single survey question.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function surveyResults($request)
+    {
+        return self::dashboardRequest('POST', '/api/survey-results', $request);
+    }
+
+    /**
+     * Returns the media library for a given partner, merchant, or organization.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function media($request)
+    {
+        return self::dashboardRequest('GET', '/api/media', $request);
+    }
+
+    /**
+     * Uploads a media asset to the media library.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function uploadMedia($request, $file)
+    {
+        return self::uploadRequest('/api/upload-media', $request, $file);
+    }
+
+    /**
+     * Retrieves the current status of a file upload.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function uploadStatus($request)
+    {
+        return self::dashboardRequest('GET', '/api/media-upload/' . $request["uploadId"], $request);
+    }
+
+    /**
+     * Returns the media details for a single media asset.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function mediaAsset($request)
+    {
+        return self::dashboardRequest('GET', '/api/media/' . $request["mediaId"], $request);
+    }
+
+    /**
+     * Deletes a media asset.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function deleteMediaAsset($request)
+    {
+        return self::dashboardRequest('DELETE', '/api/media/' . $request["mediaId"], $request);
+    }
+
+    /**
+     * Returns a collection of slide shows.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function slideShows($request)
+    {
+        return self::dashboardRequest('GET', '/api/slide-shows', $request);
+    }
+
+    /**
+     * Returns a single slide show with slides.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function slideShow($request)
+    {
+        return self::dashboardRequest('GET', '/api/slide-shows/' . $request["slideShowId"], $request);
+    }
+
+    /**
+     * Updates or creates a slide show.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function updateSlideShow($request)
+    {
+        return self::dashboardRequest('POST', '/api/slide-shows', $request);
+    }
+
+    /**
+     * Deletes a single slide show.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function deleteSlideShow($request)
+    {
+        return self::dashboardRequest('DELETE', '/api/slide-shows/' . $request["slideShowId"], $request);
+    }
+
+    /**
+     * Returns the terminal branding stack for a given set of API credentials.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function terminalBranding($request)
+    {
+        return self::dashboardRequest('GET', '/api/terminal-branding', $request);
+    }
+
+    /**
+     * Updates a branding asset.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function updateBrandingAsset($request)
+    {
+        return self::dashboardRequest('POST', '/api/terminal-branding', $request);
+    }
+
+    /**
+     * Deletes a branding asset.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function deleteBrandingAsset($request)
+    {
+        return self::dashboardRequest('DELETE', '/api/terminal-branding/' . $request["assetId"], $request);
+    }
+
 }

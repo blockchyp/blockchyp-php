@@ -22,7 +22,9 @@ $request = [
     'promptType' => BlockChyp::PROMPT_TYPE_EMAIL,
 ];
 
+
 $response = BlockChyp::textPrompt($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

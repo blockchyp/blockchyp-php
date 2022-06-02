@@ -19,22 +19,30 @@ class DeactivateTerminalTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("DeactivateTerminalTest", $config->defaultTerminalName);
-
-        // Set request values
+        echo 'Running DeactivateTerminalTest...' . PHP_EOL;        // Set request values
         $request = [
             'terminalId' => $this->getUUID(),
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::deactivateTerminal($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::deactivateTerminal($request);
 
-        // Response assertions
-        $this->assertFalse($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertFalse($response['success']);
+
+        } catch (Exception $ex) {
+
+            // exception expected
+
+        }
         $this->processResponseDelay($request);
     }
 }

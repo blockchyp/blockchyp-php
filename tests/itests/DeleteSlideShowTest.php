@@ -19,8 +19,9 @@ class DeleteSlideShowTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("DeleteSlideShowTest", $config->defaultTerminalName);
+        echo 'Running DeleteSlideShowTest...' . PHP_EOL;
 
         // Set request values
         $request = [
@@ -28,11 +29,11 @@ class DeleteSlideShowTest extends BlockChypTestCase
             'delay' => 5,
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
         $response = BlockChyp::updateSlideShow($request);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -52,17 +53,27 @@ class DeleteSlideShowTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'slideShowId' => ,
+            'slideShowId' => $response['id'],
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::deleteSlideShow($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::deleteSlideShow($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

@@ -149,7 +149,9 @@ $request = [
     'amount' => '55.00',
 ];
 
+
 $response = BlockChyp::charge($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -221,7 +223,9 @@ $request = [
     'amount' => '27.00',
 ];
 
+
 $response = BlockChyp::preauth($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -264,7 +268,9 @@ $request = [
     'transactionId' => '<PREAUTH TRANSACTION ID>',
 ];
 
+
 $response = BlockChyp::capture($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -351,7 +357,9 @@ $request = [
     'amount' => '5.00',
 ];
 
+
 $response = BlockChyp::refund($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -397,7 +405,9 @@ $request = [
     'transactionId' => '<PREVIOUS TRANSACTION ID>',
 ];
 
+
 $response = BlockChyp::void($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -453,7 +463,9 @@ $request = [
     'transactionRef' => '<LAST TRANSACTION REF>',
 ];
 
+
 $response = BlockChyp::reverse($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -539,7 +551,9 @@ $request = [
     'amount' => '50.00',
 ];
 
+
 $response = BlockChyp::giftActivate($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -601,7 +615,9 @@ $request = [
     'cardType' => BlockChyp::CARD_TYPE_EBT,
 ];
 
+
 $response = BlockChyp::balance($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -642,7 +658,9 @@ $request = [
     'test' => true,
 ];
 
+
 $response = BlockChyp::closeBatch($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -793,7 +811,9 @@ $request = [
     ],
 ];
 
+
 $response = BlockChyp::sendPaymentLink($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -829,7 +849,9 @@ $request = [
     'linkCode' => 'Payment link code to cancel',
 ];
 
+
 $response = BlockChyp::cancelPaymentLink($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -870,7 +892,9 @@ $request = [
     'transactionId' => 'ID of transaction to retrieve',
 ];
 
+
 $response = BlockChyp::transactionStatus($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -912,7 +936,9 @@ $request = [
     'surcharge' => true,
 ];
 
+
 $response = BlockChyp::cashDiscount($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -969,7 +995,9 @@ $request = [
     'startIndex' => 1,
 ];
 
+
 $response = BlockChyp::batchHistory($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1011,7 +1039,9 @@ $request = [
     'batchId' => 'BATCHID',
 ];
 
+
 $response = BlockChyp::batchDetails($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1092,7 +1122,9 @@ $request = [
     'maxResults' => 10,
 ];
 
+
 $response = BlockChyp::transactionHistory($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1130,7 +1162,9 @@ $request = [
     'terminalName' => 'Test Terminal',
 ];
 
+
 $response = BlockChyp::listQueuedTransactions($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1169,7 +1203,9 @@ $request = [
     'transactionRef' => '*',
 ];
 
+
 $response = BlockChyp::deleteQueuedTransaction($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1222,7 +1258,9 @@ $request = [
     'terminalName' => 'Test Terminal',
 ];
 
+
 $response = BlockChyp::ping($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1262,7 +1300,9 @@ $request = [
     'terminalName' => 'Test Terminal',
 ];
 
+
 $response = BlockChyp::locate($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1301,7 +1341,9 @@ $request = [
     'terminalName' => 'Test Terminal',
 ];
 
+
 $response = BlockChyp::clear($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1346,7 +1388,9 @@ $request = [
     'terminalName' => 'Test Terminal',
 ];
 
+
 $response = BlockChyp::terminalStatus($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1405,7 +1449,9 @@ $request = [
     'sigWidth' => 200,
 ];
 
+
 $response = BlockChyp::captureSignature($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1479,7 +1525,9 @@ $request = [
     ],
 ];
 
+
 $response = BlockChyp::newTransactionDisplay($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1561,7 +1609,9 @@ $request = [
     ],
 ];
 
+
 $response = BlockChyp::updateTransactionDisplay($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1601,7 +1651,9 @@ $request = [
     'message' => 'Thank you for your business.',
 ];
 
+
 $response = BlockChyp::message($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1652,7 +1704,9 @@ $request = [
     'noCaption' => 'No',
 ];
 
+
 $response = BlockChyp::booleanPrompt($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1713,7 +1767,9 @@ $request = [
     'promptType' => BlockChyp::PROMPT_TYPE_EMAIL,
 ];
 
+
 $response = BlockChyp::textPrompt($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1752,7 +1808,9 @@ $request = [
     'timeout' => 120,
 ];
 
+
 $response = BlockChyp::terminals($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1791,7 +1849,9 @@ $request = [
     'terminalId' => '<TERMINAL ID>',
 ];
 
+
 $response = BlockChyp::deactivateTerminal($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1838,7 +1898,9 @@ $request = [
     'timeout' => 120,
 ];
 
+
 $response = BlockChyp::activateTerminal($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1952,7 +2014,9 @@ $request = [
     'sigRequired' => true,
 ];
 
+
 $response = BlockChyp::termsAndConditions($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -1988,7 +2052,9 @@ $request = [
     'timeout' => 120,
 ];
 
+
 $response = BlockChyp::tcTemplates($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2024,7 +2090,9 @@ $request = [
     'timeout' => 120,
 ];
 
+
 $response = BlockChyp::tcTemplate($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2071,7 +2139,9 @@ $request = [
     'timeout' => 120,
 ];
 
+
 $response = BlockChyp::tcUpdateTemplate($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2111,7 +2181,9 @@ $request = [
     'timeout' => 120,
 ];
 
+
 $response = BlockChyp::tcDeleteTemplate($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2157,7 +2229,9 @@ $request = [
     'timeout' => 120,
 ];
 
+
 $response = BlockChyp::tcLog($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2196,7 +2270,9 @@ $request = [
     'timeout' => 120,
 ];
 
+
 $response = BlockChyp::tcEntry($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2258,7 +2334,9 @@ $request = [
     'terminalName' => 'Test Terminal',
 ];
 
+
 $response = BlockChyp::enroll($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2300,7 +2378,9 @@ $request = [
     'token' => 'Token to retrieve',
 ];
 
+
 $response = BlockChyp::tokenMetadata($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2338,7 +2418,9 @@ $request = [
     'customerId' => 'Customer to link',
 ];
 
+
 $response = BlockChyp::linkToken($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2378,7 +2460,9 @@ $request = [
     'customerId' => 'Customer to unlink',
 ];
 
+
 $response = BlockChyp::unlinkToken($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2415,7 +2499,9 @@ $request = [
     'token' => 'Token to delete',
 ];
 
+
 $response = BlockChyp::deleteToken($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2495,7 +2581,9 @@ $request = [
     ],
 ];
 
+
 $response = BlockChyp::updateCustomer($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2534,7 +2622,9 @@ $request = [
     'customerId' => 'ID of the customer to retrieve',
 ];
 
+
 $response = BlockChyp::customer($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2573,7 +2663,9 @@ $request = [
     'query' => '(123) 123-1234',
 ];
 
+
 $response = BlockChyp::customerSearch($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2609,7 +2701,9 @@ $request = [
     'customerId' => 'ID of the customer to delete',
 ];
 
+
 $response = BlockChyp::deleteCustomer($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2660,7 +2754,9 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 $request = [
 ];
 
+
 $response = BlockChyp::surveyQuestions($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2696,7 +2792,9 @@ $request = [
     'questionId' => 'XXXXXXXX',
 ];
 
+
 $response = BlockChyp::surveyQuestion($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2744,7 +2842,9 @@ $request = [
     'enabled' => true,
 ];
 
+
 $response = BlockChyp::updateSurveyQuestion($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2780,7 +2880,9 @@ $request = [
     'questionId' => 'XXXXXXXX',
 ];
 
+
 $response = BlockChyp::deleteSurveyQuestion($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2828,7 +2930,9 @@ $request = [
     'questionId' => '<SURVEY QUESTION ID>',
 ];
 
+
 $response = BlockChyp::surveyResults($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2904,7 +3008,9 @@ $request = [
     'timeout' => 120,
 ];
 
+
 $response = BlockChyp::media($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -2973,7 +3079,10 @@ $request = [
     'uploadId' => '<RANDOM ID>',
 ];
 
-$response = BlockChyp::uploadMedia($request);
+
+$file = file_get_contents('aviato.png');
+$response = BlockChyp::uploadMedia($request, $file);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3016,7 +3125,9 @@ $request = [
     'timeout' => 120,
 ];
 
+
 $response = BlockChyp::uploadStatus($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3054,7 +3165,9 @@ $request = [
     'mediaId' => '<MEDIA ASSET ID>',
 ];
 
+
 $response = BlockChyp::mediaAsset($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3091,7 +3204,9 @@ $request = [
     'timeout' => 120,
 ];
 
+
 $response = BlockChyp::deleteMediaAsset($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3128,7 +3243,9 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 $request = [
 ];
 
+
 $response = BlockChyp::slideShows($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3167,7 +3284,9 @@ $request = [
     'slideShowId' => '<SLIDE SHOW ID>',
 ];
 
+
 $response = BlockChyp::slideShow($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3216,7 +3335,9 @@ $request = [
     ],
 ];
 
+
 $response = BlockChyp::updateSlideShow($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3252,7 +3373,9 @@ $request = [
     'slideShowId' => '<SLIDE SHOW ID>',
 ];
 
+
 $response = BlockChyp::deleteSlideShow($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3296,7 +3419,9 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 $request = [
 ];
 
+
 $response = BlockChyp::terminalBranding($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3395,7 +3520,9 @@ $request = [
     'timeout' => 120,
 ];
 
+
 $response = BlockChyp::updateBrandingAsset($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3434,7 +3561,9 @@ $request = [
     'assetId' => '<BRANDING ASSET ID>',
 ];
 
+
 $response = BlockChyp::deleteBrandingAsset($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3546,7 +3675,9 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 $request = [
 ];
 
+
 $response = BlockChyp::merchantProfile($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3588,7 +3719,9 @@ $request = [
     'test' => true,
 ];
 
+
 $response = BlockChyp::getMerchants($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3687,7 +3820,9 @@ $request = [
     'test' => true,
 ];
 
+
 $response = BlockChyp::updateMerchant($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3723,7 +3858,9 @@ $request = [
     'merchantId' => 'XXXXXXXXXXXXX',
 ];
 
+
 $response = BlockChyp::merchantUsers($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3766,7 +3903,9 @@ $request = [
     'email' => 'Email address for the invite',
 ];
 
+
 $response = BlockChyp::inviteMerchantUser($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3806,7 +3945,9 @@ $request = [
     'companyName' => 'test merchant customer name.',
 ];
 
+
 $response = BlockChyp::addTestMerchant($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;
@@ -3842,7 +3983,9 @@ $request = [
     'merchantId' => 'ID for the test merchant being deleted.',
 ];
 
+
 $response = BlockChyp::deleteTestMerchant($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

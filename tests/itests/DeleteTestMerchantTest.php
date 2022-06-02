@@ -19,8 +19,16 @@ class DeleteTestMerchantTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("DeleteTestMerchantTest", $config->defaultTerminalName);
+        echo 'Running DeleteTestMerchantTest...' . PHP_EOL;
+        $profile = $config->profiles->partner;
+        if (!empty($profile)) {
+            BlockChyp::setApiKey($profile->apiKey);
+            BlockChyp::setBearerToken($profile->bearerToken);
+            BlockChyp::setSigningKey($profile->signingKey);
+        }
+
 
         // Set request values
         $request = [
@@ -28,11 +36,11 @@ class DeleteTestMerchantTest extends BlockChypTestCase
             'companyName' => 'Test Merchant',
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
         $response = BlockChyp::addTestMerchant($request);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -52,17 +60,27 @@ class DeleteTestMerchantTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'merchantId' => ,
+            'merchantId' => $response['merchantId'],
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::deleteTestMerchant($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::deleteTestMerchant($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

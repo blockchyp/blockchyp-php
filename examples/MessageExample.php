@@ -19,7 +19,9 @@ $request = [
     'message' => 'Thank you for your business.',
 ];
 
+
 $response = BlockChyp::message($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

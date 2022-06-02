@@ -19,10 +19,11 @@ class BooleanPromptTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
+        echo 'Running BooleanPromptTest...' . PHP_EOL;
         $this->processTestDelay("BooleanPromptTest", $config->defaultTerminalName);
-
-        // Set request values
+             // Set request values
         $request = [
             'test' => true,
             'terminalName' => $config->defaultTerminalName,
@@ -31,15 +32,26 @@ class BooleanPromptTest extends BlockChypTestCase
             'noCaption' => 'No',
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::booleanPrompt($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::booleanPrompt($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
-        $this->assertTrue($response['response']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+    
+            $this->assertTrue($response['response']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

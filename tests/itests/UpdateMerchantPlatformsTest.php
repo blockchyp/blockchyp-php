@@ -19,8 +19,16 @@ class UpdateMerchantPlatformsTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("UpdateMerchantPlatformsTest", $config->defaultTerminalName);
+        echo 'Running UpdateMerchantPlatformsTest...' . PHP_EOL;
+        $profile = $config->profiles->partner;
+        if (!empty($profile)) {
+            BlockChyp::setApiKey($profile->apiKey);
+            BlockChyp::setBearerToken($profile->bearerToken);
+            BlockChyp::setSigningKey($profile->signingKey);
+        }
+
 
         // Set request values
         $request = [
@@ -28,11 +36,11 @@ class UpdateMerchantPlatformsTest extends BlockChypTestCase
             'companyName' => 'Test Merchant',
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
         $response = BlockChyp::addTestMerchant($request);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -52,19 +60,29 @@ class UpdateMerchantPlatformsTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'merchantId' => ,
+            'merchantId' => $response['merchantId'],
             'platformCode' => 'SIM',
             'notes' => 'platform simulator',
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::updateMerchantPlatforms($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::updateMerchantPlatforms($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

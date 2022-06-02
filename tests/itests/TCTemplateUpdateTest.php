@@ -19,29 +19,39 @@ class TCTemplateUpdateTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("TCTemplateUpdateTest", $config->defaultTerminalName);
-
-        // Set request values
+        echo 'Running TCTemplateUpdateTest...' . PHP_EOL;        // Set request values
         $request = [
             'alias' => $this->getUUID(),
             'name' => 'HIPPA Disclosure',
             'content' => 'Lorem ipsum dolor sit amet.',
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::tcUpdateTemplate($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::tcUpdateTemplate($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
-        $this->assertNotEmpty($response['alias']);
+            // self::logResponse($response);
 
-        $this->assertEquals('HIPPA Disclosure', $response['name']);
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+    
+            $this->assertNotEmpty($response['alias']);
+    
+            $this->assertEquals('HIPPA Disclosure', $response['name']);
+    
+            $this->assertEquals('Lorem ipsum dolor sit amet.', $response['content']);
 
-        $this->assertEquals('Lorem ipsum dolor sit amet.', $response['content']);
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

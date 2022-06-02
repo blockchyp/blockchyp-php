@@ -19,7 +19,9 @@ $request = [
     'amount' => '55.00',
 ];
 
+
 $response = BlockChyp::charge($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

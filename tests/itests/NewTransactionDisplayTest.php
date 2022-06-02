@@ -19,10 +19,11 @@ class NewTransactionDisplayTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
+        echo 'Running NewTransactionDisplayTest...' . PHP_EOL;
         $this->processTestDelay("NewTransactionDisplayTest", $config->defaultTerminalName);
-
-        // Set request values
+             // Set request values
         $request = [
             'test' => true,
             'terminalName' => $config->defaultTerminalName,
@@ -47,14 +48,24 @@ class NewTransactionDisplayTest extends BlockChypTestCase
             ],
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::newTransactionDisplay($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::newTransactionDisplay($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

@@ -19,8 +19,9 @@ class SimpleCaptureTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("SimpleCaptureTest", $config->defaultTerminalName);
+        echo 'Running SimpleCaptureTest...' . PHP_EOL;
 
         // Set request values
         $request = [
@@ -31,11 +32,11 @@ class SimpleCaptureTest extends BlockChypTestCase
             'test' => true,
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
         $response = BlockChyp::preauth($request);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -59,15 +60,26 @@ class SimpleCaptureTest extends BlockChypTestCase
             'test' => true,
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::capture($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::capture($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
-        $this->assertTrue($response['approved']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+    
+            $this->assertTrue($response['approved']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

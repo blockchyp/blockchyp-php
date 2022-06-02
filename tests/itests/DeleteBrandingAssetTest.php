@@ -19,8 +19,9 @@ class DeleteBrandingAssetTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("DeleteBrandingAssetTest", $config->defaultTerminalName);
+        echo 'Running DeleteBrandingAssetTest...' . PHP_EOL;
 
         // Set request values
         $request = [
@@ -28,11 +29,11 @@ class DeleteBrandingAssetTest extends BlockChypTestCase
             'enabled' => false,
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
         $response = BlockChyp::updateBrandingAsset($request);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -52,17 +53,27 @@ class DeleteBrandingAssetTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'assetId' => ,
+            'assetId' => $response['id'],
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::deleteBrandingAsset($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::deleteBrandingAsset($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

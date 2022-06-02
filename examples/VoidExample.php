@@ -18,7 +18,9 @@ $request = [
     'transactionId' => '<PREVIOUS TRANSACTION ID>',
 ];
 
+
 $response = BlockChyp::void($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

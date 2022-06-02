@@ -19,18 +19,19 @@ class TCEntryTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("TCEntryTest", $config->defaultTerminalName);
+        echo 'Running TCEntryTest...' . PHP_EOL;
 
         // Set request values
         $request = [
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
         $response = BlockChyp::tcLog($request);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -50,25 +51,43 @@ class TCEntryTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'logEntryId' => ,
+            'logEntryId' => $response['results'][0]['id'],
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::tcEntry($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::tcEntry($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
-        $this->assertNotEmpty($response['id']);
-        $this->assertNotEmpty($response['terminalId']);
-        $this->assertNotEmpty($response['terminalName']);
-        $this->assertNotEmpty($response['timestamp']);
-        $this->assertNotEmpty($response['name']);
-        $this->assertNotEmpty($response['content']);
-        $this->assertTrue($response['hasSignature']);
-        $this->assertNotEmpty($response['signature']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+    
+            $this->assertNotEmpty($response['id']);
+    
+            $this->assertNotEmpty($response['terminalId']);
+    
+            $this->assertNotEmpty($response['terminalName']);
+    
+            $this->assertNotEmpty($response['timestamp']);
+    
+            $this->assertNotEmpty($response['name']);
+    
+            $this->assertNotEmpty($response['content']);
+    
+            $this->assertTrue($response['hasSignature']);
+    
+            $this->assertNotEmpty($response['signature']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

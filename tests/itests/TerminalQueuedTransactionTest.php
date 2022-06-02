@@ -19,10 +19,11 @@ class TerminalQueuedTransactionTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
+        echo 'Running TerminalQueuedTransactionTest...' . PHP_EOL;
         $this->processTestDelay("TerminalQueuedTransactionTest", $config->defaultTerminalName);
-
-        // Set request values
+             // Set request values
         $request = [
             'terminalName' => $config->defaultTerminalName,
             'transactionRef' => $this->getUUID(),
@@ -32,17 +33,28 @@ class TerminalQueuedTransactionTest extends BlockChypTestCase
             'queue' => true,
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::charge($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::charge($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
-        $this->assertFalse($response['approved']);
+            // self::logResponse($response);
 
-        $this->assertEquals('Queued', $response['responseDescription']);
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+    
+            $this->assertFalse($response['approved']);
+    
+            $this->assertEquals('Queued', $response['responseDescription']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

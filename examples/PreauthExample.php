@@ -19,7 +19,9 @@ $request = [
     'amount' => '27.00',
 ];
 
+
 $response = BlockChyp::preauth($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

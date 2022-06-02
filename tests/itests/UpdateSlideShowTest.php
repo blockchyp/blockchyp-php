@@ -19,8 +19,9 @@ class UpdateSlideShowTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("UpdateSlideShowTest", $config->defaultTerminalName);
+        echo 'Running UpdateSlideShowTest...' . PHP_EOL;
 
         // Set request values
         $request = [
@@ -29,11 +30,12 @@ class UpdateSlideShowTest extends BlockChypTestCase
             'uploadId' => $this->getUUID(),
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::uploadMedia($request);
+        $file = file_get_contents('./tests/itests/testdata/aviato.png');
+        $response = BlockChyp::uploadMedia($request, $file);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -57,21 +59,31 @@ class UpdateSlideShowTest extends BlockChypTestCase
             'delay' => 5,
             'slides' => [
                 [
-                    'mediaId' => ,
+                    'mediaId' => $response['id'],
                 ],
             ],
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::updateSlideShow($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::updateSlideShow($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
 
-        $this->assertEquals('Test Slide Show', $response['name']);
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+    
+            $this->assertEquals('Test Slide Show', $response['name']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

@@ -19,28 +19,37 @@ class UpdateSurveyQuestionTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("UpdateSurveyQuestionTest", $config->defaultTerminalName);
-
-        // Set request values
+        echo 'Running UpdateSurveyQuestionTest...' . PHP_EOL;        // Set request values
         $request = [
             'ordinal' => 1,
             'questionText' => 'Would you shop here again?',
             'questionType' => 'yes_no',
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::updateSurveyQuestion($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::updateSurveyQuestion($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
 
-        $this->assertEquals('Would you shop here again?', $response['questionText']);
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+    
+            $this->assertEquals('Would you shop here again?', $response['questionText']);
+    
+            $this->assertEquals('yes_no', $response['questionType']);
 
-        $this->assertEquals('yes_no', $response['questionType']);
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

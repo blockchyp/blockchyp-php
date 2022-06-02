@@ -19,18 +19,19 @@ class SurveyResultsTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("SurveyResultsTest", $config->defaultTerminalName);
+        echo 'Running SurveyResultsTest...' . PHP_EOL;
 
         // Set request values
         $request = [
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
         $response = BlockChyp::surveyQuestions($request);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -50,17 +51,27 @@ class SurveyResultsTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'questionId' => ,
+            'questionId' => $response['results'][0]['id'],
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::surveyResults($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::surveyResults($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

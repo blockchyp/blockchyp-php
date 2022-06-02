@@ -18,7 +18,9 @@ $request = [
     'customerId' => 'Customer to unlink',
 ];
 
+
 $response = BlockChyp::unlinkToken($request);
+
 
 // View the result
 echo 'Response: ' . print_r($response, true) . PHP_EOL;

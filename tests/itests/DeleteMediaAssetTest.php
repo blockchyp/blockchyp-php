@@ -19,8 +19,9 @@ class DeleteMediaAssetTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("DeleteMediaAssetTest", $config->defaultTerminalName);
+        echo 'Running DeleteMediaAssetTest...' . PHP_EOL;
 
         // Set request values
         $request = [
@@ -29,11 +30,12 @@ class DeleteMediaAssetTest extends BlockChypTestCase
             'uploadId' => $this->getUUID(),
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::uploadMedia($request);
+        $file = file_get_contents('./tests/itests/testdata/aviato.png');
+        $response = BlockChyp::uploadMedia($request, $file);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -53,17 +55,27 @@ class DeleteMediaAssetTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'mediaId' => ,
+            'mediaId' => $response['id'],
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::deleteMediaAsset($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::deleteMediaAsset($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
+
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }

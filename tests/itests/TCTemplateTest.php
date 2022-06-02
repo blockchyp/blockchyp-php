@@ -19,8 +19,9 @@ class TCTemplateTest extends BlockChypTestCase
         BlockChyp::setSigningKey($config->signingKey);
         BlockChyp::setGatewayHost($config->gatewayHost);
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
+        BlockChyp::setDashboardHost($config->dashboardHost);
 
-        $this->processTestDelay("TCTemplateTest", $config->defaultTerminalName);
+        echo 'Running TCTemplateTest...' . PHP_EOL;
 
         // Set request values
         $request = [
@@ -29,11 +30,11 @@ class TCTemplateTest extends BlockChypTestCase
             'content' => 'Lorem ipsum dolor sit amet.',
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
         $response = BlockChyp::tcUpdateTemplate($request);
 
-        self::logResponse($response);
+        // self::logResponse($response);
 
         if (!empty($response['transactionId'])) {
             $lastTransactionId = $response['transactionId'];
@@ -53,21 +54,31 @@ class TCTemplateTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'templateId' => ,
+            'templateId' => $response['id'],
         ];
 
-        self::logRequest($request);
+        // self::logRequest($request);
 
-        $response = BlockChyp::tcTemplate($request);
+         try {
 
-        self::logResponse($response);
+            $response = BlockChyp::tcTemplate($request);
 
-        // Response assertions
-        $this->assertTrue($response['success']);
+            // self::logResponse($response);
 
-        $this->assertEquals('HIPPA Disclosure', $response['name']);
+            // Response assertions
+    
+            $this->assertTrue($response['success']);
+    
+            $this->assertEquals('HIPPA Disclosure', $response['name']);
+    
+            $this->assertEquals('Lorem ipsum dolor sit amet.', $response['content']);
 
-        $this->assertEquals('Lorem ipsum dolor sit amet.', $response['content']);
+        } catch (Exception $ex) {
+
+            echo $ex->getTraceAsString();
+            $this->assertEmpty($ex);
+
+        }
         $this->processResponseDelay($request);
     }
 }
