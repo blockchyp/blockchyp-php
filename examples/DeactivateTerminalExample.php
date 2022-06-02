@@ -14,8 +14,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'terminalId' => $this->getUUID(),
-    'timeout' => 120,
+    'terminalId' => '<TERMINAL ID>',
 ];
 
 $response = BlockChyp::deactivateTerminal($request);

@@ -18,7 +18,7 @@ $request = [
     'delay' => 5,
     'slides' => [
         [
-            'mediaId' => ,
+            'mediaId' => '<MEDIA ID>',
         ],
     ],
 ];
