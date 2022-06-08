@@ -14,7 +14,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'transactionId' => 'ID of transaction to retrieve',
+    'transactionId' => '<TRANSACTION ID>',
 ];
 
 

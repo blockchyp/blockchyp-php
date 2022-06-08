@@ -14,6 +14,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
+    'transactionRef' => '<TX REF>',
     'amount' => '199.99',
     'description' => 'Widget',
     'subject' => 'Widget invoice',

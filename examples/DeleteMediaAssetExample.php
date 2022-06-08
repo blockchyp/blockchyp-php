@@ -14,7 +14,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
+    'mediaId' => '<MEDIA ASSET ID>',
 ];
 
 

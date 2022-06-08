@@ -14,6 +14,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
+    'id' => '<QUESTION ID>',
     'ordinal' => 1,
     'questionText' => 'Would you shop here again?',
     'questionType' => 'yes_no',

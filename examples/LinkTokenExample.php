@@ -14,8 +14,8 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'token' => 'Token to link',
-    'customerId' => 'Customer to link',
+    'token' => '<TOKEN>',
+    'customerId' => '<CUSTOMER ID>',
 ];
 
 

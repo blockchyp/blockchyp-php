@@ -265,7 +265,8 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 // Populate request values
 $request = [
     'test' => true,
-    'transactionId' => '<PREAUTH TRANSACTION ID>',
+    'transactionId' => '<ORIGINAL TRANSACTION ID>',
+    'amount' => '32.00',
 ];
 
 
@@ -785,6 +786,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
+    'transactionRef' => '<TX REF>',
     'amount' => '199.99',
     'description' => 'Widget',
     'subject' => 'Widget invoice',
@@ -846,7 +848,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'linkCode' => 'Payment link code to cancel',
+    'linkCode' => '<PAYMENT LINK CODE>',
 ];
 
 
@@ -889,7 +891,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'transactionId' => 'ID of transaction to retrieve',
+    'transactionId' => '<TRANSACTION ID>',
 ];
 
 
@@ -992,7 +994,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 // Populate request values
 $request = [
     'maxResults' => 250,
-    'startIndex' => 1,
+    'startIndex' => 0,
 ];
 
 
@@ -1036,7 +1038,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'batchId' => 'BATCHID',
+    'batchId' => '<BATCH ID>',
 ];
 
 
@@ -1120,6 +1122,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 // Populate request values
 $request = [
     'maxResults' => 10,
+    'batchId' => '<BATCH ID>',
 ];
 
 
@@ -1805,7 +1808,6 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
 ];
 
 
@@ -1895,7 +1897,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 // Populate request values
 $request = [
     'terminalName' => 'Test Terminal',
-    'timeout' => 120,
+    'activationCode' => '<ACTIVATION CODE>',
 ];
 
 
@@ -2049,7 +2051,6 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
 ];
 
 
@@ -2087,7 +2088,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
+    'templateId' => '<TEMPLATE ID>',
 ];
 
 
@@ -2136,7 +2137,6 @@ $request = [
     'alias' => 'HIPPA',
     'name' => 'HIPPA Disclosure',
     'content' => 'Lorem ipsum dolor sit amet.',
-    'timeout' => 120,
 ];
 
 
@@ -2178,7 +2178,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
+    'templateId' => '<TEMPLATE ID>',
 ];
 
 
@@ -2226,7 +2226,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
+    'logEntryId' => '<LOG ENTRY ID>',
 ];
 
 
@@ -2267,7 +2267,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
+    'logEntryId' => '<ENTRY ID>',
 ];
 
 
@@ -2375,7 +2375,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'token' => 'Token to retrieve',
+    'token' => '<TOKEN>',
 ];
 
 
@@ -2414,8 +2414,8 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'token' => 'Token to link',
-    'customerId' => 'Customer to link',
+    'token' => '<TOKEN>',
+    'customerId' => '<CUSTOMER ID>',
 ];
 
 
@@ -2456,8 +2456,8 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'token' => 'Token to unlink',
-    'customerId' => 'Customer to unlink',
+    'token' => '<TOKEN>',
+    'customerId' => '<CUSTOMER ID>',
 ];
 
 
@@ -2496,7 +2496,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'token' => 'Token to delete',
+    'token' => '<TOKEN>',
 ];
 
 
@@ -2571,7 +2571,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 // Populate request values
 $request = [
     'customer' => [
-        'id' => 'ID of the customer to update',
+        'id' => '<CUSTOMER ID>',
         'customerRef' => 'Customer reference string',
         'firstName' => 'FirstName',
         'lastName' => 'LastName',
@@ -2619,7 +2619,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'customerId' => 'ID of the customer to retrieve',
+    'customerId' => '<CUSTOMER ID>',
 ];
 
 
@@ -2698,7 +2698,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'customerId' => 'ID of the customer to delete',
+    'customerId' => '<CUSTOMER ID>',
 ];
 
 
@@ -2789,7 +2789,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'questionId' => 'XXXXXXXX',
+    'questionId' => '<QUESTION ID>',
 ];
 
 
@@ -2836,6 +2836,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
+    'id' => '<QUESTION ID>',
     'ordinal' => 1,
     'questionText' => 'Would you shop here again?',
     'questionType' => 'yes_no',
@@ -2877,7 +2878,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'questionId' => 'XXXXXXXX',
+    'questionId' => '<QUESTION ID>',
 ];
 
 
@@ -2927,7 +2928,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'questionId' => '<SURVEY QUESTION ID>',
+    'questionId' => '<QUESTION ID>',
 ];
 
 
@@ -3005,7 +3006,6 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
 ];
 
 
@@ -3122,7 +3122,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
+    'uploadId' => '<UPLOAD ID>',
 ];
 
 
@@ -3201,7 +3201,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
+    'mediaId' => '<MEDIA ASSET ID>',
 ];
 
 
@@ -3517,7 +3517,16 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'timeout' => 120,
+    'mediaId' => '<MEDIA ID>',
+    'padded' => true,
+    'ordinal' => 10,
+    'startDate' => '01/06/2021',
+    'startTime' => '14:00',
+    'endDate' => '11/05/2024',
+    'endTime' => '16:00',
+    'notes' => 'Test Branding Asset',
+    'preview' => false,
+    'enabled' => true,
 ];
 
 
@@ -3817,7 +3826,16 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
+    'merchantId' => '<MERCHANT ID>',
     'test' => true,
+    'dbaName' => 'Test Merchant',
+    'companyName' => 'Test Merchant',
+    'billingAddress' => [
+        'address1' => '1060 West Addison',
+        'city' => 'Chicago',
+        'stateOrProvince' => 'IL',
+        'postalCode' => '60613',
+    ],
 ];
 
 
@@ -3855,7 +3873,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'merchantId' => 'XXXXXXXXXXXXX',
+    'merchantId' => '<MERCHANT ID>',
 ];
 
 
@@ -3941,8 +3959,8 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'dbaName' => 'DBA name.',
-    'companyName' => 'test merchant customer name.',
+    'dbaName' => 'DBA Name',
+    'companyName' => 'Corporate Entity Name',
 ];
 
 
@@ -3980,7 +3998,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'merchantId' => 'ID for the test merchant being deleted.',
+    'merchantId' => '<MERCHANT ID>',
 ];
 
 

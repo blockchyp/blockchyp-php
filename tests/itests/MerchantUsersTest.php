@@ -23,7 +23,6 @@ class MerchantUsersTest extends BlockChypTestCase
 
         echo 'Running MerchantUsersTest...' . PHP_EOL;        // Set request values
         $request = [
-            'timeout' => 120,
         ];
 
         // self::logRequest($request);

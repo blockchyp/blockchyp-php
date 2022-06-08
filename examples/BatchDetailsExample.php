@@ -14,7 +14,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'batchId' => 'BATCHID',
+    'batchId' => '<BATCH ID>',
 ];
 
 

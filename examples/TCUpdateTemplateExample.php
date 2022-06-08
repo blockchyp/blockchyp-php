@@ -17,7 +17,6 @@ $request = [
     'alias' => 'HIPPA',
     'name' => 'HIPPA Disclosure',
     'content' => 'Lorem ipsum dolor sit amet.',
-    'timeout' => 120,
 ];
 
 

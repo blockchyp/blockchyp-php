@@ -14,7 +14,16 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
+    'merchantId' => '<MERCHANT ID>',
     'test' => true,
+    'dbaName' => 'Test Merchant',
+    'companyName' => 'Test Merchant',
+    'billingAddress' => [
+        'address1' => '1060 West Addison',
+        'city' => 'Chicago',
+        'stateOrProvince' => 'IL',
+        'postalCode' => '60613',
+    ],
 ];
 
 

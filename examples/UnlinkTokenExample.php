@@ -14,8 +14,8 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'token' => 'Token to unlink',
-    'customerId' => 'Customer to unlink',
+    'token' => '<TOKEN>',
+    'customerId' => '<CUSTOMER ID>',
 ];
 
 

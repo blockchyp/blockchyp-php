@@ -15,7 +15,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 // Populate request values
 $request = [
     'terminalName' => 'Test Terminal',
-    'timeout' => 120,
+    'activationCode' => '<ACTIVATION CODE>',
 ];
 
 

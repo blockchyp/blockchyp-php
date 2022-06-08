@@ -14,7 +14,7 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'merchantId' => 'ID for the test merchant being deleted.',
+    'merchantId' => '<MERCHANT ID>',
 ];
 
 

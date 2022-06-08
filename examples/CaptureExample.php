@@ -15,7 +15,8 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 // Populate request values
 $request = [
     'test' => true,
-    'transactionId' => '<PREAUTH TRANSACTION ID>',
+    'transactionId' => '<ORIGINAL TRANSACTION ID>',
+    'amount' => '32.00',
 ];
 
 
