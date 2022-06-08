@@ -18,6 +18,7 @@ class BlockChypClient
     const CARD_TYPE_DEBIT = 1;
     const CARD_TYPE_EBT = 2;
     const CARD_TYPE_BLOCKCHAIN_GIFT = 3;
+    const CARD_TYPE_HEALTHCARE = 4;
 
     const SIGNATURE_FORMAT_NONE = '';
     const SIGNATURE_FORMAT_PNG = 'png';
@@ -45,6 +46,12 @@ class BlockChypClient
     const CVM_TYPE_ONLINE_PIN = 'Online PIN';
     const CVM_TYPE_CDCVM = 'CDCVM';
     const CVM_TYPE_NO_CVM = 'No CVM';
+
+    const HEALTHCARE_TYPE_HEALTHCARE = 'healthcare';
+    const HEALTHCARE_TYPE_PRESCRIPTION = 'prescription';
+    const HEALTHCARE_TYPE_VISION = 'vision';
+    const HEALTHCARE_TYPE_CLINIC = 'clinic';
+    const HEALTHCARE_TYPE_DENTAL = 'dental';
 
     const VERSION = '2.12.1';
 
