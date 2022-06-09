@@ -273,6 +273,20 @@ class BlockChyp extends BlockChypClient
     }
 
     /**
+     * Reboot a payment terminal.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function reboot($request)
+    {
+        return self::routeTerminalRequest('POST', '/api/reboot', '/api/terminal-reboot', $request);
+    }
+
+    /**
      * Returns routing and location data for a payment terminal.
      *
      * @param array $request The request body.
