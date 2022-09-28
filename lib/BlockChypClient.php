@@ -53,7 +53,7 @@ class BlockChypClient
     const HEALTHCARE_TYPE_CLINIC = 'clinic';
     const HEALTHCARE_TYPE_DENTAL = 'dental';
 
-    const VERSION = 'github-migration-test-5';
+    const VERSION = '2.13.1';
 
     protected static $apiKey;
 
