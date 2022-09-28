@@ -66,7 +66,7 @@ integration:
 # Performs any tasks necessary before a release build
 .PHONY: stage
 stage:
-	$(SED) -i "s/VERSION = '.*'/VERSION = '$(VERSION)'/" lib/BlockChypClient.php
+	$(SED) -i'' "s/VERSION = '.*'/VERSION = '$(VERSION)'/" lib/BlockChypClient.php
 
 # Publish packages
 .PHONY: publish
