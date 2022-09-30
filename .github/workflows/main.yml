@@ -1,0 +1,40 @@
+name: blockchyp-php
+on:
+  push:
+    branches:
+      - "develop"
+      - "master"
+    tags:
+      - "*"
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: php:7.4
+    steps:
+      - uses: act10ns/slack@v1
+        with:
+          status: starting
+          channel: '#gitactivity'
+        if: always()
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Update APT
+        run: apt update -y
+      - name: Install Curl
+        run: apt install curl git -y
+      - name: Install Composer
+        run: curl -sS https://getcomposer.org/installer | php
+      - run: php composer.phar self-update
+      - run: php composer.phar install -n --prefer-dist
+      - run: make build
+      - uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          channel: '#gitactivity'
+        if: always()

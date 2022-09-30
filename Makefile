@@ -10,6 +10,13 @@ DOCKER = docker
 PHP = php
 PHPUNIT = ./vendor/bin/phpunit
 SED = sed
+SED_SUBST = $(SED)
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+	SED_SUBST += -i ''
+else
+	SED_SUBST += -i
+endif
 
 # Integration test config
 export BC_TEST_DELAY := 5
@@ -66,7 +73,7 @@ integration:
 # Performs any tasks necessary before a release build
 .PHONY: stage
 stage:
-	$(SED) -i "s/VERSION = '.*'/VERSION = '$(VERSION)'/" lib/BlockChypClient.php
+	$(SED_SUBST) "s/VERSION = '.*'/VERSION = '$(VERSION)'/" lib/BlockChypClient.php
 
 # Publish packages
 .PHONY: publish
