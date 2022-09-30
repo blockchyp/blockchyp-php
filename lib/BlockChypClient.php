@@ -53,7 +53,7 @@ class BlockChypClient
     const HEALTHCARE_TYPE_CLINIC = 'clinic';
     const HEALTHCARE_TYPE_DENTAL = 'dental';
 
-    const VERSION = '1.24.14';
+    const VERSION = '2.9.6';
 
     protected static $apiKey;
 
