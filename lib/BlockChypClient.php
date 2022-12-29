@@ -53,7 +53,11 @@ class BlockChypClient
     const HEALTHCARE_TYPE_CLINIC = 'clinic';
     const HEALTHCARE_TYPE_DENTAL = 'dental';
 
-    const VERSION = '2.14.0';
+    const ROUNDING_MODE_UP = 'up';
+    const ROUNDING_MODE_NEAREST = 'nearest';
+    const ROUNDING_MODE_DOWN = 'down';
+
+    const VERSION = '2.15.5';
 
     protected static $apiKey;
 
