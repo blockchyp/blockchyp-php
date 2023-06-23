@@ -1,6 +1,6 @@
 # BlockChyp PHP SDK
 
-[![Build Status](https://circleci.com/gh/blockchyp/blockchyp-php/tree/master.svg?style=shield)](https://circleci.com/gh/blockchyp/blockchyp-php/tree/master)
+[![Build Status](hhttps://github.com/blockchyp/blockchyp-php/actions/workflows/main.yml/badge.svg)](https://github.com/blockchyp/blockchyp-php/actions/workflows/main.yml)
 [![Packagist](https://img.shields.io/packagist/v/blockchyp/blockchyp-php)](https://packagist.org/packages/blockchyp/blockchyp-php)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/blockchyp/blockchyp-php/blob/master/LICENSE)
 
