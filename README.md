@@ -1,6 +1,6 @@
 # BlockChyp PHP SDK
 
-[![Build Status](https://circleci.com/gh/blockchyp/blockchyp-php/tree/master.svg?style=shield)](https://circleci.com/gh/blockchyp/blockchyp-php/tree/master)
+[![Build Status](https://github.com/blockchyp/blockchyp-php/actions/workflows/main.yml/badge.svg)](https://github.com/blockchyp/blockchyp-php/actions/workflows/main.yml)
 [![Packagist](https://img.shields.io/packagist/v/blockchyp/blockchyp-php)](https://packagist.org/packages/blockchyp/blockchyp-php)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/blockchyp/blockchyp-php/blob/master/LICENSE)
 
@@ -766,6 +766,8 @@ display additional UI widgets that allowing customers to switch to a crypto paym
 Add the `enroll` flag to a send link request to enroll the payment method
 in the token vault.
 
+Add the `enrollOnly` flag to enroll the payment method in the token vault without any immediate payment taking place. The payment link will ask the user for their payment information and inform them that they will not be charged immediately, but that their payment may be used for future transactions.
+
 **Cashier Facing Card Entry**
 
 BlockChyp can be used to generate internal/cashier facing card entry pages as well.  This is
@@ -796,10 +798,10 @@ same format as all BlockChyp charge and preauth transaction responses.
 **Status Polling**
 
 If real time callbacks aren't practical or necessary in your environment, you can
-always use the Transaction Status API described below.
+always use the Payment Link Status API described futher on.
 
 A common use case for the send link API with status polling is curbside pickup.
-You could have your system check the Transaction Status when a customer arrives to
+You could have your system check the Payment Link Status when a customer arrives to
 ensure it's been paid without necessarily needing to create background threads
 to constantly poll for status updates.
 
@@ -859,6 +861,48 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 ```
 
+#### Resend Payment Link
+
+
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
+This API will resend a previously created payment link.  An error is returned if the payment link is expired, has been
+cancelled, or has already been paid.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'linkCode' => '<PAYMENT LINK CODE>',
+];
+
+
+$response = BlockChyp::resendPaymentLink($request);
+
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
 #### Cancel Payment Link
 
 
@@ -900,6 +944,57 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 ```
 
+#### Payment Link Status
+
+
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
+This API allows you to check on the status of a payment link, including transaction data
+and the full history of attempted transactions.
+
+This API is the preferred source of truth and best practice when you want to check on the 
+status of a payment link (as opposed to Transaction Status). The Transaction Status API is not 
+ideal because of ambiguity when there are multiple transactions associated with a single 
+payment link.
+
+You must pass the `linkCode` value associated with the payment link. It is included in the response from BlockChyp when the payment link is originally created.
+
+
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'linkCode' => $lastLinkCode,
+];
+
+
+$response = BlockChyp::paymentLinkStatus($request);
+
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
 #### Transaction Status
 
 
@@ -910,7 +1005,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 This API returns the current status for any transaction.  You can lookup a transaction
 by its BlockChyp assigned Transaction ID or your own Transaction Ref.
 
-You should alway use globally unique Transaction Ref values, but in the event
+You should always use globally unique Transaction Ref values, but in the event
 that you duplicate Transaction Refs, the most recent transaction matching your
 Transaction Ref is returned.
 
@@ -1780,7 +1875,7 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 * **API Credential Types:** Merchant
 * **Required Role:** Payment API Access
 
-This API Pprompts the customer to answer a yes or no question.
+This API prompts the customer to answer a yes or no question.
 
 You can specify the question or prompt with the `prompt` parameter and
 the response is returned in the `response` field.

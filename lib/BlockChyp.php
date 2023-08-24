@@ -373,6 +373,19 @@ class BlockChyp extends BlockChypClient
         return self::gatewayRequest('POST', '/api/send-payment-link', $request);
     }
     /**
+     * Resends payment link.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function resendPaymentLink($request)
+    {
+        return self::gatewayRequest('POST', '/api/resend-payment-link', $request);
+    }
+    /**
      * Cancels a payment link.
      *
      * @param array $request The request body.
@@ -384,6 +397,19 @@ class BlockChyp extends BlockChypClient
     public static function cancelPaymentLink($request)
     {
         return self::gatewayRequest('POST', '/api/cancel-payment-link', $request);
+    }
+    /**
+     * Retrieves the status of a payment link.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function paymentLinkStatus($request)
+    {
+        return self::gatewayRequest('POST', '/api/payment-link-status', $request);
     }
     /**
      * Retrieves the current status of a transaction.
