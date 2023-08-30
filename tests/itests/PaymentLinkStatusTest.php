@@ -75,7 +75,7 @@ class PaymentLinkStatusTest extends BlockChypTestCase
 
         // Set request values
         $request = [
-            'transactionRef' => $lastTransactionRef,
+            'linkCode' => $lastLinkCode,
         ];
 
         // self::logRequest($request);
