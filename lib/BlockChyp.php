@@ -524,6 +524,19 @@ class BlockChyp extends BlockChypClient
      *
      * @return array The API response.
      */
+    public static function partnerStatements($request)
+    {
+        return self::gatewayRequest('POST', '/api/partner-statement-list', $request);
+    }
+    /**
+     * Returns pricing policy for a merchant.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
     public static function pricingPolicy($request)
     {
         return self::gatewayRequest('POST', '/api/read-pricing-policy', $request);

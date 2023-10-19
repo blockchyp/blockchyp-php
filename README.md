@@ -3953,48 +3953,6 @@ the standard underwriting process via offer codes and invitations.
 
 
 
-#### Retrieve Pricing Policy
-
-
-
-* **API Credential Types:** Partner
-* **Required Role:** Read Pricing API
-
-The API returns the current pricing policy for a merchant.  This API is valid for partner scoped API credentials
-and `merchantId` is a required parameter.  By default this API returns the currently in-force pricing policy for a merchant,
-but other inactive policies can be returned by providing the `id` parameter.
-
-
-
-
-```php
-<?php
-
-// For composer based systems
-require_once('vendor/autoload.php');
-
-// For manual installation
-#require_once('/path/to/blockchyp/init.php');
-
-use BlockChyp\BlockChyp;
-
-BlockChyp::setApiKey(getenv('BC_API_KEY'));
-BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
-
-// Populate request values
-$request = [
-];
-
-
-$response = BlockChyp::pricingPolicy($request);
-
-
-// View the result
-echo 'Response: ' . print_r($response, true) . PHP_EOL;
-
-```
-
 #### Merchant Profile
 
 
@@ -4427,6 +4385,99 @@ $request = [
 
 
 $response = BlockChyp::deleteTestMerchant($request);
+
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
+### Partner Utilities
+
+
+These partner only APIs give ISV partners advanced reporting and tools for managing their portfolio.
+
+Use of these APIs requires partner scoped API credentials
+with special roles and permissions that may require a special arrangement with BlockChyp.
+
+
+
+#### Partner Statements
+
+
+
+* **API Credential Types:** Partner
+* **Required Role:** Merchant Management
+
+The API returns a list of partner residual statements.  By default, all statements are returned with the most recent
+statements listed first.  Optional date parameters can filter statements to a specific date range.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+];
+
+
+$response = BlockChyp::partnerStatements($request);
+
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
+#### Retrieve Pricing Policy
+
+
+
+* **API Credential Types:** Partner
+* **Required Role:** Read Pricing API
+
+The API returns the current pricing policy for a merchant.  This API is valid for partner scoped API credentials
+and `merchantId` is a required parameter.  By default this API returns the currently in-force pricing policy for a merchant,
+but other inactive policies can be returned by providing the `id` parameter.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+];
+
+
+$response = BlockChyp::pricingPolicy($request);
 
 
 // View the result
