@@ -4407,7 +4407,7 @@ with special roles and permissions that may require a special arrangement with B
 
 
 * **API Credential Types:** Partner
-* **Required Role:** Merchant Management
+* **Required Role:** Partner API Access
 
 The API returns a list of partner residual statements.  By default, all statements are returned with the most recent
 statements listed first.  Optional date parameters can filter statements to a specific date range.
@@ -4443,12 +4443,54 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 ```
 
+#### Partner Statement Detail
+
+
+
+* **API Credential Types:** Partner
+* **Required Role:** Partner API Access
+
+The API returns detailed information about a specific partner statement.  The optional `includeMerchantStatement` and
+`includeInterchange` parameters can be used to return low level detail about how the 
+residuals or commissions were computed.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+];
+
+
+$response = BlockChyp::partnerStatementDetail($request);
+
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
 #### Retrieve Pricing Policy
 
 
 
 * **API Credential Types:** Partner
-* **Required Role:** Read Pricing API
+* **Required Role:** Partner API Access
 
 The API returns the current pricing policy for a merchant.  This API is valid for partner scoped API credentials
 and `merchantId` is a required parameter.  By default this API returns the currently in-force pricing policy for a merchant,

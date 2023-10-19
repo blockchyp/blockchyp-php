@@ -516,7 +516,7 @@ class BlockChyp extends BlockChypClient
         return self::gatewayRequest('POST', '/api/tx-history', $request);
     }
     /**
-     * Returns pricing policy for a merchant.
+     * Returns a list of partner statements.
      *
      * @param array $request The request body.
      *
@@ -527,6 +527,19 @@ class BlockChyp extends BlockChypClient
     public static function partnerStatements($request)
     {
         return self::gatewayRequest('POST', '/api/partner-statement-list', $request);
+    }
+    /**
+     * Returns detail for a single partner statement.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function partnerStatementDetail($request)
+    {
+        return self::gatewayRequest('POST', '/api/partner-statement-detail', $request);
     }
     /**
      * Returns pricing policy for a merchant.
