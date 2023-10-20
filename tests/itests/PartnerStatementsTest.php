@@ -30,7 +30,7 @@ class PartnerStatementsTest extends BlockChypTestCase
 
          try {
 
-            $response = BlockChyp::partnerStatements($request);
+            $response = BlockChyp::merchantInvoices($request);
 
             // self::logResponse($response);
 
