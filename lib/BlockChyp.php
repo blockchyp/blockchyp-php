@@ -542,6 +542,19 @@ class BlockChyp extends BlockChypClient
         return self::gatewayRequest('POST', '/api/merchant-invoice-list', $request);
     }
     /**
+     * Returns detail for a single merchant-invoice statement.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function merchantInvoiceDetail($request)
+    {
+        return self::gatewayRequest('POST', '/api/merchant-invoice-detail', $request);
+    }
+    /**
      * Returns detail for a single partner statement.
      *
      * @param array $request The request body.
