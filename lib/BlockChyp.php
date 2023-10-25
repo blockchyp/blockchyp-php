@@ -581,6 +581,20 @@ class BlockChyp extends BlockChypClient
         return self::gatewayRequest('POST', '/api/read-pricing-policy', $request);
     }
     /**
+     * Returns low level details for how partner commissions were calculated for a
+     * specific merchant statement.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function partnerCommissionBreakdown($request)
+    {
+        return self::gatewayRequest('POST', '/api/partner-commission-breakdown', $request);
+    }
+    /**
      * Returns profile information for a merchant.
      *
      * @param array $request The request body.
