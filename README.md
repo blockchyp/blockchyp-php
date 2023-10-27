@@ -4476,7 +4476,11 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 * **Required Role:** Partner API Access
 
 The API returns a list of partner residual statements.  By default, all statements are returned with the most recent
-statements listed first.  Optional date parameters can filter statements to a specific date range.
+statements listed first.  Optional date parameters (`startDate` and `endDate`) can filter statements to a specific date range.
+
+The list of statements returns basic information about statements like volume, transaction count, and commissions earned.
+
+Use the `id` returned with each statement summary with the *Partner Statement Detail* API to pull down full details.
 
 
 
