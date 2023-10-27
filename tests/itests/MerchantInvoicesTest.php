@@ -4,13 +4,13 @@ use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
-class PartnerStatementsTest extends BlockChypTestCase
+class MerchantInvoicesTest extends BlockChypTestCase
 {
 
     /**
      * @group itest
      */
-    public function testPartnerStatements()
+    public function testMerchantInvoices()
     {
         $config = $this->loadTestConfiguration();
 
@@ -21,7 +21,7 @@ class PartnerStatementsTest extends BlockChypTestCase
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
         BlockChyp::setDashboardHost($config->dashboardHost);
 
-        echo 'Running PartnerStatementsTest...' . PHP_EOL;        // Set request values
+        echo 'Running MerchantInvoicesTest...' . PHP_EOL;        // Set request values
         $request = [
             'test' => true,
         ];
@@ -30,7 +30,7 @@ class PartnerStatementsTest extends BlockChypTestCase
 
          try {
 
-            $response = BlockChyp::partnerStatements($request);
+            $response = BlockChyp::merchantInvoices($request);
 
             // self::logResponse($response);
 
