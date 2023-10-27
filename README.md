@@ -4513,6 +4513,50 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 ```
 
+#### Partner Statement Detail
+
+
+
+* **API Credential Types:** Partner
+* **Required Role:** Partner API Access
+
+The API returns detailed information about a specific partner statement.  Aggregate data is returned along with
+line item level data for each underlying merchant statement.
+
+Use the merchant statement id with the *Merchant Statement Detail* API and the *Partner Commission Breakdown* API 
+to get the merchant statement and the card brand fee and misc cost breakdown respectively.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+];
+
+
+$response = BlockChyp::partnerStatementDetail($request);
+
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
 #### Merchant Invoices
 
 
@@ -4591,48 +4635,6 @@ $request = [
 
 
 $response = BlockChyp::merchantInvoiceDetail($request);
-
-
-// View the result
-echo 'Response: ' . print_r($response, true) . PHP_EOL;
-
-```
-
-#### Partner Statement Detail
-
-
-
-* **API Credential Types:** Partner
-* **Required Role:** Partner API Access
-
-The API returns detailed information about a specific partner statement.  The optional `includeMerchantStatement` and
-`includeInterchange` parameters can be used to return low level detail about how the 
-residuals or commissions were computed.
-
-
-
-
-```php
-<?php
-
-// For composer based systems
-require_once('vendor/autoload.php');
-
-// For manual installation
-#require_once('/path/to/blockchyp/init.php');
-
-use BlockChyp\BlockChyp;
-
-BlockChyp::setApiKey(getenv('BC_API_KEY'));
-BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
-BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
-
-// Populate request values
-$request = [
-];
-
-
-$response = BlockChyp::partnerStatementDetail($request);
 
 
 // View the result
