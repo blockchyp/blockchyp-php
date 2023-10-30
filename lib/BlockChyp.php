@@ -516,6 +516,85 @@ class BlockChyp extends BlockChypClient
         return self::gatewayRequest('POST', '/api/tx-history', $request);
     }
     /**
+     * Returns pricing policy for a merchant.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function pricingPolicy($request)
+    {
+        return self::gatewayRequest('POST', '/api/read-pricing-policy', $request);
+    }
+    /**
+     * Returns a list of partner statements.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function partnerStatements($request)
+    {
+        return self::gatewayRequest('POST', '/api/partner-statement-list', $request);
+    }
+    /**
+     * Returns detail for a single partner statement.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function partnerStatementDetail($request)
+    {
+        return self::gatewayRequest('POST', '/api/partner-statement-detail', $request);
+    }
+    /**
+     * Returns a list of merchant invoices.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function merchantInvoices($request)
+    {
+        return self::gatewayRequest('POST', '/api/merchant-invoice-list', $request);
+    }
+    /**
+     * Returns detail for a single merchant-invoice statement.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function merchantInvoiceDetail($request)
+    {
+        return self::gatewayRequest('POST', '/api/merchant-invoice-detail', $request);
+    }
+    /**
+     * Returns low level details for how partner commissions were calculated for a
+     * specific merchant statement.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function partnerCommissionBreakdown($request)
+    {
+        return self::gatewayRequest('POST', '/api/partner-commission-breakdown', $request);
+    }
+    /**
      * Returns profile information for a merchant.
      *
      * @param array $request The request body.
