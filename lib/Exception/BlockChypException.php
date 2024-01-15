@@ -24,7 +24,10 @@ abstract class BlockChypException extends \Exception
         $instance = new static($message);
         $instance->setHttpStatus($httpStatus);
         $instance->setHttpBody($httpBody);
-        $instance->setJsonBody(json_decode($httpBody, true));
+        if (isset($httpBody)) {
+            $httpBody = json_decode($httpBody, true);
+        }
+        $instance->setJsonBody($httpBody);
 
         return $instance;
     }
