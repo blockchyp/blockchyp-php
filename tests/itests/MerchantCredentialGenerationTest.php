@@ -21,10 +21,47 @@ class MerchantCredentialGenerationTest extends BlockChypTestCase
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
         BlockChyp::setDashboardHost($config->dashboardHost);
 
-        echo 'Running MerchantCredentialGenerationTest...' . PHP_EOL;        // Set request values
+        echo 'Running MerchantCredentialGenerationTest...' . PHP_EOL;
+        $profile = $config->profiles->partner;
+        if (!empty($profile)) {
+            BlockChyp::setApiKey($profile->apiKey);
+            BlockChyp::setBearerToken($profile->bearerToken);
+            BlockChyp::setSigningKey($profile->signingKey);
+        }
+
+
+        // Set request values
+        $request = [
+            'dbaName' => 'Test Merchant',
+            'companyName' => 'Test Merchant',
+        ];
+
+        // self::logRequest($request);
+
+        $response = BlockChyp::addTestMerchant($request);
+
+        // self::logResponse($response);
+
+        if (!empty($response['transactionId'])) {
+            $lastTransactionId = $response['transactionId'];
+        }
+        if (!empty($response['transactionRef'])) {
+            $lastTransactionRef = $response['transactionRef'];
+        }
+        if (!empty($response['customer'])) {
+            $lastCustomer = $response['customer'];
+        }
+        if (!empty($response['token'])) {
+            $lastToken = $response['token'];
+        }
+        if (!empty($response['linkCode'])) {
+            $lastLinkCode = $response['linkCode'];
+        }
+
+        // Set request values
         $request = [
             'test' => true,
-            'merchantId' => '<MERCHANT ID>',
+            'merchantId' => $response['merchantId'],
         ];
 
         // self::logRequest($request);
