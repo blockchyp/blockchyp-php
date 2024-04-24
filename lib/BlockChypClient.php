@@ -57,7 +57,7 @@ class BlockChypClient
     const ROUNDING_MODE_NEAREST = 'nearest';
     const ROUNDING_MODE_DOWN = 'down';
   
-    const VERSION = '2.18.1';
+    const VERSION = '2.18.3';
 
     protected static $apiKey;
 
