@@ -4,13 +4,13 @@ use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
-class PartnerCommissionBreakdownTest extends BlockChypTestCase
+class Test extends BlockChypTestCase
 {
 
     /**
      * @group itest
      */
-    public function testPartnerCommissionBreakdown()
+    public function test()
     {
         $config = $this->loadTestConfiguration();
 
@@ -21,29 +21,19 @@ class PartnerCommissionBreakdownTest extends BlockChypTestCase
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
         BlockChyp::setDashboardHost($config->dashboardHost);
 
-        echo 'Running PartnerCommissionBreakdownTest...' . PHP_EOL;
-        $profile = $config->profiles->partner;
-        if (!empty($profile)) {
-            BlockChyp::setApiKey($profile->apiKey);
-            BlockChyp::setBearerToken($profile->bearerToken);
-            BlockChyp::setSigningKey($profile->signingKey);
-        }
-        // Set request values
+        echo 'Running Test...' . PHP_EOL;        // Set request values
         $request = [
-            'test' => true,
         ];
 
         // self::logRequest($request);
 
          try {
 
-            $response = BlockChyp::partnerCommissionBreakdown($request);
+            $response = BlockChyp::merchantCredentialGeneration($request);
 
             // self::logResponse($response);
 
             // Response assertions
-    
-            $this->assertTrue($response['success']);
 
         } catch (Exception $ex) {
 

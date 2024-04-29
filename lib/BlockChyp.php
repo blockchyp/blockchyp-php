@@ -673,6 +673,21 @@ class BlockChyp extends BlockChypClient
         return self::gatewayRequest('DELETE', '/api/token/' . $request["token"], $request);
     }
     /**
+     * Generates and returns api credentials for a given merchant.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function merchantCredentialGeneration($request)
+    {
+        return self::dashboardRequest('POST', '/api/generate-merchant-creds', $request);
+    }
+
+    /**
      * Adds a test merchant account.
      *
      * @param array $request The request body.

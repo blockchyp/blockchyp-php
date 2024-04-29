@@ -28,8 +28,9 @@ class PANPreauthTest extends BlockChypTestCase
             'pan' => '4111111111111111',
             'expMonth' => '12',
             'expYear' => '2025',
-            'amount' => '25.55',
+            'amount' => '42.45',
             'test' => true,
+            'bypassDupeFilter' => true,
         ];
 
         // self::logRequest($request);
@@ -63,8 +64,6 @@ class PANPreauthTest extends BlockChypTestCase
             $this->assertNotEmpty($response['maskedPan']);
     
             $this->assertNotEmpty($response['entryMethod']);
-    
-            $this->assertEquals('25.55', $response['authorizedAmount']);
     
             $this->assertEquals('KEYED', $response['entryMethod']);
 

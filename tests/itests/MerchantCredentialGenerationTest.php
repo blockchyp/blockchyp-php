@@ -4,13 +4,13 @@ use BlockChyp\BlockChyp;
 
 require_once(__DIR__ . '/../BlockChypTestCase.php');
 
-class ResendPaymentLinkTest extends BlockChypTestCase
+class MerchantCredentialGenerationTest extends BlockChypTestCase
 {
 
     /**
      * @group itest
      */
-    public function testResendPaymentLink()
+    public function testMerchantCredentialGeneration()
     {
         $config = $this->loadTestConfiguration();
 
@@ -21,39 +21,24 @@ class ResendPaymentLinkTest extends BlockChypTestCase
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
         BlockChyp::setDashboardHost($config->dashboardHost);
 
-        echo 'Running ResendPaymentLinkTest...' . PHP_EOL;
+        echo 'Running MerchantCredentialGenerationTest...' . PHP_EOL;
+        $profile = $config->profiles->partner;
+        if (!empty($profile)) {
+            BlockChyp::setApiKey($profile->apiKey);
+            BlockChyp::setBearerToken($profile->bearerToken);
+            BlockChyp::setSigningKey($profile->signingKey);
+        }
+
 
         // Set request values
         $request = [
-            'amount' => '199.99',
-            'description' => 'Widget',
-            'subject' => 'Widget invoice',
-            'transaction' => [
-                'subtotal' => '195.00',
-                'tax' => '4.99',
-                'total' => '199.99',
-                'items' => [
-                    [
-                        'description' => 'Widget',
-                        'price' => '195.00',
-                        'quantity' => 1,
-                    ],
-                ],
-            ],
-            'autoSend' => true,
-            'customer' => [
-                'customerRef' => 'Customer reference string',
-                'firstName' => 'FirstName',
-                'lastName' => 'LastName',
-                'companyName' => 'Company Name',
-                'emailAddress' => 'notifications@blockchypteam.m8r.co',
-                'smsNumber' => '(123) 123-1231',
-            ],
+            'dbaName' => 'Test Merchant',
+            'companyName' => 'Test Merchant',
         ];
 
         // self::logRequest($request);
 
-        $response = BlockChyp::sendPaymentLink($request);
+        $response = BlockChyp::addTestMerchant($request);
 
         // self::logResponse($response);
 
@@ -76,14 +61,14 @@ class ResendPaymentLinkTest extends BlockChypTestCase
         // Set request values
         $request = [
             'test' => true,
-            'linkCode' => $lastLinkCode,
+            'merchantId' => $response['merchantId'],
         ];
 
         // self::logRequest($request);
 
          try {
 
-            $response = BlockChyp::resendPaymentLink($request);
+            $response = BlockChyp::merchantCredentialGeneration($request);
 
             // self::logResponse($response);
 
