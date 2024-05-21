@@ -75,6 +75,7 @@ class ResendPaymentLinkTest extends BlockChypTestCase
 
         // Set request values
         $request = [
+            'test' => true,
             'linkCode' => $lastLinkCode,
         ];
 

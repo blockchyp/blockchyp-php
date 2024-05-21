@@ -21,7 +21,14 @@ class PartnerCommissionBreakdownTest extends BlockChypTestCase
         BlockChyp::setTestGatewayHost($config->testGatewayHost);
         BlockChyp::setDashboardHost($config->dashboardHost);
 
-        echo 'Running PartnerCommissionBreakdownTest...' . PHP_EOL;        // Set request values
+        echo 'Running PartnerCommissionBreakdownTest...' . PHP_EOL;
+        $profile = $config->profiles->partner;
+        if (!empty($profile)) {
+            BlockChyp::setApiKey($profile->apiKey);
+            BlockChyp::setBearerToken($profile->bearerToken);
+            BlockChyp::setSigningKey($profile->signingKey);
+        }
+        // Set request values
         $request = [
             'test' => true,
         ];
