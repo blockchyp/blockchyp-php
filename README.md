@@ -4306,6 +4306,54 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 ```
 
+#### Add Gateway Merchant
+
+
+
+* **API Credential Types:** Partner
+* **Required Role:** Gateway Boarding
+
+This is a partner level API that can be used to manually board gateway merchants.  Use this API in conjunction
+with Platform Configuration to instantly board gateway merchants.  Note that most partners don't have 
+permission to do this and are unlikely to get it.
+
+Settings can be changed by using the Update Merchant API.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'profile' => [
+        'dbaName' => 'DBA Name',
+        'companyName' => 'Corporate Entity Name',
+    ],
+];
+
+
+$response = BlockChyp::addGatewayMerchant($request);
+
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
 #### Add Test Merchant
 
 

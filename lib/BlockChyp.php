@@ -749,6 +749,21 @@ class BlockChyp extends BlockChypClient
     }
 
     /**
+     * Adds a live gateway merchant account.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function addGatewayMerchant($request)
+    {
+        return self::dashboardRequest('POST', '/api/add-gateway-merchant', $request);
+    }
+
+    /**
      * Adds a test merchant account.
      *
      * @param array $request The request body.
