@@ -14,10 +14,14 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
+    'profile' => [
+        'dbaName' => 'DBA Name',
+        'companyName' => 'Corporate Entity Name',
+    ],
 ];
 
 
-$response = BlockChyp::updateMerchantPlatforms($request);
+$response = BlockChyp::addGatewayMerchant($request);
 
 
 // View the result
