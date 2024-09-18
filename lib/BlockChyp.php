@@ -688,6 +688,21 @@ class BlockChyp extends BlockChypClient
     }
 
     /**
+     * Submits and application to add a new merchant account.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function submitApplication($request)
+    {
+        return self::dashboardRequest('POST', '/api/submit-application', $request);
+    }
+
+    /**
      * Adds a test merchant account.
      *
      * @param array $request The request body.
