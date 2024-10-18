@@ -67,9 +67,9 @@ class BlockChypClient
 
     protected static $gatewayHost = 'https://api.blockchyp.com';
 
-    protected static $testGatewayHost = 'https://dashboard.blockchyp.com';
+    protected static $dashboardHost = 'https://dashboard.blockchyp.com';
 
-    protected static $dashboardHost = 'https://test.blockchyp.com';
+    protected static $testGatewayHost = 'https://test.blockchyp.com';
     
     protected static $https = true;
 
