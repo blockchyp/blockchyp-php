@@ -435,6 +435,67 @@ echo 'Response: ' . print_r($response, true) . PHP_EOL;
 
 ```
 
+#### Card Metadata
+
+
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
+This API allows you to retrieve card metadata.
+
+Card metadata requests can use a payment terminal to retrieve metadata or
+use a previously enrolled payment token.
+
+**Terminal Transactions**
+
+For terminal transactions, make sure you pass in the terminal name using the `terminalName` property.
+
+**Token Transactions**
+
+If you have a payment token, omit the `terminalName` property and pass in the token with the `token`
+property instead.
+
+**Card Numbers and Mag Stripes**
+
+You can also pass in PANs and Mag Stripes, but you probably shouldn't, as this will
+put you in PCI scope and the most common vector for POS breaches is keylogging.
+If you use terminals for manual card entry, you'll bypass any keyloggers that
+might be maliciously running on the point-of-sale system.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+    'test' => true,
+    'terminalName' => 'Test Terminal',
+];
+
+
+$response = BlockChyp::cardMetadata($request);
+
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
 #### Time Out Reversal
 
 
