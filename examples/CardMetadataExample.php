@@ -14,11 +14,12 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 
 // Populate request values
 $request = [
-    'merchantId' => '<MERCHANT ID>',
+    'test' => true,
+    'terminalName' => 'Test Terminal',
 ];
 
 
-$response = BlockChyp::merchantCredentialGeneration($request);
+$response = BlockChyp::cardMetadata($request);
 
 
 // View the result

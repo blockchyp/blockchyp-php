@@ -89,6 +89,20 @@ class BlockChyp extends BlockChypClient
     }
 
     /**
+     * Retrieves card metadata.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function cardMetadata($request)
+    {
+        return self::routeTerminalRequest('POST', '/api/card-metadata', '/api/card-metadata', $request);
+    }
+
+    /**
      * Activates or recharges a gift card.
      *
      * @param array $request The request body.
@@ -685,6 +699,21 @@ class BlockChyp extends BlockChypClient
     public static function merchantCredentialGeneration($request)
     {
         return self::dashboardRequest('POST', '/api/generate-merchant-creds', $request);
+    }
+
+    /**
+     * Submits and application to add a new merchant account.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+
+    public static function submitApplication($request)
+    {
+        return self::dashboardRequest('POST', '/api/submit-application', $request);
     }
 
     /**

@@ -57,7 +57,7 @@ class BlockChypClient
     const ROUNDING_MODE_NEAREST = 'nearest';
     const ROUNDING_MODE_DOWN = 'down';
   
-    const VERSION = '2.19.0';
+    const VERSION = '2.20.1';
 
     protected static $apiKey;
 
@@ -67,9 +67,9 @@ class BlockChypClient
 
     protected static $gatewayHost = 'https://api.blockchyp.com';
 
-    protected static $testGatewayHost = 'https://dashboard.blockchyp.com';
+    protected static $dashboardHost = 'https://dashboard.blockchyp.com';
 
-    protected static $dashboardHost = 'https://test.blockchyp.com';
+    protected static $testGatewayHost = 'https://test.blockchyp.com';
     
     protected static $https = true;
 
