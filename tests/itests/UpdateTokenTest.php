@@ -59,8 +59,8 @@ class UpdateTokenTest extends BlockChypTestCase
         // Set request values
         $request = [
             'token' => $lastToken,
-            'expMonth' => 12,
-            'expYear' => 2040,
+            'expiryMonth' => '12',
+            'expiryYear' => '2040',
         ];
 
         // self::logRequest($request);
