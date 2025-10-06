@@ -674,6 +674,19 @@ class BlockChyp extends BlockChypClient
         return self::gatewayRequest('POST', '/api/unlink-token', $request);
     }
     /**
+     * Updates a payment token.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function updateToken($request)
+    {
+        return self::gatewayRequest('POST', '/api/token/' . $request["token"], $request);
+    }
+    /**
      * Deletes a payment token.
      *
      * @param array $request The request body.
