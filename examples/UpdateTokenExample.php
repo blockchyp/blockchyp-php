@@ -15,8 +15,8 @@ BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
 // Populate request values
 $request = [
     'token' => '<TOKEN>',
-    'expMonth' => 12,
-    'expYear' => 2040,
+    'expiryMonth' => '12',
+    'expiryYear' => '2040',
 ];
 
 
