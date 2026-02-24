@@ -88,6 +88,51 @@ These are the core payment APIs used to execute and work with payment transactio
 
 
 
+#### Surcharge Review
+
+
+
+* **API Credential Types:** Merchant
+* **Required Role:** Payment API Access
+
+This API calculates surcharge information for a payment request.
+
+If you're using BlockChyp's surcharging features, you can use this endpoint
+to preview the surcharge amounts before processing a transaction. This allows
+you to display accurate pricing information to customers before completing
+the payment.
+
+
+
+
+```php
+<?php
+
+// For composer based systems
+require_once('vendor/autoload.php');
+
+// For manual installation
+#require_once('/path/to/blockchyp/init.php');
+
+use BlockChyp\BlockChyp;
+
+BlockChyp::setApiKey(getenv('BC_API_KEY'));
+BlockChyp::setBearerToken(getenv('BC_BEARER_TOKEN'));
+BlockChyp::setSigningKey(getenv('BC_SIGNING_KEY'));
+
+// Populate request values
+$request = [
+];
+
+
+$response = BlockChyp::surchargeReview($request);
+
+
+// View the result
+echo 'Response: ' . print_r($response, true) . PHP_EOL;
+
+```
+
 #### Charge
 
 

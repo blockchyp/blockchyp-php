@@ -314,6 +314,19 @@ class BlockChyp extends BlockChypClient
         return self::gatewayRequest('POST', '/api/terminal-locate', $request);
     }
     /**
+     * Calculates surcharge information for a payment request.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function surchargeReview($request)
+    {
+        return self::gatewayRequest('POST', '/api/surcharge-review', $request);
+    }
+    /**
      * Captures a preauthorization.
      *
      * @param array $request The request body.
