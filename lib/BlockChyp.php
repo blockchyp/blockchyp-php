@@ -259,6 +259,20 @@ class BlockChyp extends BlockChypClient
     }
 
     /**
+     * Calculates the service fee for a transaction.
+     *
+     * @param array $request The request body.
+     *
+     * @throws \BlockChyp\Exception\ConnectionException if the connection fails.
+     *
+     * @return array The API response.
+     */
+    public static function serviceFee($request)
+    {
+        return self::routeTerminalRequest('POST', '/api/service-fee', '/api/service-fee', $request);
+    }
+
+    /**
      * Returns a list of queued transactions on a terminal.
      *
      * @param array $request The request body.
