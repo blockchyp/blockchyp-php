@@ -8,9 +8,8 @@ on:
     tags:
       - "*"
 env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-permissions:
-  contents: read
 jobs:
   build:
     runs-on: ubuntu-latest
